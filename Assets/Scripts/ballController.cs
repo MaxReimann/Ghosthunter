@@ -2,7 +2,7 @@
 using System.Collections;
 
 
-public class ballController : MonoBehaviour {
+public class BallController : MonoBehaviour {
 	private float velX = 1.9f;//horizontal speed of ball
 	private Vector2 inVel;//incoming velocity
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).

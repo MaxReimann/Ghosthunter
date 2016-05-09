@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class witchController : MonoBehaviour {
+public class WitchController : MonoBehaviour {
 	public float speed = 10;
 	Transform myTrans;
 	Rigidbody2D myBody;
