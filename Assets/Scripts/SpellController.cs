@@ -12,13 +12,7 @@ public class SpellController : MonoBehaviour {
 	void Update () {
 	}
 
-	public void OnBecameInvisible() {
-		print("invisible");
+	void OnCollisionEnter2D(Collision2D coll){
 		Destroy(gameObject);
-	}
-
-	void OnCollisionEnter2D(Collision2D coll)
-	{
-		print ("collision");
 	}
 }

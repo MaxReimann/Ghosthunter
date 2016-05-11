@@ -98,7 +98,7 @@ GameObject:
   - 61: {fileID: 61041427}
   m_Layer: 0
   m_Name: Border (bottom)
-  m_TagString: Backgrounds
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,7 +224,7 @@ GameObject:
   - 61: {fileID: 175918062}
   m_Layer: 0
   m_Name: Border (right)
-  m_TagString: Backgrounds
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,7 +356,7 @@ GameObject:
   - 61: {fileID: 664988743}
   m_Layer: 0
   m_Name: Border (left)
-  m_TagString: Backgrounds
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -523,7 +523,7 @@ GameObject:
   - 61: {fileID: 1405508811}
   m_Layer: 0
   m_Name: Border (top)
-  m_TagString: Backgrounds
+  m_TagString: Border
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

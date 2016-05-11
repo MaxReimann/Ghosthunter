@@ -4,8 +4,6 @@ using System.Collections;
 public class WizardController : MonoBehaviour {
 
 	public float speed = 10;
-//	public Rigidbody2D spell;
-
 	private Rigidbody2D myBody;
 
 	// Use this for initialization
@@ -18,7 +16,9 @@ public class WizardController : MonoBehaviour {
 		Move (Input.GetAxisRaw ("Horizontal"));
 		
 		if (Input.GetKeyDown("space")) {
-			createSpell();
+			if(!GameObject.FindGameObjectWithTag("Spell")){
+				createSpell();
+			}
 		}
 	}
 	
@@ -31,7 +31,7 @@ public class WizardController : MonoBehaviour {
 	public void createSpell(){
 		Vector3 newPos = new Vector3 ();
 		newPos.x = transform.position.x+0.9f;
-		newPos.y = transform.position.y;
+		newPos.y = transform.position.y-0.4f;
 		newPos.z = transform.position.z;
 
 		GameObject spell = Instantiate(Resources.Load("Spell"), newPos, Quaternion.identity) as GameObject;
