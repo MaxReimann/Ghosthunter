@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections;
 
 public class WizardController : MonoBehaviour {
 
 	public float speed = 10;
-	public Rigidbody2D spell;
+//	public Rigidbody2D spell;
 
 	private Rigidbody2D myBody;
 
@@ -35,11 +34,9 @@ public class WizardController : MonoBehaviour {
 		newPos.y = transform.position.y;
 		newPos.z = transform.position.z;
 
-		Rigidbody2D spellClone = (Rigidbody2D) Instantiate(spell, newPos, transform.rotation);
-		spellClone.velocity = transform.up * speed;
+		GameObject spell = Instantiate(Resources.Load("Spell"), newPos, Quaternion.identity) as GameObject;
+		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
+		rigidBody.velocity = transform.up * speed;
 
-//		Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Sprites/Spell.prefab", typeof(GameObject));
-//		Rigidbody2D spell = Instantiate(prefab, newPos, transform.rotation) as Rigidbody2D;
-//		spell.velocity = transform.up * speed;
 	}
 }
