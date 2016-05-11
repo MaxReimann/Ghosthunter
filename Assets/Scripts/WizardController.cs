@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WitchController : MonoBehaviour {
-	
+public class WizardController : MonoBehaviour {
+
 	public float speed = 10;
 	public Rigidbody2D spell;
-
+	
 	private Transform myTrans;
 	private Rigidbody2D myBody;
 	private bool facingLeft = true;
 	private Transform firePoint;
-
+	
 	// Use this for initialization
 	void Start (){
 		myTrans = this.transform;
@@ -22,18 +22,18 @@ public class WitchController : MonoBehaviour {
 	// Update is called once per frame
 	void Update (){
 		Move (Input.GetAxisRaw ("Horizontal"));
-
+		
 		if (Input.GetKeyDown("space")) {
 			createSpell();
 		}
-
+		
 	}
-
+	
 	public void Move(float horizontalInput){
 		Vector2 moveVel = myBody.velocity;
 		moveVel.x = horizontalInput * speed;
 		myBody.velocity = moveVel;
-
+		
 		if (Mathf.Abs(moveVel.x) > 0.0) {
 			if (moveVel.x > 0) {
 				facingLeft = false;
@@ -44,10 +44,9 @@ public class WitchController : MonoBehaviour {
 			}
 		}
 	}
-
+	
 	public void createSpell(){
 		Rigidbody2D spellClone = (Rigidbody2D) Instantiate(spell, firePoint.position, firePoint.rotation);
 		spellClone.velocity = transform.up * speed;
 	}
-
 }

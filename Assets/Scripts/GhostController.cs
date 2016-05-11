@@ -2,7 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 
-public class BallController : MonoBehaviour {
+public class GhostController : MonoBehaviour {
+
 	private float velX = 1.9f;//horizontal speed of ball
 	private Vector2 inVel;//incoming velocity
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
@@ -21,7 +22,6 @@ public class BallController : MonoBehaviour {
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		print ("enter");
 		ContactPoint2D hit = coll.contacts[0]; //(for debug only) the first contact is enough
 		Vector3 outVel = Vector3.Reflect(inVel, hit.normal);
 		if(hit.normal.x < 0)
@@ -46,7 +46,7 @@ public class BallController : MonoBehaviour {
 			rigidBody.velocity = new Vector2( rigidBody.velocity.x, newYVel);
 		}
 		//save now, because sometimes collision happens before next FixedUpdate tick
-		inVel = this.rigidBody.velocity;
+//		inVel = this.rigidBody.velocity;
 	}
 }
 
