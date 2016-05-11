@@ -2,15 +2,17 @@
 using System.Collections;
 
 public class WitchController : MonoBehaviour {
+	
 	public float speed = 10;
-	Transform myTrans;
-	Rigidbody2D myBody;
-	bool facingLeft = true;
+	public Rigidbody2D spell;
+
+	private Transform myTrans;
+	private Rigidbody2D myBody;
+	private bool facingLeft = true;
 	private Transform firePoint;
-	public Rigidbody2D bullet;
+
 	// Use this for initialization
-	void Start () 
-	{
+	void Start (){
 		myTrans = this.transform;
 		myBody = GetComponent<Rigidbody2D>();
 		GameObject emitterpoint = this.transform.FindChild("emitterpoint").gameObject;
@@ -18,18 +20,16 @@ public class WitchController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () 
-	{
+	void Update (){
 		Move (Input.GetAxisRaw ("Horizontal"));
 
 		if (Input.GetKeyDown("space")) {
-			FireBullet();
+			createSpell();
 		}
 
 	}
 
-	public void Move(float horizontalInput)
-	{
+	public void Move(float horizontalInput){
 		Vector2 moveVel = myBody.velocity;
 		moveVel.x = horizontalInput * speed;
 		myBody.velocity = moveVel;
@@ -45,10 +45,9 @@ public class WitchController : MonoBehaviour {
 		}
 	}
 
-	public void FireBullet()
-	{
-		Rigidbody2D bulletClone = (Rigidbody2D) Instantiate(bullet, firePoint.position, firePoint.rotation);
-		bulletClone.velocity = transform.up * speed;
+	public void createSpell(){
+		Rigidbody2D spellClone = (Rigidbody2D) Instantiate(spell, firePoint.position, firePoint.rotation);
+		spellClone.velocity = transform.up * speed;
 	}
 
 }

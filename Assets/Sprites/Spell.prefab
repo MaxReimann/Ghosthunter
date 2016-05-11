@@ -11,7 +11,7 @@ GameObject:
   - 58: {fileID: 5832426}
   - 50: {fileID: 5092508}
   m_Layer: 0
-  m_Name: FiryBullet
+  m_Name: Spell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
