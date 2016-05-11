@@ -1,22 +1,17 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 
 public class WizardController : MonoBehaviour {
 
 	public float speed = 10;
 	public Rigidbody2D spell;
-	
-	private Transform myTrans;
+
 	private Rigidbody2D myBody;
-	private bool facingLeft = true;
-	private Transform firePoint;
-	
+
 	// Use this for initialization
 	void Start (){
-		myTrans = this.transform;
 		myBody = GetComponent<Rigidbody2D>();
-		GameObject emitterpoint = this.transform.FindChild("emitterpoint").gameObject;
-		firePoint = emitterpoint.transform;
 	}
 	
 	// Update is called once per frame
@@ -26,27 +21,25 @@ public class WizardController : MonoBehaviour {
 		if (Input.GetKeyDown("space")) {
 			createSpell();
 		}
-		
 	}
 	
 	public void Move(float horizontalInput){
 		Vector2 moveVel = myBody.velocity;
 		moveVel.x = horizontalInput * speed;
 		myBody.velocity = moveVel;
-		
-		if (Mathf.Abs(moveVel.x) > 0.0) {
-			if (moveVel.x > 0) {
-				facingLeft = false;
-				myTrans.localRotation = Quaternion.Euler (0, 180, 0);
-			} else {
-				facingLeft = true;
-				myTrans.localRotation = Quaternion.Euler (0, 0, 0);
-			}
-		}
 	}
 	
 	public void createSpell(){
-		Rigidbody2D spellClone = (Rigidbody2D) Instantiate(spell, firePoint.position, firePoint.rotation);
+		Vector3 newPos = new Vector3 ();
+		newPos.x = transform.position.x+0.9f;
+		newPos.y = transform.position.y;
+		newPos.z = transform.position.z;
+
+		Rigidbody2D spellClone = (Rigidbody2D) Instantiate(spell, newPos, transform.rotation);
 		spellClone.velocity = transform.up * speed;
+
+//		Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Sprites/Spell.prefab", typeof(GameObject));
+//		Rigidbody2D spell = Instantiate(prefab, newPos, transform.rotation) as Rigidbody2D;
+//		spell.velocity = transform.up * speed;
 	}
 }

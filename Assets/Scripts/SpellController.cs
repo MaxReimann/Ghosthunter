@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BulletController : MonoBehaviour {
+public class SpellController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -10,6 +10,15 @@ public class BulletController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	}
+
+	public void OnBecameInvisible() {
+		print("invisible");
+		Destroy(gameObject);
+	}
+
+	void OnCollisionEnter2D(Collision2D coll)
+	{
+		print ("collision");
 	}
 }
