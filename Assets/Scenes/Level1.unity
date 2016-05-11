@@ -202,7 +202,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 141288, guid: 560c22d8871594c6299fe5dca8bbc04e, type: 2}
       propertyPath: m_TagString
-      value: Untagged
+      value: Ghost
       objectReference: {fileID: 0}
     - target: {fileID: 21268904, guid: 560c22d8871594c6299fe5dca8bbc04e, type: 2}
       propertyPath: m_SortingLayerID

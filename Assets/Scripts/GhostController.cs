@@ -22,6 +22,12 @@ public class GhostController : MonoBehaviour {
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
 	void OnCollisionEnter2D(Collision2D coll)
 	{
+
+		//TODO MAX: here you can check if the ghost collides with a spell
+//		if (coll.gameObject.tag == "Spell") {
+//			Destroy(gameObject);
+//		}
+		
 		ContactPoint2D hit = coll.contacts[0]; //(for debug only) the first contact is enough
 		Vector3 outVel = Vector3.Reflect(inVel, hit.normal);
 		if(hit.normal.x < 0)
@@ -47,6 +53,11 @@ public class GhostController : MonoBehaviour {
 		}
 		//save now, because sometimes collision happens before next FixedUpdate tick
 //		inVel = this.rigidBody.velocity;
+	}
+
+	void OnParticleCollision(GameObject other) {
+		//TODO ghost collides with spell, make 2 new smaller ghosts
+		Destroy(gameObject);
 	}
 }
 

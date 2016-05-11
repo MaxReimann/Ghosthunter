@@ -39,4 +39,13 @@ public class WizardController : MonoBehaviour {
 		rigidBody.velocity = transform.up * speed;
 
 	}
+
+	void OnCollisionEnter2D(Collision2D coll)
+	{
+		print (coll.gameObject.tag);
+		if (coll.gameObject.tag == "Ghost") {
+			//TODO decrease life or gameOver
+			//Destroy(gameObject);
+		}
+	}
 }
