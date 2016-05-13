@@ -4,7 +4,7 @@ using System.Collections;
 
 public class GhostController : MonoBehaviour {
 
-	private float velX = 1.9f;//horizontal speed of ball
+	public float velX = 1.9f;//horizontal speed of ball
 	private Vector2 inVel;//incoming velocity
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
@@ -12,6 +12,7 @@ public class GhostController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.rigidBody = GetComponent<Rigidbody2D>();
+		rigidBody.velocity = new Vector2( - velX, inVel.y);
 	}
 	
 	// Update is called once per frame
@@ -25,17 +26,19 @@ public class GhostController : MonoBehaviour {
 
 		//TODO MAX: here you can check if the ghost collides with a spell
 //		if (coll.gameObject.tag == "Spell") {
-//			Destroy(gameObject);
+//			Destroy(gameObject);f
 //		}
 		
 		ContactPoint2D hit = coll.contacts[0]; //(for debug only) the first contact is enough
 		Vector3 outVel = Vector3.Reflect(inVel, hit.normal);
-		if(hit.normal.x < 0)
-			rigidBody.velocity = new Vector2( - velX, inVel.y);
-		else if(hit.normal.x > 0)
-			rigidBody.velocity = new Vector2( velX, inVel.y);
-		else
-			rigidBody.velocity = new Vector2( velX*(inVel.x/Mathf.Abs(inVel.x)), rigidBody.velocity.y);
+		if (hit.normal.x < 0)
+			rigidBody.velocity = new Vector2 (- velX, inVel.y);
+		else if (hit.normal.x > 0)
+			rigidBody.velocity = new Vector2 (velX, inVel.y);
+		else {
+			float sign = Mathf.Abs(inVel.x) > 0.0f ? inVel.x / Mathf.Abs (inVel.x) : 0.0f;
+			rigidBody.velocity = new Vector2 (velX * sign, rigidBody.velocity.y);
+		}
 		if(hit.normal.y < 0)
 		{
 			if (Mathf.Abs(inVel.y) < 1)
@@ -48,7 +51,8 @@ public class GhostController : MonoBehaviour {
 			if(relPos > 0f)
 				relPos = 0f;
 			float newYVel = Mathf.Sqrt(2 * relPos * Physics2D.gravity.y * rigidBody.gravityScale);
-			if (newYVel == 0) newYVel = 1f;
+			if (newYVel == 0) 
+				newYVel = 1f;
 			rigidBody.velocity = new Vector2( rigidBody.velocity.x, newYVel);
 		}
 		//save now, because sometimes collision happens before next FixedUpdate tick
