@@ -11,6 +11,7 @@ TagManager:
   - Ghost
   - Backgrounds
   - Wizards
+  - SpellParticles
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,7 @@ using System.Collections;
 public class WizardController : MonoBehaviour {
 
 	public float speed = 10;
+	public float spellSpeed = 10;
 	private Rigidbody2D myBody;
 	private Transform spellStartPoint; 
 
@@ -35,8 +36,9 @@ public class WizardController : MonoBehaviour {
 		newPos = spellStartPoint.position;
 
 		GameObject spell = Instantiate(Resources.Load("Spell"), newPos, Quaternion.identity) as GameObject;
+
 		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
-		rigidBody.velocity = transform.up * speed;
+		rigidBody.velocity = transform.up * spellSpeed;
 
 	}
 

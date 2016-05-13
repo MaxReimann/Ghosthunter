@@ -61,6 +61,7 @@ public class GhostController : MonoBehaviour {
 
 	void OnParticleCollision(GameObject other) {
 		//TODO ghost collides with spell, make 2 new smaller ghosts
+		print ("collision");
 		Destroy(gameObject);
 	}
 }
