@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 403762}
   - 198: {fileID: 19829664}
   - 199: {fileID: 19935856}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: SpellParticles
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ GameObject:
   - 4: {fileID: 476846}
   - 61: {fileID: 6116966}
   - 114: {fileID: 11496812}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 4: {fileID: 471148}
   - 50: {fileID: 5020730}
   - 114: {fileID: 11446042}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Spell
   m_TagString: Spell
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 158450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec895e3b69c542649bdb68dc8c4d483a, type: 3}
+  m_Script: {fileID: 11500000, guid: 57a60e9bc9baeee41aef2ccfcefaa2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!198 &19829664
@@ -1253,6 +1253,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_CollisionDetection
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

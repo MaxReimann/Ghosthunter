@@ -21,10 +21,10 @@ TagManager:
   - UI
   - 
   - 
-  - InBounds
+  - WizardPrecise
   - Bounds
-  - 
-  - 
+  - Spell
+  - WizardOuter
   - 
   - 
   - 

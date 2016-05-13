@@ -208,6 +208,10 @@ Prefab:
       propertyPath: m_SortingLayerID
       value: -27030743
       objectReference: {fileID: 0}
+    - target: {fileID: 5835216, guid: 560c22d8871594c6299fe5dca8bbc04e, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 560c22d8871594c6299fe5dca8bbc04e, type: 2}
   m_IsPrefabParent: 0
@@ -428,7 +432,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 713119971}
   - 61: {fileID: 713119972}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: boundaryCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
