@@ -20,6 +20,18 @@ public class GhostController : MonoBehaviour {
 		inVel = rigidBody.velocity;
 	}
 
+	public void spellCollision() {
+		Destroy (this.gameObject);
+
+		Vector2 start = transform.position;
+		GameObject ghost1 = Instantiate(Resources.Load("Ghost"),start - new Vector2(3,0), Quaternion.identity) as GameObject;
+		GameObject ghost2 = Instantiate(Resources.Load("Ghost"), start + new Vector2(3,0), Quaternion.identity) as GameObject;
+		ghost2.GetComponent<GhostController> ().inVel = -ghost2.GetComponent<GhostController> ().inVel;
+
+
+
+	}
+
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
 	void OnCollisionEnter2D(Collision2D coll)
 	{
@@ -57,12 +69,6 @@ public class GhostController : MonoBehaviour {
 		}
 		//save now, because sometimes collision happens before next FixedUpdate tick
 //		inVel = this.rigidBody.velocity;
-	}
-
-	void OnParticleCollision(GameObject other) {
-		//TODO ghost collides with spell, make 2 new smaller ghosts
-		print ("collision");
-		Destroy(gameObject);
 	}
 }
 

@@ -18,9 +18,7 @@ public class SpellBoundController : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D(Collision2D coll){
-
-		Destroy(transform.parent.gameObject);
-		
+		transform.parent.GetComponent<SpellController> ().collision (coll);
 	}
 	
 	
