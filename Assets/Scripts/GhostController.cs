@@ -8,11 +8,22 @@ public class GhostController : MonoBehaviour {
 	private Vector2 inVel;//incoming velocity
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
+	private float leftBorder;
+	private float rightBorder;
 
 	// Use this for initialization
 	void Start () {
 		this.rigidBody = GetComponent<Rigidbody2D>();
 		rigidBody.velocity = new Vector2( - velX, inVel.y);
+
+		GameObject leftBorderObject = GameObject.FindWithTag ("LeftBorder");
+		BoxCollider2D colliderLeft = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();  
+		leftBorder = leftBorderObject.transform.position.x + (colliderLeft.size.x / 2f);
+
+		GameObject rightBorderObject = GameObject.FindWithTag ("RightBorder");
+		BoxCollider2D colliderRight = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();  
+		rightBorder = rightBorderObject.transform.position.x - (colliderRight.size.x / 2f);
+		
 	}
 	
 	// Update is called once per frame
@@ -24,11 +35,12 @@ public class GhostController : MonoBehaviour {
 		Destroy (this.gameObject);
 
 		Vector2 start = transform.position;
-		GameObject ghost1 = Instantiate(Resources.Load("Ghost"),start - new Vector2(3,0), Quaternion.identity) as GameObject;
-		GameObject ghost2 = Instantiate(Resources.Load("Ghost"), start + new Vector2(3,0), Quaternion.identity) as GameObject;
-		ghost2.GetComponent<GhostController> ().inVel = -ghost2.GetComponent<GhostController> ().inVel;
+		float leftOffset = start.x - 1 > leftBorder ? -1f : 0f;
+		float rightOffset = start.x + 1 > rightBorder ? 1f : 0f;
 
-
+		GameObject ghost1 = Instantiate(Resources.Load("Ghost"),start + new Vector2(leftOffset,0), Quaternion.identity) as GameObject;
+		GameObject ghost2 = Instantiate(Resources.Load("Ghost"), start + new Vector2(rightOffset,0), Quaternion.identity) as GameObject;
+		ghost2.GetComponent<GhostController> ().velX = -ghost2.GetComponent<GhostController> ().velX;
 
 	}
 
@@ -36,10 +48,10 @@ public class GhostController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 
-		//TODO MAX: here you can check if the ghost collides with a spell
-//		if (coll.gameObject.tag == "Spell") {
-//			Destroy(gameObject);f
-//		}
+
+		if (coll.gameObject.tag == "Spell") {
+			spellCollision();
+		}
 		
 		ContactPoint2D hit = coll.contacts[0]; //(for debug only) the first contact is enough
 		Vector3 outVel = Vector3.Reflect(inVel, hit.normal);
