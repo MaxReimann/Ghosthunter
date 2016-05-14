@@ -12,6 +12,8 @@ TagManager:
   - Backgrounds
   - Wizards
   - SpellParticles
+  - LeftBorder
+  - RightBorder
   layers:
   - Default
   - TransparentFX
