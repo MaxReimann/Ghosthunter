@@ -49,14 +49,8 @@ public class GhostController : MonoBehaviour {
 
 		GameObject leftGhost = Instantiate(Resources.Load(nextType),start + new Vector2(leftOffset,0), Quaternion.identity) as GameObject;
 		GameObject rightGhost = Instantiate(Resources.Load(nextType), start + new Vector2(rightOffset,0), Quaternion.identity) as GameObject;
-	//	if (inVel.x < 0) {
-
+	
 		leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
-		//}
-		//else
-	//		leftGhost.GetComponent<GhostController> ().velX = -leftGhost.GetComponent<GhostController> ().velX;
-
-
 	}
 
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
