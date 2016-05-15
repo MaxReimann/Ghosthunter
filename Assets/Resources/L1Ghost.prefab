@@ -13,7 +13,7 @@ GameObject:
   - 50: {fileID: 5073858}
   - 58: {fileID: 5835216}
   m_Layer: 12
-  m_Name: Ghost
+  m_Name: L2Ghost
   m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,14 +99,26 @@ SpriteRenderer:
   m_SortingLayerID: -27030743
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9ddd29e1cb14c402cbbcdad855c86134, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: .180121586, b: .705882311, a: 1}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.g
+      value: .180121586
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Color.b
+      value: .705882311
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 141288}
