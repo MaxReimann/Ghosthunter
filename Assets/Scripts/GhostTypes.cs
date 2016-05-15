@@ -10,9 +10,15 @@ public static class GhostTypes {
 	{
 		if (types == null) {
 			types = new Dictionary<string, Ghost> ();
-			types.Add("L3Ghost",new Ghost("L3Ghost", 10, "L2Ghost"));
-			types.Add("L2Ghost",new Ghost("L2Ghost", 10, "L1Ghost"));
-			types.Add("L1Ghost",new Ghost("L1Ghost", 10, "None"));
+
+			float l3BounceHeight = GameObject.Find("L3BounceHeight").transform.position.y;
+			types.Add("L3Ghost",new Ghost("L3Ghost", l3BounceHeight, "L2Ghost"));
+
+			float l2BounceHeight = GameObject.Find("L2BounceHeight").transform.position.y;
+			types.Add("L2Ghost",new Ghost("L2Ghost", l2BounceHeight, "L1Ghost"));
+
+			float l1BounceHeight = GameObject.Find("L1BounceHeight").transform.position.y;
+			types.Add("L1Ghost",new Ghost("L1Ghost", l1BounceHeight, "None"));
 		}
 
 		return types;

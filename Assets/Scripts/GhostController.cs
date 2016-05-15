@@ -28,6 +28,7 @@ public class GhostController : MonoBehaviour {
 
 		string cleanedName = this.name.Replace ("(Clone)", "");
 		ghostType = GhostTypes.getType (cleanedName);
+		startY = ghostType.bounceHeight;
 	}
 	
 	// Update is called once per frame
