@@ -5,6 +5,7 @@ using System.Collections;
 public class GhostController : MonoBehaviour {
 
 	public float velX = 1.9f;//horizontal speed of ball
+	public bool startOppositeDirection = false;
 	private Vector2 inVel;//incoming velocity
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
@@ -15,16 +16,15 @@ public class GhostController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.rigidBody = GetComponent<Rigidbody2D>();
-		rigidBody.velocity = new Vector2( - velX, inVel.y);
+		rigidBody.velocity = new Vector2( - velX * (startOppositeDirection? 1f : -1f), inVel.y);
 
 		GameObject leftBorderObject = GameObject.FindWithTag ("LeftBorder");
 		BoxCollider2D colliderLeft = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();
-		// add a safety margin of collidersize / 2 
-		leftBorder = leftBorderObject.transform.position.x + (colliderLeft.size.x);
+		leftBorder = leftBorderObject.transform.position.x + (colliderLeft.size.x / 2);
 
 		GameObject rightBorderObject = GameObject.FindWithTag ("RightBorder");
 		BoxCollider2D colliderRight = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();  
-		rightBorder = rightBorderObject.transform.position.x - (colliderRight.size.x);
+		rightBorder = rightBorderObject.transform.position.x - (colliderRight.size.x / 2);
 
 		string cleanedName = this.name.Replace ("(Clone)", "");
 		ghostType = GhostTypes.getType (cleanedName);
@@ -47,9 +47,15 @@ public class GhostController : MonoBehaviour {
 		if (nextType == "None")
 			return;
 
-		GameObject ghost1 = Instantiate(Resources.Load(nextType),start + new Vector2(leftOffset,0), Quaternion.identity) as GameObject;
-		GameObject ghost2 = Instantiate(Resources.Load(nextType), start + new Vector2(rightOffset,0), Quaternion.identity) as GameObject;
-		ghost2.GetComponent<GhostController> ().velX = -ghost2.GetComponent<GhostController> ().velX;
+		GameObject leftGhost = Instantiate(Resources.Load(nextType),start + new Vector2(leftOffset,0), Quaternion.identity) as GameObject;
+		GameObject rightGhost = Instantiate(Resources.Load(nextType), start + new Vector2(rightOffset,0), Quaternion.identity) as GameObject;
+	//	if (inVel.x < 0) {
+
+		leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
+		//}
+		//else
+	//		leftGhost.GetComponent<GhostController> ().velX = -leftGhost.GetComponent<GhostController> ().velX;
+
 
 	}
 
