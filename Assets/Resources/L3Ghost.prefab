@@ -13,7 +13,7 @@ GameObject:
   - 50: {fileID: 5073858}
   - 58: {fileID: 5835216}
   m_Layer: 12
-  m_Name: ProtoGhost
+  m_Name: L3Ghost
   m_TagString: Ghost
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.78000021, y: 0, z: 0}
+  m_LocalPosition: {x: 6.2653842, y: .171440974, z: 0}
   m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children: []
   m_Father: {fileID: 0}
@@ -46,7 +46,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &5835216
 CircleCollider2D:
   m_ObjectHideFlags: 1
