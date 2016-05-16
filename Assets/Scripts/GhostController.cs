@@ -9,8 +9,8 @@ public class GhostController : MonoBehaviour {
 	private Vector2 inVel;//incoming velocity
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
-	private float leftBorder;
-	private float rightBorder;
+	private Bounds leftBorder;
+	private Bounds rightBorder;
 	private Ghost ghostType;
 
 	// Use this for initialization
@@ -20,11 +20,11 @@ public class GhostController : MonoBehaviour {
 
 		GameObject leftBorderObject = GameObject.FindWithTag ("LeftBorder");
 		BoxCollider2D colliderLeft = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();
-		leftBorder = leftBorderObject.transform.position.x + (colliderLeft.size.x / 2);
+		leftBorder = colliderLeft.bounds;
 
 		GameObject rightBorderObject = GameObject.FindWithTag ("RightBorder");
 		BoxCollider2D colliderRight = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();  
-		rightBorder = rightBorderObject.transform.position.x - (colliderRight.size.x / 2);
+		rightBorder = colliderRight.bounds;
 
 		string cleanedName = this.name.Replace ("(Clone)", "");
 		ghostType = GhostTypes.getType (cleanedName);
@@ -39,9 +39,13 @@ public class GhostController : MonoBehaviour {
 	public void spellCollision() {
 		Destroy (this.gameObject);
 
+
+		// add offset only if not to close to the walls
 		Vector2 start = transform.position;
 		float leftOffset = start.x - 1 > leftBorder ? -1f : 0f;
 		float rightOffset = start.x + 1 > rightBorder ? 1f : 0f;
+
+		//leftBorder.Contains( 
 
 		string nextType = ghostType.splitInto;
 		if (nextType == "None")
@@ -49,9 +53,18 @@ public class GhostController : MonoBehaviour {
 
 		GameObject leftGhost = Instantiate(Resources.Load(nextType),start + new Vector2(leftOffset,0), Quaternion.identity) as GameObject;
 		GameObject rightGhost = Instantiate(Resources.Load(nextType), start + new Vector2(rightOffset,0), Quaternion.identity) as GameObject;
-	
+
 		leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
 	}
+
+	bool insideGameRect()
+	{
+		CircleCollider2D collider = this.GetComponent<CircleCollider2D> ();
+		if (collider.bounds.
+			collider.bounds.Contains( new Vector3(leftBorder, collider.bounds.center.y)) &&
+		    collider.bounds.Contains( new Vector3(leftBorder, collider.bounds.center.y))
+	}
+
 
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
 	void OnCollisionEnter2D(Collision2D coll)
