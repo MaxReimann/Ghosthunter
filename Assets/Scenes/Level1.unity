@@ -434,7 +434,7 @@ GameObject:
   - 4: {fileID: 653281852}
   - 212: {fileID: 653281853}
   m_Layer: 0
-  m_Name: MountainBack
+  m_Name: Background (Mountains)
   m_TagString: Backgrounds
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
