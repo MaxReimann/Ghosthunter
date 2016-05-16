@@ -6,13 +6,15 @@ public class GhostController : MonoBehaviour {
 
 	public float velX = 1.9f;//horizontal speed of ball
 	public bool startOppositeDirection = false;
-	private Vector2 inVel;//incoming velocity
+	[HideInInspector] public Vector2 inVel;//incoming velocity
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
 	private BoxCollider2D leftBorder;
 	private BoxCollider2D rightBorder;
 	private Ghost ghostType;
 	private GameManager gameManager;
+	// additional height gain directly after splitting ghosts
+	private float splitYGain = 1.5f;
 
 	// Use this for initialization
 	void Start () {
@@ -45,14 +47,20 @@ public class GhostController : MonoBehaviour {
 		float leftOffset = start.x - 1 > leftBorder.bounds.center.x + leftBorder.bounds.extents.x ? -1f : 0f;
 		float rightOffset = start.x + 1 < rightBorder.bounds.center.x - leftBorder.bounds.extents.x ? 1f : 0f;
 
-		//leftBorder.Contains( 
-
 		string nextType = ghostType.splitInto;
 		if (nextType == "None")
 			return;
 
+		// create left and right ghost from prefabs
 		GameObject leftGhost = Instantiate(Resources.Load(nextType),start + new Vector2(leftOffset,0), Quaternion.identity) as GameObject;
 		GameObject rightGhost = Instantiate(Resources.Load(nextType), start + new Vector2(rightOffset,0), Quaternion.identity) as GameObject;
+		GhostController leftGhostController = leftGhost.GetComponent<GhostController> ();
+		GhostController rightGhostController = rightGhost.GetComponent<GhostController> ();
+
+		// boost temporarly to heigher y position
+		float newYVel = Mathf.Sqrt(2 * -splitYGain * Physics2D.gravity.y * rigidBody.gravityScale);
+		leftGhostController.inVel = new Vector2 (0,	newYVel);
+		rightGhostController.inVel = new Vector2 (0, newYVel);
 
 		leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
 
