@@ -9,8 +9,8 @@ public class GhostController : MonoBehaviour {
 	private Vector2 inVel;//incoming velocity
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
-	private Bounds leftBorder;
-	private Bounds rightBorder;
+	private BoxCollider2D leftBorder;
+	private BoxCollider2D rightBorder;
 	private Ghost ghostType;
 	private GameManager gameManager;
 
@@ -20,12 +20,10 @@ public class GhostController : MonoBehaviour {
 		rigidBody.velocity = new Vector2( - velX * (startOppositeDirection? 1f : -1f), inVel.y);
 
 		GameObject leftBorderObject = GameObject.FindWithTag ("LeftBorder");
-		BoxCollider2D colliderLeft = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();
-		leftBorder = colliderLeft.bounds;
+		leftBorder = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();
 
 		GameObject rightBorderObject = GameObject.FindWithTag ("RightBorder");
-		BoxCollider2D colliderRight = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();  
-		rightBorder = colliderRight.bounds;
+		rightBorder = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();  
 
 		string cleanedName = this.name.Replace ("(Clone)", "");
 		ghostType = GhostTypes.getType (cleanedName);
@@ -42,11 +40,10 @@ public class GhostController : MonoBehaviour {
 	public void spellCollision() {
 		Destroy (this.gameObject);
 
-
 		// add offset only if not to close to the walls
 		Vector2 start = transform.position;
-		float leftOffset = start.x - 1 > leftBorder ? -1f : 0f;
-		float rightOffset = start.x + 1 > rightBorder ? 1f : 0f;
+		float leftOffset = start.x - 1 > leftBorder.bounds.center.x + leftBorder.bounds.extents.x ? -1f : 0f;
+		float rightOffset = start.x + 1 < rightBorder.bounds.center.x - leftBorder.bounds.extents.x ? 1f : 0f;
 
 		//leftBorder.Contains( 
 
@@ -59,16 +56,21 @@ public class GhostController : MonoBehaviour {
 
 		leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
 
+		CircleCollider2D leftGhostCollider = leftGhost.GetComponent<CircleCollider2D> ();
+		if (leftGhostCollider.IsTouching (leftBorder)) {
+			print ("Warning: Left ghost touching wall)");
+			leftGhost.GetComponent<Rigidbody2D> ().MovePosition (start + new Vector2 (1, 0));
+		}
+
+		CircleCollider2D rightGhostCollider = rightGhost.GetComponent<CircleCollider2D> ();
+		if (rightGhostCollider.IsTouching (rightBorder)) {
+			print ("Warning: Right ghost touching wall)");
+			rightGhost.GetComponent<Rigidbody2D> ().MovePosition (start - new Vector2 (1, 0));
+		}
+
 		gameManager.addScore (2);
 	}
-
-	bool insideGameRect()
-	{
-		CircleCollider2D collider = this.GetComponent<CircleCollider2D> ();
-		if (collider.bounds.
-			collider.bounds.Contains( new Vector3(leftBorder, collider.bounds.center.y)) &&
-		    collider.bounds.Contains( new Vector3(leftBorder, collider.bounds.center.y))
-	}
+	
 
 
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
