@@ -7,7 +7,9 @@ public class GameManager : MonoBehaviour
 	
 	public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
 	private int level = 1;                                  //Current level number, expressed in game as "Day 1".
-	
+
+	private int score = 0;
+
 	//Awake is always called before any Start functions
 	void Awake()
 	{
@@ -41,5 +43,17 @@ public class GameManager : MonoBehaviour
 	void Update()
 	{
 		
+	}
+
+	public void addScore(int score){
+		this.score += score;
+	}
+
+	public int getScore(){
+		return score;
+	}
+
+	public void gameOver(){
+		Application.LoadLevel("GameOver");
 	}
 }

@@ -12,6 +12,7 @@ public class GhostController : MonoBehaviour {
 	private Bounds leftBorder;
 	private Bounds rightBorder;
 	private Ghost ghostType;
+	private GameManager gameManager;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,8 @@ public class GhostController : MonoBehaviour {
 		string cleanedName = this.name.Replace ("(Clone)", "");
 		ghostType = GhostTypes.getType (cleanedName);
 		startY = ghostType.bounceHeight;
+
+		gameManager = GameManager.instance;
 	}
 	
 	// Update is called once per frame
@@ -55,6 +58,8 @@ public class GhostController : MonoBehaviour {
 		GameObject rightGhost = Instantiate(Resources.Load(nextType), start + new Vector2(rightOffset,0), Quaternion.identity) as GameObject;
 
 		leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
+
+		gameManager.addScore (2);
 	}
 
 	bool insideGameRect()

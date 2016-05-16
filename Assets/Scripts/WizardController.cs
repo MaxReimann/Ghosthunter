@@ -8,10 +8,13 @@ public class WizardController : MonoBehaviour {
 	private Rigidbody2D myBody;
 	private Transform spellStartPoint; 
 
+	private GameManager gameManager;
+
 	// Use this for initialization
 	void Start (){
 		myBody = GetComponent<Rigidbody2D>();
 		spellStartPoint = transform.Find("spellStartPoint");
+		gameManager = GameManager.instance;
 	}
 	
 	// Update is called once per frame
@@ -48,6 +51,7 @@ public class WizardController : MonoBehaviour {
 		if (coll.gameObject.tag == "Ghost") {
 			//TODO decrease life or gameOver
 			//Destroy(gameObject);
+			gameManager.gameOver();
 		}
 	}
 }
