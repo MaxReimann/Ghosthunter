@@ -15,6 +15,10 @@ public class GhostController : MonoBehaviour {
 	private GameManager gameManager;
 	// additional height gain directly after splitting ghosts
 	private float splitYGain = 1.5f;
+	// time to be unreactive on collisions with player character after split
+	private const float unreactiveTime = 0.6f; 
+	private float nonCollisionTimer = 0.0f;
+	private bool unreactiveTimerFinished = false;
 
 	// Use this for initialization
 	void Start () {
@@ -33,16 +37,36 @@ public class GhostController : MonoBehaviour {
 			stopIndex = this.name.Length;
 		string cleanedName = this.name.Substring (0, stopIndex);
 		cleanedName = cleanedName.Trim ();
-		print (cleanedName);
+
 		ghostType = GhostTypes.getType (cleanedName);
 		startY = ghostType.bounceHeight;
 
 		gameManager = GameManager.instance;
+
+		nonCollisionTimer = unreactiveTime;
+		GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
+		//ignore wizard collision until timer is run down
+		this.gameObject.layer = LayerMask.NameToLayer("NonCollGhosts");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		inVel = rigidBody.velocity;
+
+		if (nonCollisionTimer > 0.0f) {
+			nonCollisionTimer -= Time.deltaTime;
+		} else if (!unreactiveTimerFinished) {
+			nonCollisionTimer = 0.0f;
+			unreactiveTimerFinished = true;
+			GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
+			//activate collisions
+			this.gameObject.layer = LayerMask.NameToLayer("Ghosts");
+		}
+
+	}
+
+	public bool nonColliding() {
+		return nonCollisionTimer > 0.0f;
 	}
 
 	public void spellCollision() {
@@ -53,7 +77,6 @@ public class GhostController : MonoBehaviour {
 		else
 			gameManager.increaseGhostCount ();
 		gameManager.addScore (2);
-
 
 		// add offset only if not to close to the walls
 		Vector2 start = transform.position;
@@ -90,8 +113,6 @@ public class GhostController : MonoBehaviour {
 				rightGhost.GetComponent<Rigidbody2D> ().MovePosition (start - new Vector2 (1, 0));
 			}
 		}
-
-
 	}
 	
 
@@ -101,6 +122,7 @@ public class GhostController : MonoBehaviour {
 	{
 		if (coll.gameObject.tag == "Spell") {
 			spellCollision();
+			return;
 		}
 		
 		ContactPoint2D hit = coll.contacts[0]; //(for debug only) the first contact is enough
