@@ -35,7 +35,8 @@ public class GameManager : MonoBehaviour
 	//Initializes the game for each level.
 	void InitGame()
 	{
-		//setup the scene		
+		//setup the scene
+		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 	}
 	
 	
@@ -68,8 +69,7 @@ public class GameManager : MonoBehaviour
 		this.level++;
 		Application.LoadLevel (this.level);
 
-		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length;
-		print (this.ghosts);
+		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 	}
 
 	public void gameOver(){
