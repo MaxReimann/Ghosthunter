@@ -27,7 +27,13 @@ public class GhostController : MonoBehaviour {
 		GameObject rightBorderObject = GameObject.FindWithTag ("RightBorder");
 		rightBorder = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();  
 
-		string cleanedName = this.name.Replace ("(Clone)", "");
+		//string cleanedName = this.name.Replace ("(Clone)", "");
+		int stopIndex = this.name.IndexOf ("(");
+		if (stopIndex == -1)
+			stopIndex = this.name.Length;
+		string cleanedName = this.name.Substring (0, stopIndex);
+		cleanedName = cleanedName.Trim ();
+		print (cleanedName);
 		ghostType = GhostTypes.getType (cleanedName);
 		startY = ghostType.bounceHeight;
 
