@@ -6,9 +6,10 @@ public class GameManager : MonoBehaviour
 {
 	
 	public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
-	private int level = 1;                                  //Current level number, expressed in game as "Day 1".
 
+	private int level = 1;                                  //Current level number, expressed in game as "Day 1".
 	private int score = 0;
+	private int ghosts = 1; // number of ghosts in current level
 
 	//Awake is always called before any Start functions
 	void Awake()
@@ -45,12 +46,28 @@ public class GameManager : MonoBehaviour
 		
 	}
 
+	public void decreaseGhostCount(){
+		this.ghosts--;
+		print (this.ghosts);
+		if (this.ghosts <= 0)
+			nextLevel ();
+	}
+
+	public void increaseGhostCount(){
+		this.ghosts++;
+	}
+
 	public void addScore(int score){
 		this.score += score;
 	}
 
 	public int getScore(){
 		return score;
+	}
+
+	public void nextLevel(){
+		this.level++;
+		Application.LoadLevel (this.level);
 	}
 
 	public void gameOver(){
