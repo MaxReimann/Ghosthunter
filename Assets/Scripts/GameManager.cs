@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
 
 	public void decreaseGhostCount(){
 		this.ghosts--;
-		print (this.ghosts);
 		if (this.ghosts <= 0)
 			nextLevel ();
 	}
@@ -68,6 +67,9 @@ public class GameManager : MonoBehaviour
 	public void nextLevel(){
 		this.level++;
 		Application.LoadLevel (this.level);
+
+		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length;
+		print (this.ghosts);
 	}
 
 	public void gameOver(){
