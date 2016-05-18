@@ -38,7 +38,7 @@ public class GhostController : MonoBehaviour {
 		string cleanedName = this.name.Substring (0, stopIndex);
 		cleanedName = cleanedName.Trim ();
 
-		ghostType = GhostTypes.getType (cleanedName);
+ 		ghostType = GhostTypes.getType (cleanedName);
 		startY = ghostType.bounceHeight;
 
 		gameManager = GameManager.instance;

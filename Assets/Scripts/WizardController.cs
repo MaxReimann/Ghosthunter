@@ -9,11 +9,14 @@ public class WizardController : MonoBehaviour {
 	private Transform spellStartPoint; 
 
 	private GameManager gameManager;
+	
+	private Animator animator;
 
 	// Use this for initialization
 	void Start (){
 		myBody = GetComponent<Rigidbody2D>();
 		spellStartPoint = transform.Find("spellStartPoint");
+		animator = GetComponent<Animator>();
 		gameManager = GameManager.instance;
 	}
 	
@@ -23,6 +26,16 @@ public class WizardController : MonoBehaviour {
 		
 		if (Input.GetKeyDown("space")) {
 			createSpell();
+		}
+
+		float horizontalInput = Input.GetAxisRaw ("Horizontal");
+		Debug.Log (horizontalInput);
+		if (horizontalInput < 0) {
+			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Left"),0f);
+		} else if (horizontalInput == 0){
+			animator.CrossFade (Animator.StringToHash ("Wizard_Idle"),0f);
+		}else{
+			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Right"),0f);
 		}
 	}
 
