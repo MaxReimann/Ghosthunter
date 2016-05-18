@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: fad4943b4ad9b4134b0d5f7a2b4862d5
+timeCreated: 1463559117
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: GhostStand_Black_0
+    21300002: GhostStand_Black_1
+    21300004: GhostStand_Black_2
+    21300006: GhostStand_Black_3
+    21300008: GhostStand_Black_4
+    21300010: GhostStand_Black_5
+    21300012: GhostStand_Black_6
+    21300014: GhostStand_Black_7
+    21300016: GhostStand_Black_8
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: GhostStand_Black_0
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 1325
+        width: 353
+        height: 714
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GhostStand_Black_1
+      rect:
+        serializedVersion: 2
+        x: 446
+        y: 1329
+        width: 351
+        height: 710
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GhostStand_Black_2
+      rect:
+        serializedVersion: 2
+        x: 860
+        y: 1335
+        width: 347
+        height: 704
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GhostStand_Black_3
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 1339
+        width: 345
+        height: 700
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GhostStand_Black_4
+      rect:
+        serializedVersion: 2
+        x: 1686
+        y: 1342
+        width: 343
+        height: 698
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GhostStand_Black_5
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 598
+        width: 342
+        height: 696
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GhostStand_Black_6
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 596
+        width: 343
+        height: 698
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GhostStand_Black_7
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 590
+        width: 346
+        height: 703
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GhostStand_Black_8
+      rect:
+        serializedVersion: 2
+        x: 1282
+        y: 585
+        width: 350
+        height: 708
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

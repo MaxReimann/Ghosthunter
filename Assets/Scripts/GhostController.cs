@@ -101,13 +101,13 @@ public class GhostController : MonoBehaviour {
 
 			leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
 
-			CircleCollider2D leftGhostCollider = leftGhost.GetComponent<CircleCollider2D> ();
+			PolygonCollider2D leftGhostCollider = leftGhost.GetComponent<PolygonCollider2D> ();
 			if (leftGhostCollider.IsTouching (leftBorder)) {
 				print ("Warning: Left ghost touching wall)");
 				leftGhost.GetComponent<Rigidbody2D> ().MovePosition (start + new Vector2 (1, 0));
 			}
 
-			CircleCollider2D rightGhostCollider = rightGhost.GetComponent<CircleCollider2D> ();
+			PolygonCollider2D rightGhostCollider = rightGhost.GetComponent<PolygonCollider2D> ();
 			if (rightGhostCollider.IsTouching (rightBorder)) {
 				print ("Warning: Right ghost touching wall)");
 				rightGhost.GetComponent<Rigidbody2D> ().MovePosition (start - new Vector2 (1, 0));

@@ -22,20 +22,21 @@ public class WizardController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update (){
-		Move (Input.GetAxisRaw ("Horizontal"));
-		
-		if (Input.GetKeyDown("space")) {
-			createSpell();
+		float horizontalInput = Input.GetAxisRaw ("Horizontal");
+
+		Move(horizontalInput);
+
+		if (horizontalInput < 0) {
+			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Left"), 0f);
+		} else if (horizontalInput == 0) {
+			animator.CrossFade (Animator.StringToHash ("Wizard_Idle"), 0f);
+		} else {
+			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Right"), 0f);
 		}
 
-		float horizontalInput = Input.GetAxisRaw ("Horizontal");
-		Debug.Log (horizontalInput);
-		if (horizontalInput < 0) {
-			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Left"),0f);
-		} else if (horizontalInput == 0){
-			animator.CrossFade (Animator.StringToHash ("Wizard_Idle"),0f);
-		}else{
-			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Right"),0f);
+		if (Input.GetKeyDown ("space")) {
+			createSpell ();
+			animator.CrossFade (Animator.StringToHash ("Wizard_Attack"), 0f);
 		}
 	}
 
@@ -43,6 +44,7 @@ public class WizardController : MonoBehaviour {
 		if(GameObject.FindGameObjectWithTag("Spell")){
 			return;
 		}
+
 		Vector3 newPos = new Vector3 ();
 		newPos = spellStartPoint.position;
 		
