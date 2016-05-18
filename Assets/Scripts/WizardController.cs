@@ -78,6 +78,13 @@ public class WizardController : MonoBehaviour {
 		myBody.velocity = moveVel;
 	}
 
+	public void setToPosition(Vector2 pos)
+	{
+		this.transform.position = pos;
+		Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
+		rigidBody.position = pos;
+	}
+
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "Ghost") {
