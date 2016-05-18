@@ -73,8 +73,11 @@ public class GhostController : MonoBehaviour {
 	}
 
 	public void spellCollision() {
+		animator.SetTrigger ("ghost_split");
+		Invoke ("doSpellCollision", 1);
+	}
 
-		animator.CrossFade (Animator.StringToHash ("Ghost_Split"), 0f);
+	private void doSpellCollision(){
 
 		Destroy (this.gameObject);
 
