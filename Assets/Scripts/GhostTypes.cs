@@ -20,8 +20,11 @@ public static class GhostTypes {
 			float l1BounceHeight = GameObject.Find("L1BounceHeight").transform.position.y;
 			types.Add("L1Ghost",new Ghost("L1Ghost", l1BounceHeight, "None"));
 
-			float l1BounceHeightHigh = GameObject.Find("L1BounceHeightHigh").transform.position.y;
-			types.Add("L1GhostHigh",new Ghost("L1GhostHigh", l1BounceHeightHigh, "None"));
+			GameObject go = GameObject.Find("L1BounceHeightHigh");
+			if(go != null){
+				float l1BounceHeightHigh = GameObject.Find("L1BounceHeightHigh").transform.position.y;
+				types.Add("L1GhostHigh",new Ghost("L1GhostHigh", l1BounceHeightHigh, "None"));
+			}
 		}
 
 		return types;
