@@ -22,21 +22,22 @@ public class WizardController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update (){
+
+
 		float horizontalInput = Input.GetAxisRaw ("Horizontal");
 
 		Move(horizontalInput);
+		animator.SetInteger("isWalking", (int)horizontalInput);
 
-		if (horizontalInput < 0) {
-			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Left"), 0f);
-		} else if (horizontalInput == 0) {
-			animator.CrossFade (Animator.StringToHash ("Wizard_Idle"), 0f);
-		} else {
-			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Right"), 0f);
-		}
+//		if (horizontalInput < 0) {
+//			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Left"), 0f);
+//		} 
+//		if (horizontalInput > 0) {
+//			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Right"), 0f);
+//		}
 
 		if (Input.GetKeyDown ("space")) {
 			createSpell ();
-			animator.CrossFade (Animator.StringToHash ("Wizard_Attack"), 0f);
 		}
 	}
 
@@ -45,6 +46,8 @@ public class WizardController : MonoBehaviour {
 			return;
 		}
 
+		animator.SetBool("isAttacking", true);
+
 		Vector3 newPos = new Vector3 ();
 		newPos = spellStartPoint.position;
 		
@@ -52,6 +55,8 @@ public class WizardController : MonoBehaviour {
 		
 		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
 		rigidBody.velocity = transform.up * spellSpeed;
+
+		animator.SetBool("isAttacking", false);
 	}
 	
 	public void Move(float horizontalInput){
@@ -62,7 +67,6 @@ public class WizardController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		print (coll.gameObject.tag);
 		if (coll.gameObject.tag == "Ghost") {
 //			if (!coll.gameObject.GetComponent<GhostController>().nonColliding())
 	//		{
