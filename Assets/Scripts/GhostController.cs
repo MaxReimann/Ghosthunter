@@ -19,6 +19,7 @@ public class GhostController : MonoBehaviour {
 	private const float unreactiveTime = 0.6f; 
 	private float nonCollisionTimer = 0.0f;
 	private bool unreactiveTimerFinished = false;
+	private Animator animator;
 
 	// Use this for initialization
 	void Start () {
@@ -42,6 +43,8 @@ public class GhostController : MonoBehaviour {
 		startY = ghostType.bounceHeight;
 
 		gameManager = GameManager.instance;
+
+		animator = GetComponent<Animator> ();
 
 		nonCollisionTimer = unreactiveTime;
 		GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
@@ -70,6 +73,9 @@ public class GhostController : MonoBehaviour {
 	}
 
 	public void spellCollision() {
+
+		animator.CrossFade (Animator.StringToHash ("Ghost_Split"), 0f);
+
 		Destroy (this.gameObject);
 
 		if (ghostType.name == "L1Ghost")
