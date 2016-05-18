@@ -24,10 +24,13 @@ public class WizardController : MonoBehaviour {
 	// Update is called once per frame
 	void Update (){
 
-
 		float horizontalInput = Input.GetAxisRaw ("Horizontal");
-
 		Move(horizontalInput);
+
+		if (Input.GetKeyDown ("space")) {
+			createSpell ();
+			return;
+		}
 
 		if (horizontalInput < 0) {
 			isLeft = true;
@@ -40,11 +43,7 @@ public class WizardController : MonoBehaviour {
 			}
 		}else{
 			isLeft = false;
-		animator.SetTrigger("wizard_run_right");
-		}
-
-		if (Input.GetKeyDown ("space")) {
-			createSpell ();
+			animator.SetTrigger("wizard_run_right");
 		}
 	}
 
@@ -52,16 +51,20 @@ public class WizardController : MonoBehaviour {
 		if(GameObject.FindGameObjectWithTag("Spell")){
 			return;
 		}
+
+		animator.SetTrigger("wizard_attack");
+
 		spellStartPoint = new Vector3 ();
 		if (isLeft) {
-			spellStartPoint.x = transform.position.x-1;
+			spellStartPoint.x = transform.position.x-0.5f;
 		} else {
 			spellStartPoint.x = transform.position.x+0.5f;
 		}
 		spellStartPoint.y = transform.position.y-1;
 		spellStartPoint.z = transform.position.z;
-		animator.SetTrigger("wizard_attack");
-		Invoke ("createSpellParticle", 1);
+
+//		Invoke ("createSpellParticle", 1);
+		createSpellParticle ();
 	}
 
 	private void createSpellParticle(){

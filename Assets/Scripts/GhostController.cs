@@ -47,7 +47,7 @@ public class GhostController : MonoBehaviour {
 		animator = GetComponent<Animator> ();
 
 		nonCollisionTimer = unreactiveTime;
-		GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
+		//GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
 		//ignore wizard collision until timer is run down
 		this.gameObject.layer = LayerMask.NameToLayer("NonCollGhosts");
 	}
