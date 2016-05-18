@@ -22,27 +22,27 @@ public class WizardController : MonoBehaviour {
 		Move (Input.GetAxisRaw ("Horizontal"));
 		
 		if (Input.GetKeyDown("space")) {
-			if(!GameObject.FindGameObjectWithTag("Spell")){
-				createSpell();
-			}
+			createSpell();
 		}
+	}
+
+	public void createSpell(){
+		if(GameObject.FindGameObjectWithTag("Spell")){
+			return;
+		}
+		Vector3 newPos = new Vector3 ();
+		newPos = spellStartPoint.position;
+		
+		GameObject spell = Instantiate(Resources.Load("Spell"), newPos, Quaternion.identity) as GameObject;
+		
+		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
+		rigidBody.velocity = transform.up * spellSpeed;
 	}
 	
 	public void Move(float horizontalInput){
 		Vector2 moveVel = myBody.velocity;
 		moveVel.x = horizontalInput * speed;
 		myBody.velocity = moveVel;
-	}
-	
-	public void createSpell(){
-		Vector3 newPos = new Vector3 ();
-		newPos = spellStartPoint.position;
-
-		GameObject spell = Instantiate(Resources.Load("Spell"), newPos, Quaternion.identity) as GameObject;
-
-		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
-		rigidBody.velocity = transform.up * spellSpeed;
-
 	}
 
 	void OnCollisionEnter2D(Collision2D coll)
