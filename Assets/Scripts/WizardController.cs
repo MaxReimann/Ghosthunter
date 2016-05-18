@@ -6,16 +6,17 @@ public class WizardController : MonoBehaviour {
 	public float speed = 10;
 	public float spellSpeed = 10;
 	private Rigidbody2D myBody;
-	private Transform spellStartPoint; 
+	private Vector3 spellStartPoint; 
 
 	private GameManager gameManager;
+
+	private bool isLeft = false;
 	
 	private Animator animator;
 
 	// Use this for initialization
 	void Start (){
 		myBody = GetComponent<Rigidbody2D>();
-		spellStartPoint = transform.Find("spellStartPoint");
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.instance;
 	}
@@ -27,14 +28,18 @@ public class WizardController : MonoBehaviour {
 		float horizontalInput = Input.GetAxisRaw ("Horizontal");
 
 		Move(horizontalInput);
-		animator.SetInteger("isWalking", (int)horizontalInput);
 
-//		if (horizontalInput < 0) {
-//			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Left"), 0f);
-//		} 
-//		if (horizontalInput > 0) {
-//			animator.CrossFade (Animator.StringToHash ("Wizard_Run_Right"), 0f);
-//		}
+		if (horizontalInput < 0) {
+			isLeft = true;
+			animator.SetTrigger("wizard_run_left");
+		} 
+		if (horizontalInput == 0) {
+			animator.SetTrigger("wizard_idle");
+		}
+		if (horizontalInput > 0) {
+			isLeft = false;
+			animator.SetTrigger("wizard_run_right");
+		}
 
 		if (Input.GetKeyDown ("space")) {
 			createSpell ();
@@ -45,18 +50,24 @@ public class WizardController : MonoBehaviour {
 		if(GameObject.FindGameObjectWithTag("Spell")){
 			return;
 		}
+		spellStartPoint = new Vector3 ();
+		if (isLeft) {
+			spellStartPoint.x = transform.position.x-1;
+		} else {
+			spellStartPoint.x = transform.position.x+0.5f;
+		}
+		spellStartPoint.y = transform.position.y-1;
+		spellStartPoint.z = transform.position.z;
+		animator.SetTrigger("wizard_attack");
+		Invoke ("createSpellParticle", 1);
+	}
 
-		animator.SetBool("isAttacking", true);
+	private void createSpellParticle(){
 
-		Vector3 newPos = new Vector3 ();
-		newPos = spellStartPoint.position;
-		
-		GameObject spell = Instantiate(Resources.Load("Spell"), newPos, Quaternion.identity) as GameObject;
+		GameObject spell = Instantiate(Resources.Load("Spell"), spellStartPoint, Quaternion.identity) as GameObject;
 		
 		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
 		rigidBody.velocity = transform.up * spellSpeed;
-
-		animator.SetBool("isAttacking", false);
 	}
 	
 	public void Move(float horizontalInput){
