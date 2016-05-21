@@ -3,6 +3,8 @@ using System.Collections;
 
 public class WizardController : MonoBehaviour {
 
+	private static float SPELL_DELAY = 0.3f;
+
 	public float speed = 10;
 	public float spellSpeed = 10;
 	private Rigidbody2D myBody;
@@ -11,6 +13,7 @@ public class WizardController : MonoBehaviour {
 	private GameManager gameManager;
 
 	private bool isLeft = false;
+	private float spellExecution;
 	
 	private Animator animator;
 
@@ -20,9 +23,14 @@ public class WizardController : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.instance;
 	}
-	
+
 	// Update is called once per frame
 	void Update (){
+
+		if (spellExecution >0 && spellExecution+SPELL_DELAY < Time.time) {
+			createSpellParticle();
+			spellExecution = 0;
+		}
 
 		float horizontalInput = Input.GetAxisRaw ("Horizontal");
 		Move(horizontalInput);
@@ -59,8 +67,7 @@ public class WizardController : MonoBehaviour {
 		spellStartPoint.y = transform.position.y-1;
 		spellStartPoint.z = transform.position.z;
 
-//		Invoke ("createSpellParticle", 1);
-		createSpellParticle ();
+		spellExecution = Time.time;
 	}
 
 	private void createSpellParticle(){
