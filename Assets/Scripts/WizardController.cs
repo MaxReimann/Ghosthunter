@@ -36,11 +36,7 @@ public class WizardController : MonoBehaviour {
 			isLeft = true;
 			animator.SetTrigger("wizard_run_left");
 		}else if (horizontalInput == 0) {
-			if(isLeft){
-				animator.SetTrigger("wizard_idle_left");
-			}else{
-				animator.SetTrigger("wizard_idle_right");
-			}
+			animator.SetTrigger("wizard_idle");
 		}else{
 			isLeft = false;
 			animator.SetTrigger("wizard_run_right");
