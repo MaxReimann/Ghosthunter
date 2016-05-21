@@ -30,7 +30,7 @@ public class GhostController : MonoBehaviour {
 		leftBorder = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();
 
 		GameObject rightBorderObject = GameObject.FindWithTag ("RightBorder");
-		rightBorder = (BoxCollider2D) leftBorderObject.GetComponent<Collider2D>();  
+		rightBorder = (BoxCollider2D) rightBorderObject.GetComponent<Collider2D>();  
 
 		//string cleanedName = this.name.Replace ("(Clone)", "");
 		int stopIndex = this.name.IndexOf ("(");
@@ -61,7 +61,7 @@ public class GhostController : MonoBehaviour {
 		} else if (!unreactiveTimerFinished) {
 			nonCollisionTimer = 0.0f;
 			unreactiveTimerFinished = true;
-			GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
+			//GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
 			//activate collisions
 			this.gameObject.layer = LayerMask.NameToLayer("Ghosts");
 		}
