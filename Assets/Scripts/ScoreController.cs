@@ -4,7 +4,6 @@ using UnityEngine.UI;
 public class ScoreController : MonoBehaviour {
 
 	Text txt;
-	int score = -1;
 	GameManager gameManager;
 
 	// Use this for initialization

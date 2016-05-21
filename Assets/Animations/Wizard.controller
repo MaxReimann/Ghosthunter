@@ -381,7 +381,7 @@ AnimatorState:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Wizard_Attack_Left
-  m_Speed: .449999988
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 110172808}

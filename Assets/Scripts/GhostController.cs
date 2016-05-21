@@ -135,7 +135,7 @@ public class GhostController : MonoBehaviour {
 		}
 		
 		ContactPoint2D hit = coll.contacts[0]; //(for debug only) the first contact is enough
-		Vector3 outVel = Vector3.Reflect(inVel, hit.normal);
+		//Vector3 outVel = Vector3.Reflect(inVel, hit.normal);
 		if (hit.normal.x < 0)
 			rigidBody.velocity = new Vector2 (- velX, inVel.y);
 		else if (hit.normal.x > 0)
