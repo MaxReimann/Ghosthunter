@@ -66,13 +66,20 @@ public class GameManager : MonoBehaviour
 	}
 
 	public void nextLevel(){
+
 		this.level++;
+		Debug.Log (level);
 		Application.LoadLevel (this.level);
+
 
 		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 	}
 
 	public void gameOver(){
 		Application.LoadLevel("GameOver");
+	}
+
+	public void timeout(){
+		Application.LoadLevel("Timeout");
 	}
 }
