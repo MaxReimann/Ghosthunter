@@ -77,6 +77,8 @@ public class GhostController : MonoBehaviour {
 	}
 
 	public void spellCollision() {
+		AudioSource audio = GetComponent<AudioSource>();
+		audio.Play();
 		animator.SetTrigger ("ghost_split");
 		Invoke ("doSpellCollision", 1);
 	}
