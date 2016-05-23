@@ -14,7 +14,8 @@ public class WizardController : MonoBehaviour {
 
 	private bool isLeft = false;
 	private float spellExecution;
-	
+	private float buttonInput;
+
 	private Animator animator;
 
 	// Use this for initialization
@@ -27,31 +28,68 @@ public class WizardController : MonoBehaviour {
 	// Update is called once per frame
 	void Update (){
 
-		if (spellExecution >0 && spellExecution+SPELL_DELAY < Time.time) {
-			createSpellParticle();
+		if (spellExecution > 0 && spellExecution + SPELL_DELAY < Time.time) {
+			createSpellParticle ();
 			spellExecution = 0;
 		}
 
-		float horizontalInput = Input.GetAxisRaw ("Horizontal");
-		Move(horizontalInput);
-
 		if (Input.GetKeyDown ("space")) {
-			createSpell ();
+			Spell ();
 			return;
 		}
 
-		if (horizontalInput < 0) {
-			isLeft = true;
-			animator.SetTrigger("wizard_run_left");
-		}else if (horizontalInput == 0) {
-			animator.SetTrigger("wizard_idle");
-		}else{
-			isLeft = false;
-			animator.SetTrigger("wizard_run_right");
+		if (buttonInput != 0) {
+			if(buttonInput<0){
+				MoveLeft();
+			}else{
+				MoveRight();
+			}
+		
+		} else {
+			//check keyboard input
+			float horizontalInput = Input.GetAxisRaw ("Horizontal");
+			if (horizontalInput < 0) {
+				MoveLeft ();
+			} else if (horizontalInput > 0) {
+				MoveRight ();
+			} else {
+				Idle ();
+			}
 		}
+
 	}
 
-	public void createSpell(){
+	public void LeftPressed(){
+		buttonInput = -1;
+	}
+
+	public void RightPressed(){
+		buttonInput = 1;
+
+	}
+
+	public void Released(){
+		buttonInput = 0;
+	}
+
+	private void MoveLeft(){;
+		animator.SetTrigger("wizard_run_left");
+		Move(-1);
+		isLeft = true;
+	}
+
+	private void MoveRight(){
+		animator.SetTrigger("wizard_run_right");
+		Move(1);
+		isLeft = false;
+	}
+	
+	public void Idle(){
+		animator.SetTrigger("wizard_idle");
+		Move(0);
+	}
+	
+	public void Spell(){
 		if(GameObject.FindGameObjectWithTag("Spell")){
 			return;
 		}
@@ -71,14 +109,14 @@ public class WizardController : MonoBehaviour {
 	}
 
 	private void createSpellParticle(){
-
+		AudioSource audio = GetComponent<AudioSource>();
+		audio.Play();
 		GameObject spell = Instantiate(Resources.Load("Spell"), spellStartPoint, Quaternion.identity) as GameObject;
-		
 		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
 		rigidBody.velocity = transform.up * spellSpeed;
 	}
 	
-	public void Move(float horizontalInput){
+	private void Move(float horizontalInput){
 		Vector2 moveVel = myBody.velocity;
 		moveVel.x = horizontalInput * speed;
 		myBody.velocity = moveVel;
@@ -90,8 +128,8 @@ public class WizardController : MonoBehaviour {
 //			if (!coll.gameObject.GetComponent<GhostController>().nonColliding())
 	//		{
 				//TODO decrease life or gameOver
-				//Destroy(gameObject);
-				//gameManager.gameOver();
+				Destroy(gameObject);
+				gameManager.gameOver();
 		//	}
 		}
 	}

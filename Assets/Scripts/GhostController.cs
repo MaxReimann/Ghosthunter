@@ -65,11 +65,6 @@ public class GhostController : MonoBehaviour {
 			//activate collisions
 			this.gameObject.layer = LayerMask.NameToLayer("Ghosts");
 		}
-
-		if (bounce) {
-			bounce=false;
-			animator.SetTrigger ("ghost_idle");
-		}
 	}
 
 	public bool nonColliding() {
@@ -77,8 +72,15 @@ public class GhostController : MonoBehaviour {
 	}
 
 	public void spellCollision() {
-		animator.SetTrigger ("ghost_split");
-		Invoke ("doSpellCollision", 1);
+		AudioSource audio = GetComponent<AudioSource>();
+		audio.Play();
+
+		if (ghostType.name == "L1Ghost") {
+			doSpellCollision();
+		} else {
+			animator.SetTrigger ("ghost_split");
+			Invoke ("doSpellCollision", 0.5f);
+		}
 	}
 
 	private void doSpellCollision(){
@@ -127,8 +129,6 @@ public class GhostController : MonoBehaviour {
 			}
 		}
 	}
-	
-	private bool bounce = false;
 
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
 	void OnCollisionEnter2D(Collision2D coll)
@@ -166,9 +166,6 @@ public class GhostController : MonoBehaviour {
 				newYVel = 1f;
 			rigidBody.velocity = new Vector2( rigidBody.velocity.x, newYVel);
 		}
-
-		animator.SetTrigger ("ghost_bounce");
-		bounce = true;
 
 		//save now, because sometimes collision happens before next FixedUpdate tick
 //		inVel = this.rigidBody.velocity;

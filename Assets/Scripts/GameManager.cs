@@ -6,8 +6,7 @@ public class GameManager : MonoBehaviour
 {
 	
 	public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
-
-	private int level = 1;                                  //Current level number, expressed in game as "Day 1".
+	
 	private int score = 0;
 	private int ghosts = 1; // number of ghosts in current level
 
@@ -66,12 +65,13 @@ public class GameManager : MonoBehaviour
 	}
 
 	public void nextLevel(){
-
-		this.level++;
-		Debug.Log (level);
-		Application.LoadLevel (this.level);
-
-
+		string levelName = Application.loadedLevelName;
+		int nextLevel = int.Parse(levelName.Substring(levelName.Length - 1))+1;
+		if (nextLevel > 4) {
+			Application.LoadLevel("Win");
+			return;
+		}
+		Application.LoadLevel("Level"+nextLevel);
 		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 	}
 
