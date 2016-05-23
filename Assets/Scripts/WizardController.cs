@@ -14,6 +14,7 @@ public class WizardController : MonoBehaviour {
 
 	private bool isLeft = false;
 	private float spellExecution;
+	private float buttonInput;
 	
 	private Animator animator;
 
@@ -36,7 +37,7 @@ public class WizardController : MonoBehaviour {
 		Move(horizontalInput);
 
 		if (Input.GetKeyDown ("space")) {
-			createSpell ();
+			Spell ();
 			return;
 		}
 
@@ -51,7 +52,15 @@ public class WizardController : MonoBehaviour {
 		}
 	}
 
-	public void createSpell(){
+	public void Left(){
+		buttonInput = -1;
+	}
+
+	public void Right(){
+		buttonInput = 1;
+	}
+	
+	public void Spell(){
 		if(GameObject.FindGameObjectWithTag("Spell")){
 			return;
 		}
