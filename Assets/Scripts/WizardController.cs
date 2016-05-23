@@ -90,8 +90,8 @@ public class WizardController : MonoBehaviour {
 //			if (!coll.gameObject.GetComponent<GhostController>().nonColliding())
 	//		{
 				//TODO decrease life or gameOver
-				//Destroy(gameObject);
-				//gameManager.gameOver();
+				Destroy(gameObject);
+				gameManager.gameOver();
 		//	}
 		}
 	}
