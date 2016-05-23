@@ -63,3 +63,6 @@ TagManager:
   - name: Spells
     uniqueID: 615155857
     locked: 0
+  - name: Fire
+    uniqueID: 2471405705
+    locked: 0
