@@ -68,11 +68,11 @@ public class GameManager : MonoBehaviour
 		string levelName = Application.loadedLevelName;
 		int nextLevel = int.Parse(levelName.Substring(levelName.Length - 1))+1;
 		if (nextLevel > 4) {
-			this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 			Application.LoadLevel("Win");
 			return;
 		}
 		Application.LoadLevel("Level"+nextLevel);
+		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 	}
 
 	public void gameOver(){
