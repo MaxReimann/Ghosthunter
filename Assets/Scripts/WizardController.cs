@@ -14,8 +14,7 @@ public class WizardController : MonoBehaviour {
 
 	private bool isLeft = false;
 	private float spellExecution;
-	private float buttonInput;
-	
+
 	private Animator animator;
 
 	// Use this for initialization
@@ -33,31 +32,36 @@ public class WizardController : MonoBehaviour {
 			spellExecution = 0;
 		}
 
-		float horizontalInput = Input.GetAxisRaw ("Horizontal");
-		Move(horizontalInput);
-
 		if (Input.GetKeyDown ("space")) {
 			Spell ();
 			return;
 		}
-
-		if (horizontalInput < 0) {
-			isLeft = true;
-			animator.SetTrigger("wizard_run_left");
-		}else if (horizontalInput == 0) {
-			animator.SetTrigger("wizard_idle");
-		}else{
-			isLeft = false;
-			animator.SetTrigger("wizard_run_right");
-		}
+		
+//		float horizontalInput = Input.GetAxisRaw ("Horizontal");
+//		if (horizontalInput < 0) {
+//			MoveLeft();
+//		}else if(horizontalInput > 0){
+//			MoveRight();
+//		}else{
+//			Idle();
+//		}
 	}
 
-	public void Left(){
-		buttonInput = -1;
+	public void MoveLeft(){
+		animator.SetTrigger("wizard_run_left");
+		Move(-1);
+		isLeft = true;
 	}
 
-	public void Right(){
-		buttonInput = 1;
+	public void MoveRight(){
+		animator.SetTrigger("wizard_run_right");
+		Move(1);
+		isLeft = false;
+	}
+	
+	public void Idle(){
+		animator.SetTrigger("wizard_idle");
+		Move(0);
 	}
 	
 	public void Spell(){
@@ -87,7 +91,7 @@ public class WizardController : MonoBehaviour {
 		rigidBody.velocity = transform.up * spellSpeed;
 	}
 	
-	public void Move(float horizontalInput){
+	private void Move(float horizontalInput){
 		Vector2 moveVel = myBody.velocity;
 		moveVel.x = horizontalInput * speed;
 		myBody.velocity = moveVel;
