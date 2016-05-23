@@ -14,6 +14,7 @@ public class WizardController : MonoBehaviour {
 
 	private bool isLeft = false;
 	private float spellExecution;
+	private float buttonInput;
 
 	private Animator animator;
 
@@ -27,8 +28,8 @@ public class WizardController : MonoBehaviour {
 	// Update is called once per frame
 	void Update (){
 
-		if (spellExecution >0 && spellExecution+SPELL_DELAY < Time.time) {
-			createSpellParticle();
+		if (spellExecution > 0 && spellExecution + SPELL_DELAY < Time.time) {
+			createSpellParticle ();
 			spellExecution = 0;
 		}
 
@@ -36,24 +37,48 @@ public class WizardController : MonoBehaviour {
 			Spell ();
 			return;
 		}
+
+		if (buttonInput != 0) {
+			if(buttonInput<0){
+				MoveLeft();
+			}else{
+				MoveRight();
+			}
 		
-//		float horizontalInput = Input.GetAxisRaw ("Horizontal");
-//		if (horizontalInput < 0) {
-//			MoveLeft();
-//		}else if(horizontalInput > 0){
-//			MoveRight();
-//		}else{
-//			Idle();
-//		}
+		} else {
+			//check keyboard input
+			float horizontalInput = Input.GetAxisRaw ("Horizontal");
+			if (horizontalInput < 0) {
+				MoveLeft ();
+			} else if (horizontalInput > 0) {
+				MoveRight ();
+			} else {
+				Idle ();
+			}
+		}
+
 	}
 
-	public void MoveLeft(){
+	public void LeftPressed(){
+		buttonInput = -1;
+	}
+
+	public void RightPressed(){
+		buttonInput = 1;
+
+	}
+
+	public void Released(){
+		buttonInput = 0;
+	}
+
+	private void MoveLeft(){;
 		animator.SetTrigger("wizard_run_left");
 		Move(-1);
 		isLeft = true;
 	}
 
-	public void MoveRight(){
+	private void MoveRight(){
 		animator.SetTrigger("wizard_run_right");
 		Move(1);
 		isLeft = false;
