@@ -311,7 +311,6 @@ GameObject:
   - 222: {fileID: 465922410}
   - 114: {fileID: 465922409}
   - 114: {fileID: 465922408}
-  - 114: {fileID: 465922407}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -337,17 +336,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -156}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
---- !u!114 &465922407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 465922405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbdbae1767e0e45c885e3fbeb92e3aa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &465922408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +375,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 465922407}
+      - m_Target: {fileID: 0}
         m_MethodName: loadLevel1
         m_Mode: 1
         m_Arguments:

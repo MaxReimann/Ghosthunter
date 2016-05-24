@@ -20,7 +20,7 @@ public class TimerController : MonoBehaviour {
 		timer -= Time.deltaTime;
 		txt.text = "Time: "+(int)timer;
 		if (timer < 1) {
-			gameManager.timeout();
+			gameManager.loadTimeout();
 		}
 	}
 }

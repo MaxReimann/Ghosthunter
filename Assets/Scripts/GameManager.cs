@@ -6,9 +6,10 @@ public class GameManager : MonoBehaviour
 {
 	
 	public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
-	
+
 	private int score = 0;
 	private int ghosts = 1; // number of ghosts in current level
+	private string currentLevel;
 
 	//Awake is always called before any Start functions
 	void Awake()
@@ -65,21 +66,73 @@ public class GameManager : MonoBehaviour
 	}
 
 	public void nextLevel(){
-		string levelName = Application.loadedLevelName;
-		int nextLevel = int.Parse(levelName.Substring(levelName.Length - 1))+1;
-		if (nextLevel > 4) {
+
+		if (currentLevel == "Level5") {
 			Application.LoadLevel("Win");
 			return;
 		}
-		Application.LoadLevel("Level"+nextLevel);
+
+		if (currentLevel == null) {
+			loadLevel1();
+		}else if (currentLevel == "Level1") {
+			loadLevel2();
+		}else if (currentLevel == "Level2") {
+			loadLevel3();
+		}else if (currentLevel == "Level3") {
+			loadLevel4();
+		}else if (currentLevel == "Level4") {
+			loadLevel5();
+		}
 		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 	}
-
-	public void gameOver(){
+	
+	public void reloadLevel(){
+		Application.LoadLevel(currentLevel);
+	}
+	
+	public void loadLevel1(){
+		currentLevel = "Level1";
+		Application.LoadLevel(currentLevel);
+	}
+	
+	public void loadLevel2(){
+		currentLevel = "Level2";
+		Application.LoadLevel(currentLevel);
+	}
+	
+	public void loadLevel3(){
+		currentLevel = "Level3";
+		Application.LoadLevel(currentLevel);
+	}
+	
+	public void loadLevel4(){
+		currentLevel = "Level4";
+		Application.LoadLevel(currentLevel);
+	}
+	
+	public void loadLevel5(){
+		currentLevel = "Level5";
+		Application.LoadLevel(currentLevel);
+	}
+	
+	public void LoadMainMenu(){
+		Application.LoadLevel("Menu");
+	}
+	
+	public void LoadLevelOverview(){
+		Application.LoadLevel("Levels");
+	}
+	
+	public void loadGameOver(){
 		Application.LoadLevel("GameOver");
 	}
-
-	public void timeout(){
+	
+	public void loadTimeout(){
 		Application.LoadLevel("Timeout");
 	}
+	
+	public void loadWin(){
+		Application.LoadLevel("Win");
+	}
+
 }

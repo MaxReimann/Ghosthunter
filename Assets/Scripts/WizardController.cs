@@ -129,7 +129,7 @@ public class WizardController : MonoBehaviour {
 	//		{
 				//TODO decrease life or gameOver
 				Destroy(gameObject);
-				gameManager.gameOver();
+				gameManager.loadGameOver();
 		//	}
 		}
 	}
