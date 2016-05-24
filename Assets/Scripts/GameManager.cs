@@ -87,6 +87,10 @@ public class GameManager : MonoBehaviour
 	}
 	
 	public void reloadLevel(){
+		if (currentLevel == null) {
+			loadLevel1();
+			return;
+		}
 		Application.LoadLevel(currentLevel);
 	}
 	
