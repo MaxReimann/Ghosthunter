@@ -521,7 +521,6 @@ GameObject:
   - 92: {fileID: 730449372}
   - 124: {fileID: 730449371}
   - 81: {fileID: 730449370}
-  - 114: {fileID: 730449374}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -602,18 +601,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
   m_StereoMirrorMode: 0
---- !u!114 &730449374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 730449368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69d645d220e8a674c98f372ea5865efd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 159146, guid: db74a426c374f004e9ed3b3884d40e81, type: 2}
 --- !u!114 &745961800 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11492370, guid: c7df5e10f8866904caf031a98153cfcc,
@@ -1620,7 +1607,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c3c4b1804a4ce4a18af30481201c2ab6, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -2,50 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager{
 	
-	public static GameManager instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
+	private static GameManager instance;
 
+	private GameManager(){
+
+	}
+
+	public static GameManager GetInstance(){
+		if(instance == null){
+			instance = new GameManager();
+		}
+		return instance;
+	}
+
+	
 	private int score = 0;
 	private int ghosts = 1; // number of ghosts in current level
 	private string currentLevel;
-
-	//Awake is always called before any Start functions
-	void Awake()
-	{
-		//Check if instance already exists
-		if (instance == null)
-			//if not, set instance to this
-			instance = this;
-		
-		//If instance already exists and it's not this:
-		else if (instance != this)
-			//Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
-			Destroy(gameObject);    
-		
-		//Sets this to not be destroyed when reloading scene
-		DontDestroyOnLoad(gameObject);
-		
-
-		//Call the InitGame function to initialize the first level 
-		InitGame();
-	}
-	
-	//Initializes the game for each level.
-	void InitGame()
-	{
-		//setup the scene
-		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
-	}
-	
-	
-	
-	//Update is called every frame.
-	void Update()
-	{
-		
-	}
 
 	public void decreaseGhostCount(){
 		this.ghosts--;
@@ -65,25 +40,66 @@ public class GameManager : MonoBehaviour
 		return score;
 	}
 
+	public void setCurrentLevel(string level){
+		this.currentLevel = level;
+	}
+	
+	public string getCurrentLevel(){
+		return this.currentLevel;
+	}
+	
 	public void nextLevel(){
-
+		
+		if (currentLevel == "Level1") {
+			loadLevel2();
+			return;
+		}
+		if (currentLevel == "Level2") {
+			loadLevel3();
+			return;
+		}
+		if (currentLevel == "Level3") {
+			loadLevel4();
+			return;
+		}
+		if (currentLevel == "Level4") {
+			loadLevel5();
+			return;
+		}
 		if (currentLevel == "Level5") {
 			Application.LoadLevel("Win");
 			return;
 		}
-
-		if (currentLevel == null) {
-			loadLevel1();
-		}else if (currentLevel == "Level1") {
-			loadLevel2();
-		}else if (currentLevel == "Level2") {
-			loadLevel3();
-		}else if (currentLevel == "Level3") {
-			loadLevel4();
-		}else if (currentLevel == "Level4") {
-			loadLevel5();
-		}
-		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
+		
+		loadLevel1 ();
+	}
+	
+	public void timeout(){
+		Application.LoadLevel("Timeout");
+	}
+	
+	public void gameOver(){
+		Application.LoadLevel("GameOver");
+	}
+	
+	public void loadLevel1(){
+		loadLevel ("Level1");
+	}
+	
+	public void loadLevel2(){
+		loadLevel ("Level2");
+	}
+	
+	public void loadLevel3(){
+		loadLevel ("Level3");
+	}
+	
+	public void loadLevel4(){
+		loadLevel ("Level4");
+	}
+	
+	public void loadLevel5(){
+		loadLevel ("Level5");
 	}
 	
 	public void reloadLevel(){
@@ -91,52 +107,14 @@ public class GameManager : MonoBehaviour
 			loadLevel1();
 			return;
 		}
-		Application.LoadLevel(currentLevel);
+		loadLevel (currentLevel);
 	}
 	
-	public void loadLevel1(){
-		currentLevel = "Level1";
-		Application.LoadLevel(currentLevel);
-	}
-	
-	public void loadLevel2(){
-		currentLevel = "Level2";
-		Application.LoadLevel(currentLevel);
-	}
-	
-	public void loadLevel3(){
-		currentLevel = "Level3";
-		Application.LoadLevel(currentLevel);
-	}
-	
-	public void loadLevel4(){
-		currentLevel = "Level4";
-		Application.LoadLevel(currentLevel);
-	}
-	
-	public void loadLevel5(){
-		currentLevel = "Level5";
-		Application.LoadLevel(currentLevel);
-	}
-	
-	public void LoadMainMenu(){
-		Application.LoadLevel("Menu");
-	}
-	
-	public void LoadLevelOverview(){
-		Application.LoadLevel("Levels");
-	}
-	
-	public void loadGameOver(){
-		Application.LoadLevel("GameOver");
-	}
-	
-	public void loadTimeout(){
-		Application.LoadLevel("Timeout");
-	}
-	
-	public void loadWin(){
-		Application.LoadLevel("Win");
+	private void loadLevel(string level){
+		Debug.Log (level);
+		this.currentLevel = level;
+		Application.LoadLevel(level);
+		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 	}
 
 }

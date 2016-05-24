@@ -22,7 +22,7 @@ public class WizardController : MonoBehaviour {
 	void Start (){
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		gameManager = GameManager.instance;
+		gameManager = GameManager.GetInstance();
 	}
 
 	// Update is called once per frame
@@ -129,7 +129,7 @@ public class WizardController : MonoBehaviour {
 	//		{
 				//TODO decrease life or gameOver
 				Destroy(gameObject);
-				gameManager.loadGameOver();
+				gameManager.gameOver();
 		//	}
 		}
 	}

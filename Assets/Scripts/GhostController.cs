@@ -42,7 +42,7 @@ public class GhostController : MonoBehaviour {
  		ghostType = GhostTypes.getType (cleanedName);
 		startY = ghostType.bounceHeight;
 
-		gameManager = GameManager.instance;
+		gameManager = GameManager.GetInstance();
 
 		animator = GetComponent<Animator> ();
 
