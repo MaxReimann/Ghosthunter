@@ -84,49 +84,51 @@ public class GhostController : MonoBehaviour {
 	}
 
 	private void doSpellCollision(){
-
+		gameManager.addScore (2);
 		Destroy (this.gameObject);
 
-		if (ghostType.name == "L1Ghost")
-			gameManager.decreaseGhostCount ();
-		else
-			gameManager.increaseGhostCount ();
-		gameManager.addScore (2);
+		string nextType = ghostType.splitInto; 
+		if (nextType != "None") {
+			Object resource = Resources.Load (nextType);
+			createNewGhosts(resource);
+		}
+
+		int ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
+		if (ghostCount == 0) {
+			gameManager.nextLevel();
+		}
+	}
+
+	private void createNewGhosts(Object originalResource){
 
 		// add offset only if not to close to the walls
 		Vector2 start = transform.position;
 		float leftOffset = start.x - 1 > leftBorder.bounds.center.x + leftBorder.bounds.extents.x ? -1f : 0f;
 		float rightOffset = start.x + 1 < rightBorder.bounds.center.x - leftBorder.bounds.extents.x ? 1f : 0f;
 
-		string nextType = ghostType.splitInto;
-
-		// don't instatiate new game objects. 
-		if (nextType != "None") {
-
-			// create left and right ghost from prefabs
-			GameObject leftGhost = Instantiate (Resources.Load (nextType), start + new Vector2 (leftOffset, 0), Quaternion.identity) as GameObject;
-			GameObject rightGhost = Instantiate (Resources.Load (nextType), start + new Vector2 (rightOffset, 0), Quaternion.identity) as GameObject;
-			GhostController leftGhostController = leftGhost.GetComponent<GhostController> ();
-			GhostController rightGhostController = rightGhost.GetComponent<GhostController> ();
-
-			// boost temporarly to heigher y position
-			float newYVel = Mathf.Sqrt (2 * -splitYGain * Physics2D.gravity.y * rigidBody.gravityScale);
-			leftGhostController.inVel = new Vector2 (0, newYVel);
-			rightGhostController.inVel = new Vector2 (0, newYVel);
-
-			leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
-
-			PolygonCollider2D leftGhostCollider = leftGhost.GetComponent<PolygonCollider2D> ();
-			if (leftGhostCollider.IsTouching (leftBorder)) {
-				print ("Warning: Left ghost touching wall)");
-				leftGhost.GetComponent<Rigidbody2D> ().MovePosition (start + new Vector2 (1, 0));
-			}
-
-			PolygonCollider2D rightGhostCollider = rightGhost.GetComponent<PolygonCollider2D> ();
-			if (rightGhostCollider.IsTouching (rightBorder)) {
-				print ("Warning: Right ghost touching wall)");
-				rightGhost.GetComponent<Rigidbody2D> ().MovePosition (start - new Vector2 (1, 0));
-			}
+		// create left and right ghost from prefabs
+		GameObject leftGhost = Instantiate (originalResource, start + new Vector2 (leftOffset, 0), Quaternion.identity) as GameObject;
+		GameObject rightGhost = Instantiate (originalResource, start + new Vector2 (rightOffset, 0), Quaternion.identity) as GameObject;
+		GhostController leftGhostController = leftGhost.GetComponent<GhostController> ();
+		GhostController rightGhostController = rightGhost.GetComponent<GhostController> ();
+		
+		// boost temporarly to heigher y position
+		float newYVel = Mathf.Sqrt (2 * -splitYGain * Physics2D.gravity.y * rigidBody.gravityScale);
+		leftGhostController.inVel = new Vector2 (0, newYVel);
+		rightGhostController.inVel = new Vector2 (0, newYVel);
+		
+		leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
+		
+		PolygonCollider2D leftGhostCollider = leftGhost.GetComponent<PolygonCollider2D> ();
+		if (leftGhostCollider.IsTouching (leftBorder)) {
+			print ("Warning: Left ghost touching wall)");
+			leftGhost.GetComponent<Rigidbody2D> ().MovePosition (start + new Vector2 (1, 0));
+		}
+		
+		PolygonCollider2D rightGhostCollider = rightGhost.GetComponent<PolygonCollider2D> ();
+		if (rightGhostCollider.IsTouching (rightBorder)) {
+			print ("Warning: Right ghost touching wall)");
+			rightGhost.GetComponent<Rigidbody2D> ().MovePosition (start - new Vector2 (1, 0));
 		}
 	}
 

@@ -6,6 +6,9 @@ public class GameManager{
 	
 	private static GameManager instance;
 
+	private int score = 0;
+	private string currentLevel;
+
 	private GameManager(){
 
 	}
@@ -15,21 +18,6 @@ public class GameManager{
 			instance = new GameManager();
 		}
 		return instance;
-	}
-
-	
-	private int score = 0;
-	private int ghosts = 1; // number of ghosts in current level
-	private string currentLevel;
-
-	public void decreaseGhostCount(){
-		this.ghosts--;
-		if (this.ghosts <= 0)
-			nextLevel ();
-	}
-
-	public void increaseGhostCount(){
-		this.ghosts++;
 	}
 
 	public void addScore(int score){
@@ -114,7 +102,6 @@ public class GameManager{
 		Debug.Log (level);
 		this.currentLevel = level;
 		Application.LoadLevel(level);
-		this.ghosts = GameObject.FindGameObjectsWithTag("Ghost").Length ;
 	}
 
 }
