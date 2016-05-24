@@ -76,7 +76,9 @@ public class GhostController : MonoBehaviour {
 		audio.Play();
 
 		if (ghostType.name == "L1Ghost") {
-			doSpellCollision();
+			//TODO ghost vanish animation
+			//animator.SetTrigger ("ghost_split");
+			Invoke ("doSpellCollision", 0.5f);
 		} else {
 			animator.SetTrigger ("ghost_split");
 			Invoke ("doSpellCollision", 0.5f);
