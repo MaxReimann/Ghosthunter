@@ -22,7 +22,7 @@ public class WizardController : MonoBehaviour {
 	void Start (){
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
-		gameManager = GameManager.instance;
+		gameManager = GameManager.GetInstance();
 	}
 
 	// Update is called once per frame
@@ -120,6 +120,13 @@ public class WizardController : MonoBehaviour {
 		Vector2 moveVel = myBody.velocity;
 		moveVel.x = horizontalInput * speed;
 		myBody.velocity = moveVel;
+	}
+
+	public void setToPosition(Vector2 pos)
+	{
+		this.transform.position = pos;
+		Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
+		rigidBody.position = pos;
 	}
 
 	void OnCollisionEnter2D(Collision2D coll)

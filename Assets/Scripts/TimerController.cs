@@ -12,7 +12,7 @@ public class TimerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		txt = gameObject.GetComponent<Text>(); 
-		gameManager = GameManager.instance;
+		gameManager = GameManager.GetInstance();
 	}
 	
 	// Update is called once per frame

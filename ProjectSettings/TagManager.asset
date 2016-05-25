@@ -30,7 +30,7 @@ TagManager:
   - Ghosts
   - GhostBorder
   - NonCollGhosts
-  - 
+  - Triggers
   - 
   - 
   - 
@@ -54,6 +54,9 @@ TagManager:
   - name: Backgrounds
     uniqueID: 2460836535
     locked: 0
+  - name: Borders
+    uniqueID: 1955535759
+    locked: 0
   - name: Wizards
     uniqueID: 3388581763
     locked: 0
@@ -62,4 +65,7 @@ TagManager:
     locked: 0
   - name: Spells
     uniqueID: 615155857
+    locked: 0
+  - name: Fire
+    uniqueID: 2471405705
     locked: 0
