@@ -4,13 +4,12 @@ using UnityEngine.UI;
 public class ScoreController : MonoBehaviour {
 
 	Text txt;
-	int score = -1;
 	GameManager gameManager;
 
 	// Use this for initialization
 	void Start () {
 		txt = gameObject.GetComponent<Text>(); 
-		gameManager = GameManager.instance;
+		gameManager = GameManager.GetInstance();
 	}
 	
 	// Update is called once per frame

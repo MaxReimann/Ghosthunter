@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TimerController : MonoBehaviour {
 
-	public float timer = 30;
+	private float timer = 40;
 	private Text txt;
 
 	private GameManager gameManager;
@@ -12,7 +12,7 @@ public class TimerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		txt = gameObject.GetComponent<Text>(); 
-		gameManager = GameManager.instance;
+		gameManager = GameManager.GetInstance();
 	}
 	
 	// Update is called once per frame
@@ -20,8 +20,7 @@ public class TimerController : MonoBehaviour {
 		timer -= Time.deltaTime;
 		txt.text = "Time: "+(int)timer;
 		if (timer < 1) {
-			//game over
-			gameManager.gameOver();
+			gameManager.timeout();
 		}
 	}
 }
