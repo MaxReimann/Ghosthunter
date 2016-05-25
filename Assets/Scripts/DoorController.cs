@@ -20,9 +20,8 @@ public class DoorController : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll)
 	{
-		print ("triggered");
-		if (coll.gameObject.CompareTag ("Wizards") && !wasJustTeleported) {
 
+		if (coll.gameObject.CompareTag ("Wizards") && !wasJustTeleported) {
 			WizardController wizardController = coll.gameObject.GetComponent<WizardController>();
 			wizardController.setToPosition( otherController.dropOffLocation );
 			otherController.wasJustTeleported = true;
