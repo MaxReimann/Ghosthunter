@@ -16,7 +16,7 @@ public class GhostController : MonoBehaviour {
 	// additional height gain directly after splitting ghosts
 	private float splitYGain = 1.5f;
 	// time to be unreactive on collisions with player character after split
-	private const float unreactiveTime = 0.6f; 
+	private const float unreactiveTime = 0.3f; 
 	private float nonCollisionTimer = 0.0f;
 	private bool unreactiveTimerFinished = false;
 	private Animator animator;
@@ -46,10 +46,8 @@ public class GhostController : MonoBehaviour {
 
 		animator = GetComponent<Animator> ();
 
-		nonCollisionTimer = unreactiveTime;
-		//GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
-		//ignore wizard collision until timer is run down
-		this.gameObject.layer = LayerMask.NameToLayer("NonCollGhosts");
+		beNonReactive (unreactiveTime);
+
 	}
 	
 	// Update is called once per frame
@@ -67,6 +65,13 @@ public class GhostController : MonoBehaviour {
 		}
 	}
 
+	void beNonReactive(float time)
+	{
+		nonCollisionTimer = time;
+		//ignore wizard collision until timer is run down
+		this.gameObject.layer = LayerMask.NameToLayer("NonCollGhosts");
+	}
+
 	public bool nonColliding() {
 		return nonCollisionTimer > 0.0f;
 	}
@@ -75,9 +80,12 @@ public class GhostController : MonoBehaviour {
 		AudioSource audio = GetComponent<AudioSource>();
 		audio.Play();
 
+		//set to unreactiveness until death
+		beNonReactive (10.0f);
+
 		if (ghostType.name == "L1Ghost") {
 			//TODO ghost vanish animation
-			//animator.SetTrigger ("ghost_split");
+			animator.SetTrigger ("ghost_disappear");
 			Invoke ("doSpellCollision", 0.5f);
 		} else {
 			animator.SetTrigger ("ghost_split");
