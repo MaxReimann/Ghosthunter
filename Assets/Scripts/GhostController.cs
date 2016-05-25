@@ -133,7 +133,7 @@ public class GhostController : MonoBehaviour {
 			rightGhost.GetComponent<Rigidbody2D> ().MovePosition (start - new Vector2 (1, 0));
 		}
 	}
-
+	
 
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
 	void OnCollisionEnter2D(Collision2D coll)
@@ -143,15 +143,16 @@ public class GhostController : MonoBehaviour {
 			return;
 		}
 
-		
 		ContactPoint2D hit = coll.contacts[0]; //(for debug only) the first contact is enough
 		//Vector3 outVel = Vector3.Reflect(inVel, hit.normal);
+		print (inVel);
 		if (hit.normal.x < 0) {
 			rigidBody.velocity = new Vector2 (- velX, inVel.y);
 		} else if (hit.normal.x > 0) {
 			rigidBody.velocity = new Vector2 (velX, inVel.y);
 		}
 		else {
+
 			float sign = Mathf.Abs(inVel.x) > 0.0f ? inVel.x / Mathf.Abs (inVel.x) : 0.0f;
 			rigidBody.velocity = new Vector2 (velX * sign, rigidBody.velocity.y);
 		}
@@ -171,9 +172,7 @@ public class GhostController : MonoBehaviour {
 				newYVel = 1f;
 			rigidBody.velocity = new Vector2( rigidBody.velocity.x, newYVel);
 		}
-
-		//save now, because sometimes collision happens before next FixedUpdate tick
-//		inVel = this.rigidBody.velocity;
+		
 	}
 }
 
