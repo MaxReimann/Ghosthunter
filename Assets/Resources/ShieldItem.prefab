@@ -56,7 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 1
   spellType: 0
-  lifeTime: 0
+  itemLifeTime: 0
 --- !u!212 &21270172
 SpriteRenderer:
   m_ObjectHideFlags: 1

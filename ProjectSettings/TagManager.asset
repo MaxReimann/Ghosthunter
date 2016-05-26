@@ -16,6 +16,7 @@ TagManager:
   - RightBorder
   - PermanentSpellItem
   - ShieldItem
+  - Shield
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,7 @@ public class WizardController : MonoBehaviour {
 	private Animator animator;
 
 	private SpellController.SpellType spellType = SpellController.SpellType.Normal;
+	private bool shieldActive = false;
 
 	// Use this for initialization
 	void Start (){
@@ -63,6 +64,18 @@ public class WizardController : MonoBehaviour {
 
 	public void SetSpellType(SpellController.SpellType type){
 		this.spellType = type;
+	}
+
+	public void ActivateShield(float time){
+		GameObject shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
+		shieldActive = true;
+
+		Invoke ("DeactivateShield", time);
+	}
+
+	public void DeactivateShield(){
+		shieldActive = false;
+		Destroy (GameObject.FindGameObjectWithTag ("Shield"));
 	}
 
 
@@ -148,7 +161,7 @@ public class WizardController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if (coll.gameObject.tag == "Ghost") {
+		if (coll.gameObject.tag == "Ghost" && !shieldActive) {
 				Destroy(gameObject);
 				gameManager.gameOver();
 		}
