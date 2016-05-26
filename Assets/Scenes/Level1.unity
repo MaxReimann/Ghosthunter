@@ -565,7 +565,7 @@ Transform:
   m_LocalScale: {x: 2.7147975, y: 2.16670275, z: 1}
   m_Children: []
   m_Father: {fileID: 730449369}
-  m_RootOrder: 4
+  m_RootOrder: 2
 --- !u!212 &653281853
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -676,9 +676,9 @@ Transform:
   m_Children:
   - {fileID: 1405508809}
   - {fileID: 61041429}
+  - {fileID: 653281852}
   - {fileID: 664988741}
   - {fileID: 175918064}
-  - {fileID: 653281852}
   - {fileID: 520337405}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -1312,7 +1312,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 421244, guid: c7df5e10f8866904caf031a98153cfcc, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 420408, guid: c7df5e10f8866904caf031a98153cfcc, type: 2}
       propertyPath: m_RootOrder
