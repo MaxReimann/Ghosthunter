@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
-  spellType: 0
+  spellType: 1
   lifeTime: 0
 --- !u!212 &21276924
 SpriteRenderer:

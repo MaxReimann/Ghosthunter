@@ -1,15 +1,15 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &182448
+--- !u!1 &118240
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 443548}
-  - 61: {fileID: 6187404}
-  - 212: {fileID: 21285328}
+  - 4: {fileID: 494220}
+  - 61: {fileID: 6138054}
+  - 212: {fileID: 21278744}
   m_Layer: 9
   m_Name: Border (bottom)
   m_TagString: Untagged
@@ -17,24 +17,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &443548
+--- !u!4 &494220
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182448}
+  m_GameObject: {fileID: 118240}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: .00999999978, y: -3.97000003, z: 10}
   m_LocalScale: {x: 2.84083319, y: 2.59348798, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6187404
+--- !u!61 &6138054
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182448}
+  m_GameObject: {fileID: 118240}
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -42,12 +42,12 @@ BoxCollider2D:
   m_Offset: {x: .000568344083, y: -.0077995914}
   serializedVersion: 2
   m_Size: {x: 6.27613163, y: .760861278}
---- !u!212 &21285328
+--- !u!212 &21278744
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 182448}
+  m_GameObject: {fileID: 118240}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -66,7 +66,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1834130761
+  m_SortingLayerID: 1955535759
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 01914aedaf69c4395a95c1cb8d95de6e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -79,5 +79,5 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 182448}
+  m_RootGameObject: {fileID: 118240}
   m_IsPrefabParent: 1
