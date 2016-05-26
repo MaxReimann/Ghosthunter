@@ -11,12 +11,11 @@ public class SpellController : MonoBehaviour {
 	private bool isHalted = false;
 	private static float haltTime = 5.0f;
 
-	public SpellType spellType;
+	public SpellType spellType; //set in inspector
 
 	// Use this for initialization
 	void Start () {
 		transform.GetChild(0).GetComponent<Renderer>().sortingLayerName="Spells";
-		this.spellType = SpellType.Normal; //default
 	}
 	
 	// Update is called once per frame
