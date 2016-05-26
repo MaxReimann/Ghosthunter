@@ -151,6 +151,8 @@ public class GhostController : MonoBehaviour {
 			return;
 		}
 
+		animator.SetTrigger ("ghost_bounce");
+
 		ContactPoint2D hit = coll.contacts[0]; //(for debug only) the first contact is enough
 		//Vector3 outVel = Vector3.Reflect(inVel, hit.normal);
 		print (inVel);
