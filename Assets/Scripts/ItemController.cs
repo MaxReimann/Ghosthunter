@@ -10,6 +10,7 @@ public class ItemController : MonoBehaviour {
 
 
 	public ItemType itemType; //set in inspector
+	[Tooltip("Only used, if item type is spell")]
 	public SpellController.SpellType spellType; //set in inspector
 	public float lifeTime; //time of apperance in seconds
 
