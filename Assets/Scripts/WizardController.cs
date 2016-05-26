@@ -18,6 +18,8 @@ public class WizardController : MonoBehaviour {
 
 	private Animator animator;
 
+	private SpellController.SpellType spellType = SpellController.SpellType.Normal;
+
 	// Use this for initialization
 	void Start (){
 		myBody = GetComponent<Rigidbody2D>();
@@ -58,6 +60,11 @@ public class WizardController : MonoBehaviour {
 		}
 
 	}
+
+	public void SetSpellType(SpellController.SpellType type){
+		this.spellType = type;
+	}
+
 
 	public void LeftPressed(){
 		buttonInput = -1;
@@ -111,9 +118,16 @@ public class WizardController : MonoBehaviour {
 	private void createSpellParticle(){
 		AudioSource audio = GetComponent<AudioSource>();
 		audio.Play();
+		
+		string prefab = "NormalSpell";
+		switch (this.spellType) {
+			case SpellController.SpellType.Normal:
+				prefab = "NormalSpell"; break;
+			case SpellController.SpellType.Permanent:
+				prefab = "PermanentSpell"; break;
+		}
 
-		//GameObject spell = Instantiate(Resources.Load("Spell"), spellStartPoint, Quaternion.identity) as GameObject;
-		GameObject spell = Instantiate(Resources.Load("PermanentSpell"), spellStartPoint, Quaternion.identity) as GameObject;
+		GameObject spell = Instantiate(Resources.Load(prefab), spellStartPoint, Quaternion.identity) as GameObject;
 
 		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
 		rigidBody.velocity = transform.up * spellSpeed;
@@ -135,12 +149,8 @@ public class WizardController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (coll.gameObject.tag == "Ghost") {
-//			if (!coll.gameObject.GetComponent<GhostController>().nonColliding())
-	//		{
-				//TODO decrease life or gameOver
 				Destroy(gameObject);
 				gameManager.gameOver();
-		//	}
 		}
 	}
 }

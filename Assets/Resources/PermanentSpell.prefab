@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cbbe8ce8cf57cf45b6cb2d0dbc585b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellType: 0
+  spellType: 1
 --- !u!114 &11499980
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1198,7 +1198,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: spellType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 188030}
