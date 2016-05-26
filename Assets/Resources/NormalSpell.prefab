@@ -45,7 +45,7 @@ GameObject:
   - 50: {fileID: 5020730}
   - 114: {fileID: 11446042}
   m_Layer: 10
-  m_Name: Spell
+  m_Name: NormalSpell
   m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

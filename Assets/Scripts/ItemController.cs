@@ -27,6 +27,7 @@ public class ItemController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll)
 	{
 		if (coll.gameObject.CompareTag ("Wizard")) {
+			print("triggered");
 			WizardController wizardController = GameObject.FindGameObjectWithTag ("Wizard").GetComponent<WizardController> ();
 
 			if (itemType == ItemType.Spell){
