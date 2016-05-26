@@ -111,7 +111,11 @@ public class WizardController : MonoBehaviour {
 	private void createSpellParticle(){
 		AudioSource audio = GetComponent<AudioSource>();
 		audio.Play();
-		GameObject spell = Instantiate(Resources.Load("Spell"), spellStartPoint, Quaternion.identity) as GameObject;
+
+		//GameObject spell = Instantiate(Resources.Load("Spell"), spellStartPoint, Quaternion.identity) as GameObject;
+		GameObject spell = Instantiate(Resources.Load("PermanentSpell"), spellStartPoint, Quaternion.identity) as GameObject;
+		spell.GetComponent<SpellController> ().spellType = SpellController.SpellType.Permanent;
+
 		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
 		rigidBody.velocity = transform.up * spellSpeed;
 	}

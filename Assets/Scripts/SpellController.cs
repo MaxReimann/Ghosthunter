@@ -16,7 +16,7 @@ public class SpellController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		transform.GetChild(0).GetComponent<Renderer>().sortingLayerName="Spells";
-		this.spellType = SpellType.Permanent;
+		this.spellType = SpellType.Normal; //default
 	}
 	
 	// Update is called once per frame
