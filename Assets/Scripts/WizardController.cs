@@ -67,7 +67,7 @@ public class WizardController : MonoBehaviour {
 	}
 
 	public void ActivateShield(float time){
-		GameObject shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
+		Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
 		shieldActive = true;
 
 		Invoke ("DeactivateShield", time);
@@ -85,7 +85,6 @@ public class WizardController : MonoBehaviour {
 
 	public void RightPressed(){
 		buttonInput = 1;
-
 	}
 
 	public void Released(){
