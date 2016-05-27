@@ -12,7 +12,7 @@ GameObject:
   - 61: {fileID: 6187620}
   - 114: {fileID: 11457474}
   m_Layer: 15
-  m_Name: PermanentSpellItem
+  m_Name: permanentSpellItem
   m_TagString: PermanentSpellItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   spellType: 1
-  lifeTime: 0
+  itemLifeTime: 0
 --- !u!212 &21276924
 SpriteRenderer:
   m_ObjectHideFlags: 1
