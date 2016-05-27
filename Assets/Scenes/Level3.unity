@@ -96,6 +96,7 @@ GameObject:
   - 212: {fileID: 51185658}
   - 58: {fileID: 51185660}
   - 114: {fileID: 51185661}
+  - 95: {fileID: 51185662}
   m_Layer: 0
   m_Name: Saw
   m_TagString: LethalItem
@@ -168,6 +169,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction_up: 1
+--- !u!95 &51185662
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 51185657}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03d888bc8330f41f39617133693e2a71, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &175918064 stripped
 Transform:
   m_PrefabParentObject: {fileID: 471750, guid: ea0e063b2aee34249a227bc576b21082, type: 2}
@@ -363,6 +381,7 @@ GameObject:
   - 223: {fileID: 520337408}
   - 114: {fileID: 520337407}
   - 114: {fileID: 520337406}
+  - 95: {fileID: 520337409}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -446,6 +465,23 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!95 &520337409
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 520337404}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03d888bc8330f41f39617133693e2a71, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &653281851
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,6 +491,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 653281852}
   - 212: {fileID: 653281853}
+  - 95: {fileID: 653281854}
   m_Layer: 0
   m_Name: Background (Mountains)
   m_TagString: Backgrounds
@@ -502,6 +539,23 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4965b675c08e44979ab2c5b93e77d9ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!95 &653281854
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 653281851}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &664988741 stripped
 Transform:
   m_PrefabParentObject: {fileID: 448752, guid: de11ee56ccc35534790d5fa516762286, type: 2}
@@ -542,7 +596,7 @@ Transform:
   - {fileID: 520337405}
   - {fileID: 737604712}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!81 &730449370
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1327,6 +1381,7 @@ GameObject:
   - 212: {fileID: 1357751400}
   - 58: {fileID: 1357751399}
   - 114: {fileID: 1357751398}
+  - 95: {fileID: 1357751402}
   m_Layer: 0
   m_Name: Saw (1)
   m_TagString: LethalItem
@@ -1399,6 +1454,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
+--- !u!95 &1357751402
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1357751397}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03d888bc8330f41f39617133693e2a71, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1405508808
 GameObject:
   m_ObjectHideFlags: 0
