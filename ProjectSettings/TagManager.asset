@@ -17,6 +17,7 @@ TagManager:
   - PermanentSpellItem
   - ShieldItem
   - Shield
+  - LethalItem
   layers:
   - Default
   - TransparentFX
@@ -71,4 +72,7 @@ TagManager:
     locked: 0
   - name: Fire
     uniqueID: 2471405705
+    locked: 0
+  - name: Lethal Items
+    uniqueID: 2844963023
     locked: 0

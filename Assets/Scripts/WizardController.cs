@@ -161,7 +161,7 @@ public class WizardController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if (coll.gameObject.tag == "Ghost" && !shieldActive) {
+		if ((coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem") && !shieldActive) {
 				Destroy(gameObject);
 				gameManager.gameOver();
 		}

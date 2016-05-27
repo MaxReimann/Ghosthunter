@@ -146,6 +146,12 @@ public class GhostController : MonoBehaviour {
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
 	void OnCollisionEnter2D(Collision2D coll)
 	{
+
+		if (coll.gameObject.tag == "LethalItem") {
+			Physics2D.IgnoreCollision(coll.collider, GetComponent<Collider2D>());
+			return;
+		}
+
 		if (coll.gameObject.tag == "Spell") {
 			spellCollision();
 			return;
