@@ -125,7 +125,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1834130761
+  m_SortingLayerID: 1955535759
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0c6ac433824854471bf0531029675eb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -709,7 +709,7 @@ Transform:
   - {fileID: 520337405}
   - {fileID: 737604712}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
 --- !u!81 &730449370
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1175,7 +1175,6 @@ GameObject:
   - 33: {fileID: 1194537133}
   - 23: {fileID: 1194537132}
   - 61: {fileID: 1194537131}
-  - 114: {fileID: 1194537130}
   m_Layer: 0
   m_Name: Ceiling
   m_TagString: Untagged
@@ -1183,17 +1182,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1194537130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1194537129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f93a03a2def428cbdcc89821387e5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1194537131
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1422,7 +1410,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1834130761
+  m_SortingLayerID: 1955535759
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0c6ac433824854471bf0531029675eb4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1887,7 +1875,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &1591598720
 GameObject:
   m_ObjectHideFlags: 0
