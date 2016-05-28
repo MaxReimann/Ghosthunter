@@ -585,7 +585,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11450882, guid: 5aa7504c74e58ee40a698ee437f70445, type: 2}
       propertyPath: itemLifeTime
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5aa7504c74e58ee40a698ee437f70445, type: 2}

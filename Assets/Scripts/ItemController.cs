@@ -13,12 +13,17 @@ public class ItemController : MonoBehaviour {
 	[Tooltip("Only used, if item type is spell")]
 	public SpellController.SpellType spellType; //set in inspector
 
-	public float itemLifeTime; //time of apperance in seconds
+	public float itemLifeTime = 20.0f; //time of apperance in seconds
+	public float powerDuration = 10.0f; // duration of the items power on wizard
 
 
 	// Use this for initialization
 	void Start () {
-	
+		Invoke ("DestroyItem", itemLifeTime);	
+	}
+
+	void DeleteItem() {
+		Destroy (this.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -36,7 +41,7 @@ public class ItemController : MonoBehaviour {
 			}
 
 			if (itemType == ItemType.Shield){
-				wizardController.ActivateShield(6.0f);
+				wizardController.ActivateShield(powerDuration);
 			}
 			//TODO: add shield type
 

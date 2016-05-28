@@ -419,6 +419,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11457474, guid: f15bcf3d489441640b005d42e4973cb8, type: 2}
+      propertyPath: itemLifeTime
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11457474, guid: f15bcf3d489441640b005d42e4973cb8, type: 2}
+      propertyPath: powerDuration
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f15bcf3d489441640b005d42e4973cb8, type: 2}
   m_IsPrefabParent: 0
