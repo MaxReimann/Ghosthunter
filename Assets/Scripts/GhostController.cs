@@ -147,11 +147,6 @@ public class GhostController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 
-		if (coll.gameObject.tag == "LethalItem") {
-			Physics2D.IgnoreCollision(coll.collider, GetComponent<Collider2D>());
-			return;
-		}
-
 		if (coll.gameObject.tag == "Spell") {
 			spellCollision();
 			return;
