@@ -9,6 +9,9 @@ public class GameManager{
 	private int score = 0;
 	private string currentLevel;
 
+
+	private Dictionary<string, int> levelTimers;
+
 	private GameManager(){
 
 	}
@@ -20,7 +23,24 @@ public class GameManager{
 		return instance;
 	}
 
-	public void addScore(int score){
+	public int getTimer(string level) {
+		if (levelTimers == null) {
+			levelTimers = new Dictionary<string, int> (){
+				{"Level1", 30},
+				{"Level2", 40},
+				{"Level3", 30},
+				{"Level4", 30},
+				{"Level5", 30}
+			};
+		}
+
+		if (level == null)
+			level = "Level1"; //for debug in-editor starts
+
+		return levelTimers [level];
+	}
+		
+		public void addScore(int score){
 		this.score += score;
 	}
 
