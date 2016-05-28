@@ -95,7 +95,7 @@ GameObject:
   - 4: {fileID: 1062372}
   - 212: {fileID: 1062371}
   m_Layer: 0
-  m_Name: Object_16 (1)
+  m_Name: Figure2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ GameObject:
   - 4: {fileID: 36425095}
   - 212: {fileID: 36425094}
   m_Layer: 0
-  m_Name: Object_14 (1)
+  m_Name: Banner1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +209,7 @@ GameObject:
   - 58: {fileID: 51185660}
   - 114: {fileID: 51185661}
   - 95: {fileID: 51185662}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Saw
   m_TagString: LethalItem
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &376751592
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1707,7 +1707,7 @@ GameObject:
   - 4: {fileID: 1304612888}
   - 212: {fileID: 1304612887}
   m_Layer: 0
-  m_Name: Object_14
+  m_Name: Banner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1763,7 +1763,7 @@ GameObject:
   - 4: {fileID: 1314047219}
   - 212: {fileID: 1314047218}
   m_Layer: 0
-  m_Name: Object_16
+  m_Name: Figure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1821,7 +1821,7 @@ GameObject:
   - 58: {fileID: 1357751399}
   - 114: {fileID: 1357751398}
   - 95: {fileID: 1357751402}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Saw (1)
   m_TagString: LethalItem
   m_Icon: {fileID: 0}
