@@ -30,6 +30,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &152584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 430640}
+  m_Layer: 0
+  m_Name: L1BounceHeight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &175892
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,7 +54,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 420060}
   m_Layer: 0
-  m_Name: L1BounceHeight
+  m_Name: L1BounceHeightHigh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,7 +82,19 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 175892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.46000004, y: -.189999998, z: 0}
+  m_LocalPosition: {x: -3.46000004, y: 3.71000004, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 489528}
+  m_RootOrder: 3
+--- !u!4 &430640
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152584}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.46000004, y: -.50999999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 489528}
@@ -79,7 +106,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 108632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.46000004, y: 1.07000005, z: 0}
+  m_LocalPosition: {x: -3.46000004, y: .170000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 489528}
@@ -106,9 +133,10 @@ Transform:
   m_LocalPosition: {x: 9.90999985, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 420060}
+  - {fileID: 430640}
   - {fileID: 456128}
   - {fileID: 459062}
+  - {fileID: 420060}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1001 &100100000
