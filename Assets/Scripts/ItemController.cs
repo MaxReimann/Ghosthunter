@@ -22,7 +22,7 @@ public class ItemController : MonoBehaviour {
 		Invoke ("DestroyItem", itemLifeTime);	
 	}
 
-	void DeleteItem() {
+	public void DestroyItem() {
 		Destroy (this.gameObject);
 	}
 	
