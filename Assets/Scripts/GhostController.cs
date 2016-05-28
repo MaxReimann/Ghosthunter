@@ -168,7 +168,11 @@ public class GhostController : MonoBehaviour {
 		}
 		else {
 
-			float sign = Mathf.Abs(inVel.x) > 0.0f ? inVel.x / Mathf.Abs (inVel.x) : 0.0f;
+			float sign;
+			if (Mathf.Abs(inVel.x) > 0.0f)
+				sign = inVel.x / Mathf.Abs (inVel.x);
+			else 
+				 sign = Mathf.Round( Random.Range(0.0f,1.0f) ); 
 			rigidBody.velocity = new Vector2 (velX * sign, rigidBody.velocity.y);
 		}
 		if(hit.normal.y < 0)
@@ -187,6 +191,8 @@ public class GhostController : MonoBehaviour {
 				newYVel = 1f;
 			rigidBody.velocity = new Vector2( rigidBody.velocity.x, newYVel);
 		}
+
+
 		
 	}
 }
