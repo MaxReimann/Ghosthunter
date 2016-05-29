@@ -5,7 +5,8 @@ public class ItemController : MonoBehaviour {
 
 	public enum ItemType {
 		Spell,
-		Shield
+		Shield,
+		AddonTime
 	};
 
 
@@ -16,10 +17,11 @@ public class ItemController : MonoBehaviour {
 	public float itemLifeTime = 20.0f; //time of apperance in seconds
 	public float powerDuration = 10.0f; // duration of the items power on wizard
 
-
+	private GameManager gameManager;
 	// Use this for initialization
 	void Start () {
 		Invoke ("DestroyItem", itemLifeTime);	
+		gameManager = GameManager.GetInstance ();
 	}
 
 	public void DestroyItem() {
@@ -43,7 +45,10 @@ public class ItemController : MonoBehaviour {
 			if (itemType == ItemType.Shield){
 				wizardController.ActivateShield(powerDuration);
 			}
-			//TODO: add shield type
+
+			if (itemType == ItemType.AddonTime){
+				TimerController.addOnTimer(powerDuration);
+			}
 
 
 			Destroy (this.gameObject);

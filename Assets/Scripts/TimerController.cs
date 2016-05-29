@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class TimerController : MonoBehaviour {
 
-	private float totalTimer;
-	private float timer;
+	private static float totalTimer;
+	//static as there is only one game timer at once
+	private static float timer;
 	private Text txt;
 	public Slider timeBarSlider;  //reference for slider
 	
@@ -18,11 +19,25 @@ public class TimerController : MonoBehaviour {
 		totalTimer = gameManager.getTimer (gameManager.getCurrentLevel ());
 		timer = totalTimer;
 	}
+
+	public static float getTimeLeft(){
+		return timer;
+	}
+
+	public static void setTimer(float time){
+		timer = time;
+	}
+
+	public static void addOnTimer(float addOnTime){
+		timer += addOnTime;
+		if (timer > totalTimer)
+			timer = totalTimer;
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		timer -= Time.deltaTime;
-		timeBarSlider.value -= Time.deltaTime / totalTimer;
+		timeBarSlider.value = timer / totalTimer;
 		txt.text = "Time: "+(int)timer;
 		if (timer < 1) {
 			gameManager.timeout();
