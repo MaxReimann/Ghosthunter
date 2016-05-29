@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WizardController : MonoBehaviour {
 
-	private static float SPELL_DELAY = 0.3f;
+	private static float SPELL_DELAY = 0.01f;
 
 	public float speed = 10;
 	public float spellSpeed = 10;
