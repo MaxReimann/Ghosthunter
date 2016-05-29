@@ -74,10 +74,27 @@ public class GhostController : MonoBehaviour {
 		}
 		lastPositions.Enqueue (this.transform.position);
 		if (stuckCheck ()) {
-			print ("heeelp im stuck");
 			float sign = transform.position.x > 0.0f ? -1.0f : 1.0f;
 			rigidBody.velocity = new Vector2 (velX * sign, velX * 4);
 		}
+
+		checkOutsideBorder ();
+	}
+
+
+	void checkOutsideBorder() {
+		//specifies outside borders
+		float leftBorderX = leftBorder.bounds.center.x - leftBorder.bounds.extents.x;
+		float rightBorderX = rightBorder.bounds.center.x + leftBorder.bounds.extents.x;
+
+
+		// reset to inside border if ghost is far outside
+		if (this.transform.position.x < leftBorderX)
+			this.transform.position = new Vector3 (leftBorder.bounds.center.x + leftBorder.bounds.extents.x + 1,
+			                                      transform.position.y, 0);
+		if (this.transform.position.x > rightBorderX)
+			this.transform.position = new Vector3 (rightBorder.bounds.center.x - leftBorder.bounds.extents.x - 1,
+			                                      transform.position.y, 0);
 	}
 
 	void beNonReactive(float time)
