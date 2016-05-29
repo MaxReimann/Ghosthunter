@@ -18,7 +18,14 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager GetInstance(){
 		if(instance == null){
-			instance = new GameManager();
+			//will make new gamemanager object
+			Instantiate(Resources.Load("GameManager"), new Vector3(0,0,0), Quaternion.identity); 
+
+			if (instance == null)
+			{
+				print("not awake");
+				instance = GameObject.Find("GameManager").GetComponent<GameManager>();
+			}
 		}
 		return instance;
 	}

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 public class GhostController : MonoBehaviour {
@@ -20,6 +21,11 @@ public class GhostController : MonoBehaviour {
 	private float nonCollisionTimer = 0.0f;
 	private bool unreactiveTimerFinished = false;
 	private Animator animator;
+	
+
+	//last positions of the ghost, used to track and free stuck ghosts
+	private FixedSizedQueue<Vector3> lastPositions;
+	private const int positionQueueCapacity = 10;
 
 	// Use this for initialization
 	void Start () {
@@ -47,6 +53,9 @@ public class GhostController : MonoBehaviour {
 		animator = GetComponent<Animator> ();
 
 		beNonReactive (unreactiveTime);
+		//queue with capacity, old elements are pushed out
+		lastPositions = new FixedSizedQueue<Vector3> (positionQueueCapacity);
+
 
 	}
 	
@@ -62,6 +71,12 @@ public class GhostController : MonoBehaviour {
 			//GameObject wizard = GameObject.FindGameObjectWithTag ("Wizards");
 			//activate collisions
 			this.gameObject.layer = LayerMask.NameToLayer("Ghosts");
+		}
+		lastPositions.Enqueue (this.transform.position);
+		if (stuckCheck ()) {
+			print ("heeelp im stuck");
+			float sign = transform.position.x > 0.0f ? -1.0f : 1.0f;
+			rigidBody.velocity = new Vector2 (velX * sign, velX * 4);
 		}
 	}
 
@@ -141,11 +156,37 @@ public class GhostController : MonoBehaviour {
 			rightGhost.GetComponent<Rigidbody2D> ().MovePosition (start - new Vector2 (1, 0));
 		}
 	}
+
+
+	bool stuckCheck()
+	{
+		if (lastPositions.Count < positionQueueCapacity)
+			return false;
+
+		const float epsilon = 0.1f;
+		Vector3 first;
+		int count = 0;
+		foreach (Vector3 position in lastPositions) {
+			if (count++ == 0) {
+				first = position;
+				continue;
+			}
+
+			if (Mathf.Abs ((first - position).magnitude) >= epsilon)
+				return false;
+		}
+
+		//all position delta smaller than epsilon -> stuck
+		return true;
+	}
+
 	
 
 	//using code from http://answers.unity3d.com/questions/670204/simple-ball-bounce-like-pangbubble-trouble.html
 	void OnCollisionEnter2D(Collision2D coll)
 	{
+
+
 
 		if (coll.gameObject.tag == "Spell") {
 			spellCollision();
@@ -188,7 +229,10 @@ public class GhostController : MonoBehaviour {
 		}
 
 
+
+
 		
 	}
 }
+
 
