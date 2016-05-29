@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 
-public class GameManager{
+public class GameManager : MonoBehaviour {
 	
 	private static GameManager instance;
 
@@ -21,6 +21,16 @@ public class GameManager{
 			instance = new GameManager();
 		}
 		return instance;
+	}
+
+	public void Awake() {
+		if (instance != null && instance != this) {
+			Destroy(this.gameObject);
+			return;
+		} else {
+			instance = this;
+		}
+		DontDestroyOnLoad(this.gameObject);
 	}
 
 	public int getTimer(string level) {
