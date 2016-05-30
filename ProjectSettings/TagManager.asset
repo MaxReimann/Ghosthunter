@@ -19,6 +19,7 @@ TagManager:
   - Shield
   - LethalItem
   - Zombie
+  - Highscores
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
+
 
 public class GameManager : MonoBehaviour {
 	
@@ -9,6 +11,8 @@ public class GameManager : MonoBehaviour {
 	private int score = 0;
 	private string currentLevel;
 	AudioSource source;
+
+	private string playerName = "Anonymus";
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
 													{"Level1", 30},
@@ -95,14 +99,23 @@ public class GameManager : MonoBehaviour {
 		
 		loadLevel1 ();
 	}
+
+	private void finalizeGame() {
+		source.Stop();
+		string now = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+		string oldscores = PlayerPrefs.GetString ("highscores");
+		string newscores = oldscores + playerName + ";" + now + ";" + this.score.ToString() + "\n";
+		PlayerPrefs.SetString ("highscores", newscores);
+		PlayerPrefs.Save ();
+	}
 	
 	public void timeout(){
-		source.Stop();
+		finalizeGame ();
 		Application.LoadLevel("Timeout");
 	}
 	
 	public void gameOver(){
-		source.Stop();
+		finalizeGame ();
 		Application.LoadLevel("GameOver");
 	}
 
