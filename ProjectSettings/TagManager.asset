@@ -18,6 +18,7 @@ TagManager:
   - ShieldItem
   - Shield
   - LethalItem
+  - Zombie
   layers:
   - Default
   - TransparentFX
@@ -35,9 +36,9 @@ TagManager:
   - GhostBorder
   - NonCollGhosts
   - Triggers
-  - 
-  - 
-  - 
+  - NonCollZombies
+  - Zombies
+  - LethalItems
   - 
   - 
   - 
@@ -66,6 +67,9 @@ TagManager:
     locked: 0
   - name: Ghosts
     uniqueID: 4267936553
+    locked: 0
+  - name: Zombies
+    uniqueID: 855783075
     locked: 0
   - name: Spells
     uniqueID: 615155857

@@ -41,7 +41,7 @@ public class SpellController : MonoBehaviour {
 	// called by child script
 	public void collision(Collision2D coll) {
 
-		if (coll.gameObject.CompareTag ("Ghost")) {
+		if (coll.gameObject.CompareTag ("Ghost") || coll.gameObject.CompareTag ("Zombie")) {
 			Destroy();
 			return;
 		}

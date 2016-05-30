@@ -209,7 +209,7 @@ GameObject:
   - 58: {fileID: 51185660}
   - 114: {fileID: 51185661}
   - 95: {fileID: 51185662}
-  m_Layer: 15
+  m_Layer: 18
   m_Name: Saw
   m_TagString: LethalItem
   m_Icon: {fileID: 0}
@@ -1655,7 +1655,7 @@ GameObject:
   - 58: {fileID: 1357751399}
   - 114: {fileID: 1357751398}
   - 95: {fileID: 1357751402}
-  m_Layer: 15
+  m_Layer: 18
   m_Name: Saw (1)
   m_TagString: LethalItem
   m_Icon: {fileID: 0}
@@ -2105,11 +2105,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22471756, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22471756, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22458142, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_LocalScale.x

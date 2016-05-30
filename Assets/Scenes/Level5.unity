@@ -223,6 +223,65 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!1001 &241853742
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 8.10999966
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.1955359
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 124498, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 124498, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_Name
+      value: Zombie (Right)
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428290, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: direction_right
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21286304, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300016, guid: 307c8611a688644aeb7ca8565988cc01,
+        type: 3}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &319546268
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,11 +752,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22471756, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22471756, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22458142, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_LocalScale.x
@@ -1238,6 +1297,56 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1405734825}
+--- !u!1001 &1540791685
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -8.27999973
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2.1955359
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 471302, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 124498, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_Layer
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 124498, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_Name
+      value: Zombie (Left)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1551353096
 Prefab:
   m_ObjectHideFlags: 0

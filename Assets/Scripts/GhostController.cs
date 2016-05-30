@@ -55,8 +55,6 @@ public class GhostController : MonoBehaviour {
 		beNonReactive (unreactiveTime);
 		//queue with capacity, old elements are pushed out
 		lastPositions = new FixedSizedQueue<Vector3> (positionQueueCapacity);
-
-
 	}
 	
 	// Update is called once per frame
@@ -82,7 +80,7 @@ public class GhostController : MonoBehaviour {
 	}
 
 
-	void checkOutsideBorder() {
+	private void checkOutsideBorder() {
 		//specifies outside borders
 		float leftBorderX = leftBorder.bounds.center.x - leftBorder.bounds.extents.x;
 		float rightBorderX = rightBorder.bounds.center.x + leftBorder.bounds.extents.x;
@@ -97,7 +95,7 @@ public class GhostController : MonoBehaviour {
 			                                      transform.position.y, 0);
 	}
 
-	void beNonReactive(float time)
+	private void beNonReactive(float time)
 	{
 		nonCollisionTimer = time;
 		//ignore wizard collision until timer is run down
@@ -108,7 +106,7 @@ public class GhostController : MonoBehaviour {
 		return nonCollisionTimer > 0.0f;
 	}
 
-	public void spellCollision() {
+	private void spellCollision() {
 		AudioSource audio = GetComponent<AudioSource>();
 		audio.Play();
 
@@ -203,6 +201,10 @@ public class GhostController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D coll)
 	{
 
+		if (coll.gameObject.tag == "Zombie") {
+			Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), coll.collider);
+			return;
+		}
 
 
 		if (coll.gameObject.tag == "Spell") {
