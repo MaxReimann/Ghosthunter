@@ -5,8 +5,8 @@ public class WizardController : MonoBehaviour {
 
 	private static float SPELL_DELAY = 0.01f;
 
-	public float speed = 10;
-	public float spellSpeed = 10;
+	public float speed = 5;
+	public float spellSpeed = 8;
 	private Rigidbody2D myBody;
 	private Vector3 spellStartPoint; 
 
