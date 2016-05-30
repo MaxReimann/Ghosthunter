@@ -752,11 +752,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22471756, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22471756, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22458142, guid: 40b2c81b86641ca4a9c5c15f8e8a4aff, type: 2}
       propertyPath: m_LocalScale.x
