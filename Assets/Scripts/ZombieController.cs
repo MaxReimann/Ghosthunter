@@ -13,6 +13,7 @@ public class ZombieController : MonoBehaviour {
 
 	public bool direction_right = true;
 	private bool isHit = false;
+	private bool isDead = false;
 
 	private int hitCount;
 
@@ -42,10 +43,12 @@ public class ZombieController : MonoBehaviour {
 			spriteRenderer.enabled=true;
 		}
 
-		if (!isHit) {
-			doWalk ();
-		} else {
-			toggleVisibility();
+		if(!isDead){
+			if (!isHit) {
+				doWalk ();
+			} else {
+				toggleVisibility();
+			}
 		}
 	}
 
@@ -68,15 +71,27 @@ public class ZombieController : MonoBehaviour {
 		transform.position = position;
 	}
 
+	private void explode(){
+		animator.SetTrigger ("zombie_explode");
+		gameObject.layer = LayerMask.NameToLayer("NonCollZombies");
+		spriteRenderer.enabled=true;
+		Invoke ("doExplode", 1f);
+	}
+
+	private void doExplode(){
+		Destroy(gameObject);
+		gameManager.addScore(5);
+	}
+
 	void OnCollisionEnter2D(Collision2D coll){
 
 		if (coll.gameObject.tag == "Spell") {
-			if(hitCount == 2){
-				Destroy(gameObject);
-				gameManager.addScore(5);
+			isHit = true;
+			hitCount++;
+			if(hitCount == 3){
+				isDead = true;
+				explode();
 			}else{
-				hitCount++;
-				isHit = true;
 				nonCollisionTimer = HIT_TIME;
 				gameObject.layer = LayerMask.NameToLayer("NonCollZombies");
 			}
