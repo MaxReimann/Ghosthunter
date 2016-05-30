@@ -666,7 +666,7 @@ SpriteRenderer:
   m_SortingLayerID: -1834130761
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ec786046669824f43be85c290771584f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: .316176474, g: .759000003, b: 1, a: 1}
 --- !u!4 &664988741 stripped
 Transform:
   m_PrefabParentObject: {fileID: 448752, guid: de11ee56ccc35534790d5fa516762286, type: 2}

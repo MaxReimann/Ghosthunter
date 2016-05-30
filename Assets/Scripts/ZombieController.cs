@@ -6,6 +6,7 @@ public class ZombieController : MonoBehaviour {
 	
 	private static float OFFSET = 0.01f;
 	private static float HIT_TIME = 3f;
+	private static float TOGGLE_TIME = 0.2f;
 
 	private float nonCollisionTimer = 0.0f;
 	private float toggleTimer = 0.0f;
@@ -54,7 +55,7 @@ public class ZombieController : MonoBehaviour {
 			return;
 		}
 		spriteRenderer.enabled = !spriteRenderer.isVisible;
-		toggleTimer = 0.3f;
+		toggleTimer = TOGGLE_TIME;
 	}
 
 	private void doWalk(){
