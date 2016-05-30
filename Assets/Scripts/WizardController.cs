@@ -93,14 +93,24 @@ public class WizardController : MonoBehaviour {
 	}
 
 	private void MoveLeft(){;
-		animator.SetTrigger("wizard_run_left");
+		animator.SetTrigger("wizard_run");
 		Move(-1);
+		if (!isLeft)
+			transform.localScale = new Vector3( - transform.localScale.x,
+			                                   transform.localScale.y,
+			                                   transform.localScale.z); //flip image
+
 		isLeft = true;
 	}
 
 	private void MoveRight(){
-		animator.SetTrigger("wizard_run_right");
+		animator.SetTrigger("wizard_run");
 		Move(1);
+		if (isLeft)
+			transform.localScale = new Vector3( - transform.localScale.x,
+			                                   transform.localScale.y,
+			                                   transform.localScale.z); //flip image
+		
 		isLeft = false;
 	}
 	
