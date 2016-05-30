@@ -8,10 +8,15 @@ public class GameManager : MonoBehaviour {
 
 	private int score = 0;
 	private string currentLevel;
+	AudioSource source;
 
-
-	private Dictionary<string, int> levelTimers;
-
+	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
+													{"Level1", 30},
+													{"Level2", 40},
+													{"Level3", 30},
+													{"Level4", 30},
+													{"Level5", 30}};
+	
 	private GameManager(){
 
 	}
@@ -36,24 +41,16 @@ public class GameManager : MonoBehaviour {
 			return;
 		} else {
 			instance = this;
+			source = gameObject.GetComponent<AudioSource>();
+			source.loop = true;
 		}
 		DontDestroyOnLoad(this.gameObject);
 	}
 
 	public int getTimer(string level) {
-		if (levelTimers == null) {
-			levelTimers = new Dictionary<string, int> (){
-				{"Level1", 30},
-				{"Level2", 40},
-				{"Level3", 30},
-				{"Level4", 30},
-				{"Level5", 30}
-			};
-		}
-
-		if (level == null)
+		if (level == null) {
 			level = "Level1"; //for debug in-editor starts
-
+		}
 		return levelTimers [level];
 	}
 		
@@ -92,7 +89,7 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 		if (currentLevel == "Level5") {
-			Application.LoadLevel("Win");
+			loadWinScene();
 			return;
 		}
 		
@@ -100,14 +97,22 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void timeout(){
+		source.Stop();
 		Application.LoadLevel("Timeout");
 	}
 	
 	public void gameOver(){
+		source.Stop();
 		Application.LoadLevel("GameOver");
+	}
+
+	private void loadWinScene(){
+		source.Stop();
+		Application.LoadLevel("Win");
 	}
 	
 	public void loadLevel1(){
+		source.Play ();
 		loadLevel ("Level1");
 	}
 	
@@ -128,6 +133,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void reloadLevel(){
+		source.Play ();
 		if (currentLevel == null) {
 			loadLevel1();
 			return;
