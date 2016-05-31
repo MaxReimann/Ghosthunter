@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	
 	private static GameManager instance;
 
+	private int lives = 5;
 	private int score = 0;
 	private string currentLevel;
 	AudioSource source;
