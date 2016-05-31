@@ -7,8 +7,11 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public class GameManager : MonoBehaviour {
 	
 	private static GameManager instance;
+	
+	private static int totalLives = 5;
+	private static int lives = totalLives;
+	private static GameObject[] hearts = new GameObject[totalLives];
 
-	private int lives = 5;
 	private int score = 0;
 	private string currentLevel;
 	AudioSource source;
@@ -124,11 +127,25 @@ public class GameManager : MonoBehaviour {
 		finalizeGame ();
 		Application.LoadLevel("Timeout");
 	}
-	
-	public void gameOver(){
-		if(Application.loadedLevelName == "Tutorial"){
+
+	public void decreaseLive(){
+		lives--;
+		if(lives == 0){
+			gameOver();
 			return;
 		}
+		for (int i = totalLives-1; i>lives-1; i--) {
+			GameObject heart = hearts[i];
+			if (heart != null) { // not triggered by menu
+				SpriteRenderer renderer = heart.GetComponent<SpriteRenderer> ();
+				Color color = renderer.color;
+				color.a = 0.6f;
+				renderer.color = color;
+			}
+		}
+	}
+	
+	private void gameOver(){
 		finalizeGame ();
 		Application.LoadLevel("GameOver");
 	}
@@ -179,9 +196,18 @@ public class GameManager : MonoBehaviour {
 		if (!source.isPlaying) {
 			source.Play();
 		}
-		Debug.Log (level);
 		this.currentLevel = level;
 		Application.LoadLevel(level);
+
+		Invoke ("createLiveIndicators", 0.02f);
 	}
 
+	private void createLiveIndicators(){
+		for(int i=0;i<totalLives;i++){
+			float x = 8.2f - i*0.75f;
+			GameObject heart = Instantiate(Resources.Load("Heart"), new Vector2(x,4.3f), Quaternion.identity) as GameObject;
+			hearts[i] = heart;
+		}
+	}
+	
 }

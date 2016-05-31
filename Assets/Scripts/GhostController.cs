@@ -206,7 +206,6 @@ public class GhostController : MonoBehaviour {
 			return;
 		}
 
-
 		if (coll.gameObject.tag == "Spell") {
 			spellCollision();
 			return;
