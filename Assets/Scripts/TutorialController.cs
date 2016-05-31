@@ -12,6 +12,9 @@ public class TutorialController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		text = GetComponent<Text> ();
+		manager.wasLeft = false;
+		manager.wasRight = false;
+		manager.hasShot = false;
 	}
 	
 	// Update is called once per frame
@@ -30,13 +33,13 @@ public class TutorialController : MonoBehaviour {
 		}
 
 		if (!isGhostCreated) {
-			text.text="Ban the ghost with a spell";
+			text.text="Ban all the ghosts with a spell!!";
 			Invoke("createGhost",1f);
 			isGhostCreated = true;
 		}
 	}
 
 	void createGhost(){
-		Instantiate(Resources.Load("L2Ghost"), new Vector2(), Quaternion.identity);
+		Instantiate(Resources.Load("L2Ghost"), new Vector2(-5,2), Quaternion.identity);
 	}
 }

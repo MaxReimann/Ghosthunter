@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
 	private string playerName = "Anonymus";
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
+													{"Tutorial", 30},
 													{"Level1", 30},
 													{"Level2", 40},
 													{"Level3", 30},
