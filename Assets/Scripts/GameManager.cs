@@ -245,6 +245,7 @@ public class GameManager : NetworkBehaviour {
 		}
 		this.currentLevel = level;
 		//<Application.LoadLevel(level);
+		networkManager.autoCreatePlayer = true; //spawn players on startpositions
 		networkManager.ServerChangeScene (level);
 	}
 

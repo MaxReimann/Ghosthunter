@@ -16,6 +16,7 @@ GameObject:
   - 82: {fileID: 8224692}
   - 114: {fileID: 11453682}
   - 114: {fileID: 11467172}
+  - 114: {fileID: 11410072}
   m_Layer: 12
   m_Name: L3Ghost
   m_TagString: Ghost
@@ -255,6 +256,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11410072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 9577202}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &11453682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -318,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c86a214ae994c37a66cf59c4107b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velX: .0500000007
+  velX: 1.89999998
   startOppositeDirection: 0
   inVel: {x: 0, y: 0}
 --- !u!212 &21278376
