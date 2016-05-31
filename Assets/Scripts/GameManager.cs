@@ -125,7 +125,6 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void loadLevel1(){
-		source.Play ();
 		loadLevel ("Level1");
 	}
 	
@@ -146,7 +145,6 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void reloadLevel(){
-		source.Play ();
 		if (currentLevel == null) {
 			loadLevel1();
 			return;
@@ -155,6 +153,9 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	private void loadLevel(string level){
+		if (!source.isPlaying) {
+			source.Play();
+		}
 		Debug.Log (level);
 		this.currentLevel = level;
 		Application.LoadLevel(level);
