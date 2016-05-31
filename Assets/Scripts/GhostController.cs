@@ -226,7 +226,6 @@ public class GhostController : NetworkBehaviour {
 			return;
 		}
 
-
 		if (coll.gameObject.tag == "Spell") {
 			spellCollision();
 			return;

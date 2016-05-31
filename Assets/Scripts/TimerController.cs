@@ -9,7 +9,8 @@ public class TimerController : MonoBehaviour {
 	private static float timer;
 	private Text txt;
 	public Slider timeBarSlider;  //reference for slider
-	
+	public bool active = true;
+
 	private GameManager gameManager;
 
 	// Use this for initialization
@@ -36,11 +37,13 @@ public class TimerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		timer -= Time.deltaTime;
-		timeBarSlider.value = timer / totalTimer;
-		txt.text = "Time: "+(int)timer;
-		if (timer < 1) {
-			gameManager.timeout();
+		if (active) {
+			timer -= Time.deltaTime;
+			timeBarSlider.value = timer / totalTimer;
+			txt.text = "Time: " + (int)timer;
+			if (timer < 1) {
+				gameManager.timeout ();
+			}
 		}
 	}
 }

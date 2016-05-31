@@ -222,8 +222,7 @@ public class WizardController : NetworkBehaviour {
 	void OnCollisionEnter2D(Collision2D coll){
 		if (!shieldActive) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
-				Destroy(gameObject);
-				gameManager.gameOver();
+				gameManager.decreaseLive();
 			}		
 		}
 	}

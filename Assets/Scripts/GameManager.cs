@@ -8,6 +8,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public class GameManager : NetworkBehaviour {
 	
 	private static GameManager instance;
+	
+	private static int totalLives = 5;
+	private static int lives = totalLives;
+	private static GameObject[] hearts = new GameObject[totalLives];
 
 	private int score = 0;
 	[SyncVar]
@@ -23,9 +27,9 @@ public class GameManager : NetworkBehaviour {
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
 													{"Level1", 300},
+													{"Tutorial", 30},
 													{"Level2", 40},
 													{"Level3", 30},
-													{"Multiplayer", 300},
 													{"Level4", 30},
 													{"Level5", 30}};
 	
@@ -87,6 +91,10 @@ public class GameManager : NetworkBehaviour {
 	}
 	
 	public void nextLevel(){
+
+		if (currentLevel == null) {
+			currentLevel = Application.loadedLevelName;
+		}
 		
 		if (currentLevel == "Level1") {
 			loadLevel2();
@@ -108,6 +116,11 @@ public class GameManager : NetworkBehaviour {
 			loadWinScene();
 			return;
 		}
+
+		if (currentLevel == "Tutorial") {
+			loadTutorialEnd();
+			return;
+		}
 		
 		loadLevel1 ();
 	}
@@ -125,8 +138,25 @@ public class GameManager : NetworkBehaviour {
 		finalizeGame ();
 		Application.LoadLevel("Timeout");
 	}
+
+	public void decreaseLive(){
+		lives--;
+		if(lives == 0){
+			gameOver();
+			return;
+		}
+		for (int i = totalLives-1; i>lives-1; i--) {
+			GameObject heart = hearts[i];
+			if (heart != null) { // not triggered by menu
+				SpriteRenderer renderer = heart.GetComponent<SpriteRenderer> ();
+				Color color = renderer.color;
+				color.a = 0.6f;
+				renderer.color = color;
+			}
+		}
+	}
 	
-	public void gameOver(){
+	private void gameOver(){
 		finalizeGame ();
 		Application.LoadLevel("GameOver");
 	}
@@ -135,7 +165,16 @@ public class GameManager : NetworkBehaviour {
 		source.Stop();
 		Application.LoadLevel("Win");
 	}
-	
+
+	private void loadTutorialEnd(){
+		source.Stop();
+		Application.LoadLevel("TutorialEnd");
+	}
+
+	public void loadTutorial(){
+		loadLevel ("Tutorial");
+	}
+
 	public void loadLevel1(){
 		loadLevel ("Level1");
 	}
@@ -168,9 +207,18 @@ public class GameManager : NetworkBehaviour {
 		if (!source.isPlaying) {
 			source.Play();
 		}
-		Debug.Log (level);
 		this.currentLevel = level;
 		Application.LoadLevel(level);
+
+		Invoke ("createLiveIndicators", 0.02f);
 	}
 
+	private void createLiveIndicators(){
+		for(int i=0;i<totalLives;i++){
+			float x = 8.2f - i*0.75f;
+			GameObject heart = Instantiate(Resources.Load("Heart"), new Vector2(x,4.3f), Quaternion.identity) as GameObject;
+			hearts[i] = heart;
+		}
+	}
+	
 }

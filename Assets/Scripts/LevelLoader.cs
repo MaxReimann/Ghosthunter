@@ -16,6 +16,10 @@ public class LevelLoader : MonoBehaviour {
 		this.gameManager.reloadLevel ();
 	}
 
+	public void loadTutorial(){
+		this.gameManager.loadTutorial();
+	}
+
 	public void loadLevel1(){
 		this.gameManager.loadLevel1();
 	}
