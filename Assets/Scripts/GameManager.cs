@@ -75,6 +75,10 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void nextLevel(){
+
+		if (currentLevel == null) {
+			currentLevel = Application.loadedLevelName;
+		}
 		
 		if (currentLevel == "Level1") {
 			loadLevel2();
@@ -96,6 +100,11 @@ public class GameManager : MonoBehaviour {
 			loadWinScene();
 			return;
 		}
+
+		if (currentLevel == "Tutorial") {
+			loadTutorialEnd();
+			return;
+		}
 		
 		loadLevel1 ();
 	}
@@ -115,6 +124,9 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void gameOver(){
+		if(Application.loadedLevelName == "Tutorial"){
+			return;
+		}
 		finalizeGame ();
 		Application.LoadLevel("GameOver");
 	}
@@ -123,7 +135,16 @@ public class GameManager : MonoBehaviour {
 		source.Stop();
 		Application.LoadLevel("Win");
 	}
-	
+
+	private void loadTutorialEnd(){
+		source.Stop();
+		Application.LoadLevel("TutorialEnd");
+	}
+
+	public void loadTutorial(){
+		loadLevel ("Tutorial");
+	}
+
 	public void loadLevel1(){
 		loadLevel ("Level1");
 	}
