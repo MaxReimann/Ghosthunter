@@ -8,16 +8,22 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public class GameManager : NetworkBehaviour {
 	
 	private static GameManager instance;
-	
+
+
 	private static int totalLives = 5;
-	private static int lives = totalLives;
+	[SyncVar]
+	private int lives = totalLives;
 	private static GameObject[] hearts = new GameObject[totalLives];
+
+	public NetworkManager networkManager;
+	private NetworkClient networkClient;
 
 	private int score = 0;
 	[SyncVar]
-	private string currentLevel;
+	private string currentLevel = "Menu";
 
-	[SyncVar]
+	private bool hostStarted = false;
+
 	private bool isMultiPlayer = false;
 
 
@@ -41,7 +47,7 @@ public class GameManager : NetworkBehaviour {
 		if(instance == null){
 			//will make new gamemanager object
 			Instantiate(Resources.Load("GameManager"), new Vector3(0,0,0), Quaternion.identity); 
-
+			instance.setCurrentLevel(Application.loadedLevelName);
 			if (instance == null)
 			{
 				print("not awake");
@@ -57,6 +63,7 @@ public class GameManager : NetworkBehaviour {
 			return;
 		} else {
 			instance = this;
+			this.setCurrentLevel(Application.loadedLevelName);
 			source = gameObject.GetComponent<AudioSource>();
 			source.loop = true;
 		}
@@ -141,12 +148,17 @@ public class GameManager : NetworkBehaviour {
 
 	public void decreaseLive(){
 		lives--;
-		if(lives == 0){
-			gameOver();
+		if (lives == 0) {
+			gameOver ();
 			return;
 		}
+
+		redrawHearts ();
+	}
+
+	private void redrawHearts() {
 		for (int i = totalLives-1; i>lives-1; i--) {
-			GameObject heart = hearts[i];
+			GameObject heart = hearts [i];
 			if (heart != null) { // not triggered by menu
 				SpriteRenderer renderer = heart.GetComponent<SpriteRenderer> ();
 				Color color = renderer.color;
@@ -155,21 +167,44 @@ public class GameManager : NetworkBehaviour {
 			}
 		}
 	}
+
+	void OnLevelWasLoaded(int level) {
+		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
+			return;
+
+
+		if (!isMultiPlayer && !hostStarted) {
+			//NOTE: this spawns the player and ghosts at the right position
+			networkClient = networkManager.StartHost ();
+			hostStarted = true;
+		}
+
+		createLiveIndicators ();
+	}
+
 	
 	private void gameOver(){
 		finalizeGame ();
-		Application.LoadLevel("GameOver");
+		//Application.LoadLevel("GameOver");
+		//dont auto spawn players on the next screen
+		networkManager.autoCreatePlayer = false; 
+		networkManager.ServerChangeScene("GameOver");
 	}
 
 	private void loadWinScene(){
 		source.Stop();
-		Application.LoadLevel("Win");
+		//Application.LoadLevel("Win");
+		networkManager.autoCreatePlayer = false;
+		networkManager.ServerChangeScene("Win");
 	}
 
 	private void loadTutorialEnd(){
 		source.Stop();
-		Application.LoadLevel("TutorialEnd");
+		//Application.LoadLevel("TutorialEnd");
+		networkManager.autoCreatePlayer = false;
+		networkManager.ServerChangeScene("TutorialEnd");
 	}
+
 
 	public void loadTutorial(){
 		loadLevel ("Tutorial");
@@ -177,8 +212,9 @@ public class GameManager : NetworkBehaviour {
 
 	public void loadLevel1(){
 		loadLevel ("Level1");
+
 	}
-	
+
 	public void loadLevel2(){
 		loadLevel ("Level2");
 	}
@@ -208,9 +244,8 @@ public class GameManager : NetworkBehaviour {
 			source.Play();
 		}
 		this.currentLevel = level;
-		Application.LoadLevel(level);
-
-		Invoke ("createLiveIndicators", 0.02f);
+		//<Application.LoadLevel(level);
+		networkManager.ServerChangeScene (level);
 	}
 
 	private void createLiveIndicators(){

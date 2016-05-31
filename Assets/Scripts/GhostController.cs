@@ -81,10 +81,10 @@ public class GhostController : NetworkBehaviour {
 		}
 		lastPositions.Enqueue (this.transform.position);
 		//produces very weird behaviour with network: seems to be  stuck in sky
-//		if (stuckCheck ()) {
-//			float sign = transform.position.x > 0.0f ? -1.0f : 1.0f;
-//			rigidBody.velocity = new Vector2 (velX * sign, velX * 4);
-//		}
+		if (isServer && stuckCheck ()) {
+			float sign = transform.position.x > 0.0f ? -1.0f : 1.0f;
+			rigidBody.velocity = new Vector2 (velX * sign, velX * 4);
+		}
 
 		checkOutsideBorder ();
 	}
