@@ -1,23 +1,31 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 
 
-public class GameManager : MonoBehaviour {
+public class GameManager : NetworkBehaviour {
 	
 	private static GameManager instance;
 
 	private int score = 0;
+	[SyncVar]
 	private string currentLevel;
+
+	[SyncVar]
+	private bool isMultiPlayer = false;
+
+
 	AudioSource source;
 
 	private string playerName = "Anonymus";
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
-													{"Level1", 30},
+													{"Level1", 300},
 													{"Level2", 40},
 													{"Level3", 30},
+													{"Multiplayer", 300},
 													{"Level4", 30},
 													{"Level5", 30}};
 	
@@ -72,6 +80,10 @@ public class GameManager : MonoBehaviour {
 	
 	public string getCurrentLevel(){
 		return this.currentLevel;
+	}
+
+	public void setMultiPlayer(bool multiplayerGame) {
+		this.isMultiPlayer = multiplayerGame;
 	}
 	
 	public void nextLevel(){
