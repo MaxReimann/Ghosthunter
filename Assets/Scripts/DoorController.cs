@@ -13,7 +13,7 @@ public class DoorController : MonoBehaviour {
 	void Start () {
 		wasJustTeleported = false;
 		otherController = otherDoor.GetComponent<DoorController> ();
-		float wizardYExtents = GameObject.FindGameObjectWithTag ("Wizards").GetComponent<PolygonCollider2D> ().bounds.extents.y;
+		float wizardYExtents = 0.515295f;//we will assume, that the size will not change during the game
 		dropOffLocation = new Vector2(transform.position.x, GetComponent<BoxCollider2D> ().bounds.min.y + wizardYExtents);
 	}
 
