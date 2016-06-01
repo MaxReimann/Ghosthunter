@@ -8,10 +8,19 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 	private NetworkManager manager;
 
 	public void Awake() {
-		Initialize ();
+		//Initialize ();
 		manager = NetworkManager.singleton;
 		manager.GetComponent<NetworkManagerHUD> ().showGUI = true;;
 
+	}
+
+
+
+	public void Update() {
+		GameObject[] wizards = GameObject.FindGameObjectsWithTag ("Wizards");
+		if (wizards.Length >= 2) {
+			GameManager.GetInstance ().loadLevel1 ();
+		}
 	}
 	
 

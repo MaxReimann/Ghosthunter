@@ -36,46 +36,6 @@ public class CustomNetworkManager : NetworkManager {
 		}
 		
 	}
-
-	public override void OnServerReady (NetworkConnection conn)
-	{
-		base.OnServerReady (conn);
-
-		if (IsClientConnected() && ++playerCount == 2 )
-			GameManager.GetInstance ().loadLevel1 ();
-	}
-
-	public override void OnServerConnect(NetworkConnection conn)
-	{
-
-
-
-//		if(conn.connectionId != 0 && numPlayers != 0)
-//		{
-//			Debug.Log("A remote client has connected!");
-//			Debug.Log(conn.connectionId.ToString());
-//		}else if(conn.connectionId == 0 && numPlayers == 0 && localClientFirstConnect)
-//		{
-//			Debug.Log("A local client has connected!");
-//			Debug.Log(conn.connectionId.ToString());
-//			localClientFirstConnect = false;
-//
-//			return;
-//		}else
-//		{
-//			Debug.Log("Caught the local client's second OnServerConnect call.");
-//
-//			return;
-//		}
-//
-//
-//		GameObject startButton = GameObject.FindGameObjectWithTag ("StartGameAsServer") as GameObject;
-//		if (startButton == null)
-//			print ("Error: button startgameasserver not in this scene");
-//		startButton.GetComponent<Button> ().interactable = true;
-//
-//		GameObject networkDiscoveryObject = GameObject.FindGameObjectWithTag ("Matchmaking") as GameObject;
-//		networkDiscoveryObject.GetComponent<NetworkDiscovery> ().StopBroadcast ();
-	}
+	
 
 }

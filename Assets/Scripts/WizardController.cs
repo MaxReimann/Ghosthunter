@@ -35,6 +35,9 @@ public class WizardController : NetworkBehaviour {
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.GetInstance();
 
+		if (gameManager.getCurrentLevel() == "Menu")
+			return;
+
 		//register wizard to touch buttons
 		if (isLocalPlayer) {
 			GameObject leftButtonObject = GameObject.FindGameObjectWithTag ("LeftButton");
