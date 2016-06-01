@@ -12,6 +12,7 @@ public class WizardController : NetworkBehaviour {
 
 	private float nonCollisionTimer = 0.0f;
 	private float toggleTimer = 0.0f;
+	private float shieldToggleTimer = 0.0f;
 
 	public float speed = 5;
 	public float spellSpeed = 8;
@@ -19,6 +20,8 @@ public class WizardController : NetworkBehaviour {
 	private Vector3 spellStartPoint; 
 
 	private GameManager gameManager;	
+
+	private GameObject shield;
 
 	private SpriteRenderer spriteRenderer;
 
@@ -32,7 +35,7 @@ public class WizardController : NetworkBehaviour {
 	private Animator animator;
 
 	private SpellController.SpellType spellType = SpellController.SpellType.Normal;
-	private bool shieldActive = false;
+	private bool shieldBlinking = false;
 	private bool isHit = false;
 
 
@@ -67,6 +70,16 @@ public class WizardController : NetworkBehaviour {
 		toggleTimer = TOGGLE_TIME;
 	}
 
+	private void toggleShieldVisibility(){	
+		if (shieldToggleTimer > 0) {
+			shieldToggleTimer -= Time.deltaTime;
+			return;
+		}
+		SpriteRenderer spriteRenderer = shield.GetComponent<SpriteRenderer>();
+		spriteRenderer.enabled = !spriteRenderer.isVisible;
+		shieldToggleTimer = TOGGLE_TIME;
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -80,6 +93,10 @@ public class WizardController : NetworkBehaviour {
 			nonCollisionTimer = 0.0f;
 			isHit=false;
 			spriteRenderer.enabled=true;
+		}
+
+		if(shield != null && shieldBlinking){
+			toggleShieldVisibility();
 		}
 
 		if (Input.GetKeyDown ("space")) {
@@ -113,15 +130,19 @@ public class WizardController : NetworkBehaviour {
 	}
 
 	public void ActivateShield(float time){
-		Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity); 
-		shieldActive = true;
+		shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
+		Invoke ("blinkShield", time-1);
+	}
 
-		Invoke ("DeactivateShield", time);
+	private void blinkShield(){
+		shieldBlinking = true;
+		Invoke ("DeactivateShield", 1f);
 	}
 
 	public void DeactivateShield(){
-		shieldActive = false;
-		Destroy (GameObject.FindGameObjectWithTag ("Shield"));
+		shieldBlinking = false;
+		Destroy (shield);
+		shield = null;
 	}
 
 
@@ -260,7 +281,7 @@ public class WizardController : NetworkBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll){
-		if (!shieldActive && !isHit) {
+		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
 				isHit = true;
 				nonCollisionTimer = HIT_TIME;
