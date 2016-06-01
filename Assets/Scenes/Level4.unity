@@ -136,7 +136,7 @@ GameObject:
   - 4: {fileID: 110937742}
   - 212: {fileID: 110937741}
   - 61: {fileID: 110937740}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Platform (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,9 +153,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: .0770684108, y: -.113538504}
+  m_Offset: {x: -3.33722878, y: -.259189606}
   serializedVersion: 2
-  m_Size: {x: 6.41342258, y: 1.25431061}
+  m_Size: {x: 13.2420168, y: .963008404}
 --- !u!212 &110937741
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -297,11 +297,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 451466, guid: 560c22d8871594c6299fe5dca8bbc04e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5.73000002
+      value: -7.07000017
       objectReference: {fileID: 0}
     - target: {fileID: 451466, guid: 560c22d8871594c6299fe5dca8bbc04e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .171440974
+      value: .400000006
       objectReference: {fileID: 0}
     - target: {fileID: 451466, guid: 560c22d8871594c6299fe5dca8bbc04e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -341,7 +341,8 @@ GameObject:
   - 212: {fileID: 418903697}
   - 61: {fileID: 418903696}
   - 114: {fileID: 418903695}
-  m_Layer: 17
+  - 61: {fileID: 418903699}
+  m_Layer: 19
   m_Name: Platform (Moving Side)
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -413,6 +414,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
+--- !u!61 &418903699
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 418903694}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -.306420326}
+  serializedVersion: 2
+  m_Size: {x: 6.6500001, y: 1.03715968}
 --- !u!1001 &462958483
 Prefab:
   m_ObjectHideFlags: 0
@@ -520,27 +534,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 622237437}
   - 212: {fileID: 622237436}
-  - 61: {fileID: 622237435}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Platform (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &622237435
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 622237434}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: .0770684108, y: -.113538504}
-  serializedVersion: 2
-  m_Size: {x: 6.41342258, y: 1.25431061}
 --- !u!212 &622237436
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -774,27 +774,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 772156068}
   - 212: {fileID: 772156067}
-  - 61: {fileID: 772156066}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Platform (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &772156066
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 772156065}
-  m_Enabled: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: .0770684108, y: -.113538504}
-  serializedVersion: 2
-  m_Size: {x: 6.41342258, y: 1.25431061}
 --- !u!212 &772156067
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -901,7 +887,7 @@ GameObject:
   - 4: {fileID: 884140579}
   - 212: {fileID: 884140578}
   - 61: {fileID: 884140577}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Platform (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -918,9 +904,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: .0770684108, y: -.113538504}
+  m_Offset: {x: -2.06057811, y: -.254560709}
   serializedVersion: 2
-  m_Size: {x: 6.41342258, y: 1.25431061}
+  m_Size: {x: 10.6887169, y: .972266197}
 --- !u!212 &884140578
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1575,6 +1561,7 @@ GameObject:
   - 114: {fileID: 1946992224}
   - 61: {fileID: 1946992223}
   - 50: {fileID: 1946992227}
+  - 61: {fileID: 1946992228}
   m_Layer: 19
   m_Name: Platform (Moving Up)
   m_TagString: Platform
@@ -1663,6 +1650,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &1946992228
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1946992222}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -.295238495}
+  serializedVersion: 2
+  m_Size: {x: 6.6500001, y: 1.05952334}
 --- !u!1001 &2044325517
 Prefab:
   m_ObjectHideFlags: 0
