@@ -232,7 +232,7 @@ public class WizardController : NetworkBehaviour {
 		} else {
 			spellStartPoint.x = transform.position.x+0.5f;
 		}
-		spellStartPoint.y = transform.position.y-1;
+		spellStartPoint.y = transform.position.y-0.8f;
 		spellStartPoint.z = transform.position.z;
 		
 		GameObject spell = Instantiate(Resources.Load(prefab), spellStartPoint, Quaternion.identity) as GameObject;
