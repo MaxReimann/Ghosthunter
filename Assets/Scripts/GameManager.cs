@@ -154,7 +154,6 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	public void decreaseLive(){
-		Debug.Log ("decrease live from: " + lives);
 		if (--lives == 0) {
 			gameOver ();
 		}
