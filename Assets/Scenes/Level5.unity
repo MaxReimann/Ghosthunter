@@ -145,6 +145,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300016, guid: 307c8611a688644aeb7ca8565988cc01,
         type: 3}
+    - target: {fileID: 5018728, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d15c25ebffe194511acced0942aa2838, type: 2}
   m_IsPrefabParent: 0
@@ -677,6 +681,10 @@ Prefab:
       propertyPath: m_Name
       value: Zombie (Left)
       objectReference: {fileID: 0}
+    - target: {fileID: 5018728, guid: d15c25ebffe194511acced0942aa2838, type: 2}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d15c25ebffe194511acced0942aa2838, type: 2}
   m_IsPrefabParent: 0
@@ -883,11 +891,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22484426, guid: 07285dc1b3d35b548865ab1747fdb963, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22484426, guid: 07285dc1b3d35b548865ab1747fdb963, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11466962, guid: 07285dc1b3d35b548865ab1747fdb963, type: 2}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
