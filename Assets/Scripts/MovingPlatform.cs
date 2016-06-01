@@ -2,9 +2,12 @@
 using System.Collections;
 
 public class MovingPlatform : MonoBehaviour {
-	
+
+	private static float WAIT_TIME = 1.5f;
 	private static float OFFSET = 0.05f;
 	public bool direction_up = true;
+	
+	private float waitTimer = 0.0f;
 	
 	
 	// Use this for initialization
@@ -14,21 +17,26 @@ public class MovingPlatform : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 position = transform.position;
-		if (direction_up) {
-			position.y += OFFSET;
-		} else {
-			position.y -= OFFSET;
-		}
-		transform.position = position;
-		
-		if (transform.position.y <= -3.0f) {
-			direction_up = true;
-		} 
-		if (transform.position.y >= 2.05f) {
-			direction_up = false;
-		}
-		
-		
+
+		if (waitTimer >= 0) {
+			waitTimer -= Time.deltaTime;
+		}else{
+			Vector3 position = transform.position;
+			if (direction_up) {
+				position.y += OFFSET;
+			} else {
+				position.y -= OFFSET;
+			}
+			transform.position = position;
+			
+			if (transform.position.y <= -2.91f) {
+				direction_up = true;
+				waitTimer = WAIT_TIME;
+			} 
+			if (transform.position.y >= 2.0f) {
+				direction_up = false;
+				waitTimer = WAIT_TIME;
+			}
+		}		
 	}
 }

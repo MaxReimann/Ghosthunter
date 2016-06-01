@@ -23,6 +23,7 @@ TagManager:
   - LeftButton
   - RightButton
   - TouchField
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -43,7 +44,7 @@ TagManager:
   - NonCollZombies
   - Zombies
   - LethalItems
-  - 
+  - Platforms
   - 
   - 
   - 

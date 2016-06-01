@@ -80,7 +80,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!60 &6045376
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -416,6 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   spellSpeed: 9.18000031
+  isLeft: 0
 --- !u!212 &21237436
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -467,6 +468,10 @@ Prefab:
       propertyPath: m_Animator
       value: 
       objectReference: {fileID: 9537700}
+    - target: {fileID: 0}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 111860}

@@ -289,4 +289,33 @@ public class WizardController : NetworkBehaviour {
 			}		
 		}
 	}
+
+	void OnTriggerEnter2D(Collider2D coll){
+		if (shield == null && !isHit) {
+			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
+				doHit();
+			}		
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D other) {
+		if (other.gameObject.tag == "Platform") {
+			transform.parent = other.transform;
+		} else {
+			OnTriggerEnter2D (other);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other) {
+		Debug.Log (other.gameObject.name);
+		if (other.gameObject.tag == "Platform") {
+			transform.parent = null;
+		}
+	}
+
+	private void doHit(){
+		isHit = true;
+		nonCollisionTimer = HIT_TIME;
+		gameManager.decreaseLive();
+	}
 }
