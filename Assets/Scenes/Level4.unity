@@ -619,7 +619,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 494220, guid: deebc7e647af56e4eb5e83b457f34c8b, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 118240, guid: deebc7e647af56e4eb5e83b457f34c8b, type: 2}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 21278744, guid: deebc7e647af56e4eb5e83b457f34c8b, type: 2}
+      propertyPath: m_SortingLayerID
+      value: 1955535759
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: deebc7e647af56e4eb5e83b457f34c8b, type: 2}
@@ -890,7 +898,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 421244, guid: c7df5e10f8866904caf031a98153cfcc, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11492370, guid: c7df5e10f8866904caf031a98153cfcc, type: 2}
       propertyPath: climbSpeed

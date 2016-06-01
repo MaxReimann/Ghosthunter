@@ -20,6 +20,11 @@ public class LevelLoader : MonoBehaviour {
 		this.gameManager.loadTutorial();
 	}
 
+	
+	public void loadMultiplayerScreen(){
+		this.gameManager.loadMultiplayerScreen();
+	}
+
 	public void loadLevel1(){
 		this.gameManager.loadLevel1();
 	}
@@ -41,7 +46,7 @@ public class LevelLoader : MonoBehaviour {
 	}
 	
 	public void LoadMainMenu(){
-		Application.LoadLevel("Menu");
+		this.gameManager.loadMainMenu();
 	}
 	
 	public void LoadLevelOverview(){

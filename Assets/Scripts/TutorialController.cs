@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class TutorialController : MonoBehaviour {
@@ -40,6 +41,8 @@ public class TutorialController : MonoBehaviour {
 	}
 
 	void createGhost(){
-		Instantiate(Resources.Load("L2Ghost"), new Vector2(-5,2), Quaternion.identity);
+		GameObject ghost = Instantiate (Resources.Load ("L2Ghost"), new Vector2 (-5, 2), Quaternion.identity) as GameObject;
+		NetworkServer.Spawn (ghost);
+
 	}
 }

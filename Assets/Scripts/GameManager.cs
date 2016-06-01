@@ -1,26 +1,38 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
 
 
-public class GameManager : MonoBehaviour {
+public class GameManager : NetworkBehaviour {
 	
 	private static GameManager instance;
-	
+
+
 	private static int totalLives = 5;
-	private static int lives = totalLives;
-	private static GameObject[] hearts = new GameObject[totalLives];
+	[SyncVar]
+	private int lives = totalLives;
+
+	public NetworkManager networkManager;
+	private NetworkClient networkClient;
 
 	private int score = 0;
-	private string currentLevel;
+	[SyncVar]
+	private string currentLevel = "Menu";
+
+	private bool hostStarted = false;
+
+	private bool isMultiPlayer = false;
+
+
 	AudioSource source;
 
 	private string playerName = "Anonymus";
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
-													{"Tutorial", 30},
 													{"Level1", 30},
+													{"Tutorial", 30},
 													{"Level2", 40},
 													{"Level3", 30},
 													{"Level4", 30},
@@ -34,7 +46,7 @@ public class GameManager : MonoBehaviour {
 		if(instance == null){
 			//will make new gamemanager object
 			Instantiate(Resources.Load("GameManager"), new Vector3(0,0,0), Quaternion.identity); 
-
+			instance.setCurrentLevel(Application.loadedLevelName);
 			if (instance == null)
 			{
 				print("not awake");
@@ -50,10 +62,19 @@ public class GameManager : MonoBehaviour {
 			return;
 		} else {
 			instance = this;
+			this.setCurrentLevel(Application.loadedLevelName);
 			source = gameObject.GetComponent<AudioSource>();
 			source.loop = true;
 		}
 		DontDestroyOnLoad(this.gameObject);
+	}
+
+	public int getTotalLives(){
+		return totalLives;
+	}
+
+	public int getCurrentLives(){
+		return lives;
 	}
 
 	public int getTimer(string level) {
@@ -77,6 +98,10 @@ public class GameManager : MonoBehaviour {
 	
 	public string getCurrentLevel(){
 		return this.currentLevel;
+	}
+
+	public void setMultiPlayer(bool multiplayerGame) {
+		this.isMultiPlayer = multiplayerGame;
 	}
 	
 	public void nextLevel(){
@@ -129,36 +154,58 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void decreaseLive(){
-		lives--;
-		if(lives == 0){
-			gameOver();
-			return;
-		}
-		for (int i = totalLives-1; i>lives-1; i--) {
-			GameObject heart = hearts[i];
-			if (heart != null) { // not triggered by menu
-				SpriteRenderer renderer = heart.GetComponent<SpriteRenderer> ();
-				Color color = renderer.color;
-				color.a = 0.6f;
-				renderer.color = color;
+		if (--lives == 0) {
+			if(currentLevel != "Tutorial"){
+				gameOver ();
 			}
 		}
 	}
+
+	void OnLevelWasLoaded(int level) {
+		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
+			return;
+
+
+		if (!isMultiPlayer && !hostStarted) {
+			//NOTE: this spawns the player and ghosts at the right position
+			networkClient = networkManager.StartHost ();
+			hostStarted = true;
+		}
+
+//		GameObject[] wizards = GameObject.FindGameObjectsWithTag("Wizards");
+//		foreach (GameObject wizard in wizards) {
+//			wizard.GetComponent<WizardController> ().newLevelLoaded ();
+//		}
+	}
+
 	
 	private void gameOver(){
 		finalizeGame ();
-		Application.LoadLevel("GameOver");
+		//Application.LoadLevel("GameOver");
+		//dont auto spawn players on the next screen
+		networkManager.autoCreatePlayer = false; 
+		networkManager.ServerChangeScene("GameOver");
 	}
 
 	private void loadWinScene(){
 		source.Stop();
-		Application.LoadLevel("Win");
+		//Application.LoadLevel("Win");
+		networkManager.autoCreatePlayer = false;
+		networkManager.ServerChangeScene("Win");
 	}
 
 	private void loadTutorialEnd(){
 		source.Stop();
-		Application.LoadLevel("TutorialEnd");
+		//Application.LoadLevel("TutorialEnd");
+		networkManager.autoCreatePlayer = false;
+		networkManager.ServerChangeScene("TutorialEnd");
 	}
+
+	public void loadMultiplayerScreen(){
+		networkManager.autoCreatePlayer = false;
+		networkManager.ServerChangeScene("MultiplayerScreen");
+	}
+
 
 	public void loadTutorial(){
 		loadLevel ("Tutorial");
@@ -167,7 +214,7 @@ public class GameManager : MonoBehaviour {
 	public void loadLevel1(){
 		loadLevel ("Level1");
 	}
-	
+
 	public void loadLevel2(){
 		loadLevel ("Level2");
 	}
@@ -183,8 +230,18 @@ public class GameManager : MonoBehaviour {
 	public void loadLevel5(){
 		loadLevel ("Level5");
 	}
+
+	public void loadMainMenu(){
+		lives = totalLives;
+		Application.LoadLevel("Menu");
+	}
 	
 	public void reloadLevel(){
+		if (lives == 0) {
+			lives = totalLives;
+			loadLevel1();
+			return;
+		}
 		if (currentLevel == null) {
 			loadLevel1();
 			return;
@@ -197,17 +254,11 @@ public class GameManager : MonoBehaviour {
 			source.Play();
 		}
 		this.currentLevel = level;
-		Application.LoadLevel(level);
-
-		Invoke ("createLiveIndicators", 0.02f);
+		//<Application.LoadLevel(level);
+		networkManager.autoCreatePlayer = true; //spawn players on startpositions
+		networkManager.ServerChangeScene (level);
 	}
 
-	private void createLiveIndicators(){
-		for(int i=0;i<totalLives;i++){
-			float x = 8.2f - i*0.75f;
-			GameObject heart = Instantiate(Resources.Load("Heart"), new Vector2(x,4.3f), Quaternion.identity) as GameObject;
-			hearts[i] = heart;
-		}
-	}
+
 	
 }

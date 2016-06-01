@@ -1,13 +1,21 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
 
-public class GhostController : MonoBehaviour {
+public class GhostController : NetworkBehaviour {
 
 	public float velX = 1.9f;//horizontal speed of ball
+	[SyncVar]
 	public bool startOppositeDirection = false;
+	[SyncVar]
 	[HideInInspector] public Vector2 inVel;//incoming velocity
+	[SyncVar]
+	private float nonCollisionTimer = 0.0f;
+	[SyncVar]
+	private bool unreactiveTimerFinished = false;
+
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
 	private BoxCollider2D leftBorder;
@@ -18,8 +26,7 @@ public class GhostController : MonoBehaviour {
 	private float splitYGain = 1.5f;
 	// time to be unreactive on collisions with player character after split
 	private const float unreactiveTime = 0.3f; 
-	private float nonCollisionTimer = 0.0f;
-	private bool unreactiveTimerFinished = false;
+
 	private Animator animator;
 	
 
@@ -59,6 +66,8 @@ public class GhostController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
 		inVel = rigidBody.velocity;
 
 		if (nonCollisionTimer > 0.0f) {
@@ -71,7 +80,8 @@ public class GhostController : MonoBehaviour {
 			this.gameObject.layer = LayerMask.NameToLayer("Ghosts");
 		}
 		lastPositions.Enqueue (this.transform.position);
-		if (stuckCheck ()) {
+		//produces very weird behaviour with network: seems to be  stuck in sky
+		if (isServer && stuckCheck ()) {
 			float sign = transform.position.x > 0.0f ? -1.0f : 1.0f;
 			rigidBody.velocity = new Vector2 (velX * sign, velX * 4);
 		}
@@ -123,20 +133,26 @@ public class GhostController : MonoBehaviour {
 		}
 	}
 
-	private void doSpellCollision(){
+	[Command]
+	private void CmdDoSpellCollision(){
 		gameManager.addScore (2);
+		NetworkServer.Destroy (this.gameObject);
 		Destroy (this.gameObject);
-
+		
 		string nextType = ghostType.splitInto; 
 		if (nextType != "None") {
 			Object resource = Resources.Load (nextType);
 			createNewGhosts(resource);
 		}
-
+		
 		int ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
 		if (ghostCount == 0) {
 			gameManager.nextLevel();
 		}
+	}
+
+	private void doSpellCollision(){
+		CmdDoSpellCollision ();
 	}
 
 	private void createNewGhosts(Object originalResource){
@@ -151,14 +167,18 @@ public class GhostController : MonoBehaviour {
 		GameObject rightGhost = Instantiate (originalResource, start + new Vector2 (rightOffset, 0), Quaternion.identity) as GameObject;
 		GhostController leftGhostController = leftGhost.GetComponent<GhostController> ();
 		GhostController rightGhostController = rightGhost.GetComponent<GhostController> ();
-		
+		NetworkServer.Spawn (leftGhost); //spawn on clients
+		NetworkServer.Spawn (rightGhost);
+
 		// boost temporarly to heigher y position
 		float newYVel = Mathf.Sqrt (2 * -splitYGain * Physics2D.gravity.y * rigidBody.gravityScale);
 		leftGhostController.inVel = new Vector2 (0, newYVel);
 		rightGhostController.inVel = new Vector2 (0, newYVel);
 		
 		leftGhost.GetComponent<GhostController> ().startOppositeDirection = true;
-		
+
+
+
 		PolygonCollider2D leftGhostCollider = leftGhost.GetComponent<PolygonCollider2D> ();
 		if (leftGhostCollider.IsTouching (leftBorder)) {
 			print ("Warning: Left ghost touching wall)");
@@ -179,7 +199,7 @@ public class GhostController : MonoBehaviour {
 			return false;
 
 		const float epsilon = 0.1f;
-		Vector3 first;
+		Vector3 first = new Vector3(0,0,0);
 		int count = 0;
 		foreach (Vector3 position in lastPositions) {
 			if (count++ == 0) {
@@ -245,10 +265,6 @@ public class GhostController : MonoBehaviour {
 				newYVel = 1f;
 			rigidBody.velocity = new Vector2( rigidBody.velocity.x, newYVel);
 		}
-
-
-
-
 		
 	}
 }

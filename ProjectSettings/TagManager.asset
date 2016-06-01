@@ -20,7 +20,9 @@ TagManager:
   - LethalItem
   - Zombie
   - Highscores
-  - Platform
+  - LeftButton
+  - RightButton
+  - TouchField
   layers:
   - Default
   - TransparentFX
@@ -81,4 +83,7 @@ TagManager:
     locked: 0
   - name: Lethal Items
     uniqueID: 2844963023
+    locked: 0
+  - name: Healthbar
+    uniqueID: 3761571791
     locked: 0

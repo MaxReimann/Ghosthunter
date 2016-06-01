@@ -1,39 +1,102 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Networking;
+
 using System.Collections;
 
-public class WizardController : MonoBehaviour {
+public class WizardController : NetworkBehaviour {
 
 	private static float SPELL_DELAY = 0.01f;
+	private static float HIT_TIME = 1f;
+	private static float TOGGLE_TIME = 0.1f;
+
+	private float nonCollisionTimer = 0.0f;
+	private float toggleTimer = 0.0f;
+	private float shieldToggleTimer = 0.0f;
 
 	public float speed = 5;
 	public float spellSpeed = 8;
 	private Rigidbody2D myBody;
 	private Vector3 spellStartPoint; 
 
-	private GameManager gameManager;
+	private GameManager gameManager;	
 
-	private bool isLeft = false;
+	private GameObject shield;
+
+	private SpriteRenderer spriteRenderer;
+
+	[SyncVar(hook="FlipIfNeeded")] //will synchronize only server -> client, calls this function on change
+	public bool isLeft = false;
+
+
 	private float spellExecution;
 	private float buttonInput;
 
 	private Animator animator;
 
 	private SpellController.SpellType spellType = SpellController.SpellType.Normal;
-	private bool shieldActive = false;
+	private bool shieldBlinking = false;
+	private bool isHit = false;
+
 
 	// Use this for initialization
 	void Start (){
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.GetInstance();
+		spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
+
+		//register wizard to touch buttons
+		if (isLocalPlayer) {
+			GameObject leftButtonObject = GameObject.FindGameObjectWithTag ("LeftButton");
+			GameObject rightButtonObject = GameObject.FindGameObjectWithTag ("RightButton");
+
+			leftButtonObject.GetComponent<CustomEventTrigger> ().RegisterWizard (this);
+			rightButtonObject.GetComponent<CustomEventTrigger> ().RegisterWizard (this);
+
+			GameObject touchFieldObject = GameObject.FindGameObjectWithTag ("TouchField");
+			touchFieldObject.GetComponent<Button> ().onClick.AddListener (() => Spell ());
+		}
+
+	
+	}
+
+	private void toggleVisibility(){		
+		if (toggleTimer > 0) {
+			toggleTimer -= Time.deltaTime;
+			return;
+		}
+		spriteRenderer.enabled = !spriteRenderer.isVisible;
+		toggleTimer = TOGGLE_TIME;
+	}
+
+	private void toggleShieldVisibility(){	
+		if (shieldToggleTimer > 0) {
+			shieldToggleTimer -= Time.deltaTime;
+			return;
+		}
+		SpriteRenderer spriteRenderer = shield.GetComponent<SpriteRenderer>();
+		spriteRenderer.enabled = !spriteRenderer.isVisible;
+		shieldToggleTimer = TOGGLE_TIME;
 	}
 
 	// Update is called once per frame
-	void Update (){
+	void Update ()
+	{
+		if (!isLocalPlayer)
+			return;
+	
+		if (nonCollisionTimer > 0.0f) {
+			nonCollisionTimer -= Time.deltaTime;
+			toggleVisibility();
+		} else {
+			nonCollisionTimer = 0.0f;
+			isHit=false;
+			spriteRenderer.enabled=true;
+		}
 
-		if (spellExecution > 0 && spellExecution + SPELL_DELAY < Time.time) {
-			createSpellParticle ();
-			spellExecution = 0;
+		if(shield != null && shieldBlinking){
+			toggleShieldVisibility();
 		}
 
 		if (Input.GetKeyDown ("space")) {
@@ -67,15 +130,19 @@ public class WizardController : MonoBehaviour {
 	}
 
 	public void ActivateShield(float time){
-		Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity); 
-		shieldActive = true;
+		shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
+		Invoke ("blinkShield", time-1);
+	}
 
-		Invoke ("DeactivateShield", time);
+	private void blinkShield(){
+		shieldBlinking = true;
+		Invoke ("DeactivateShield", 1f);
 	}
 
 	public void DeactivateShield(){
-		shieldActive = false;
-		Destroy (GameObject.FindGameObjectWithTag ("Shield"));
+		shieldBlinking = false;
+		Destroy (shield);
+		shield = null;
 	}
 
 
@@ -93,38 +160,92 @@ public class WizardController : MonoBehaviour {
 	}
 
 	private void MoveLeft(){;
+		if (!isLocalPlayer)
+			return;
 		animator.SetTrigger("wizard_run");
 		Move(-1);
-		if (!isLeft)
-			transform.localScale = new Vector3( - transform.localScale.x,
-			                                   transform.localScale.y,
-			                                   transform.localScale.z); //flip image
-
-		isLeft = true;
+		
+		if (isServer)
+			FlipIfNeeded (isLeft);
+		
+		if (!isLeft) {
+			if (isClient)
+				CmdFlip (); //execute this on the server 
+			isLeft = true;
+		}
 	}
+
 
 	private void MoveRight(){
+		if (!isLocalPlayer)
+			return;
 		animator.SetTrigger("wizard_run");
 		Move(1);
-		if (isLeft)
-			transform.localScale = new Vector3( - transform.localScale.x,
-			                                   transform.localScale.y,
-			                                   transform.localScale.z); //flip image
-		
-		isLeft = false;
+
+		if (isServer)
+			FlipIfNeeded (isLeft);
+
+		if (isLeft) {
+			if (isClient)
+				CmdFlip (); //execute this on the server 
+			isLeft = false;
+		}
 	}
+
+
 	
 	public void Idle(){
 		animator.SetTrigger("wizard_idle");
 		Move(0);
+	}
+
+	[Command]
+	public void CmdFlip()
+	{
+		isLeft = !isLeft;
+		FlipIfNeeded (isLeft);
+	}
+
+	public void FlipIfNeeded(bool left) {
+		if (left)
+			transform.localScale = new Vector3( - Mathf.Abs( transform.localScale.x),
+			                                   transform.localScale.y,
+			                                   transform.localScale.z); //flip image
+		else 
+			transform.localScale = new Vector3( Mathf.Abs( transform.localScale.x),
+			                                   transform.localScale.y,
+			                                   transform.localScale.z); //flip image
+		
 	}
 	
 	public void Spell(){
 		if(GameObject.FindGameObjectWithTag("Spell")){
 			return;
 		}
-
 		animator.SetTrigger("wizard_attack");
+		Invoke("createSpell", SPELL_DELAY);
+	}
+
+	private void createSpell(){
+		AudioSource audio = GetComponent<AudioSource>();
+		audio.Play();
+
+		if (!isLocalPlayer)
+			return;
+		
+		CmdCreateSpellParticle ();
+	}
+
+	[Command] //executed on server
+	private void CmdCreateSpellParticle()
+	{
+		string prefab = "NormalSpell";
+		switch (this.spellType) {
+		case SpellController.SpellType.Normal:
+			prefab = "NormalSpell"; break;
+		case SpellController.SpellType.Permanent:
+			prefab = "PermanentSpell"; break;
+		}
 
 		spellStartPoint = new Vector3 ();
 		if (isLeft) {
@@ -132,29 +253,19 @@ public class WizardController : MonoBehaviour {
 		} else {
 			spellStartPoint.x = transform.position.x+0.5f;
 		}
-		spellStartPoint.y = transform.position.y-1;
+		spellStartPoint.y = transform.position.y-0.8f;
 		spellStartPoint.z = transform.position.z;
-
-		spellExecution = Time.time;
-	}
-
-	private void createSpellParticle(){
-		AudioSource audio = GetComponent<AudioSource>();
-		audio.Play();
 		
-		string prefab = "NormalSpell";
-		switch (this.spellType) {
-			case SpellController.SpellType.Normal:
-				prefab = "NormalSpell"; break;
-			case SpellController.SpellType.Permanent:
-				prefab = "PermanentSpell"; break;
-		}
-
 		GameObject spell = Instantiate(Resources.Load(prefab), spellStartPoint, Quaternion.identity) as GameObject;
-
+		
 		Rigidbody2D rigidBody = spell.GetComponent<Rigidbody2D>();
 		rigidBody.velocity = transform.up * spellSpeed;
+
+		NetworkServer.Spawn (spell); //spawn on clients
 	}
+
+
+
 	
 	private void Move(float horizontalInput){
 		Vector2 moveVel = myBody.velocity;
@@ -170,8 +281,10 @@ public class WizardController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll){
-		if (!shieldActive) {
+		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
+				isHit = true;
+				nonCollisionTimer = HIT_TIME;
 				gameManager.decreaseLive();
 			}		
 		}
