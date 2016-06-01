@@ -36,7 +36,7 @@ public class GameManager : NetworkBehaviour {
 													{"Level2", 40},
 													{"Level3", 30},
 													{"Level4", 30},
-													{"Level5", 30}};
+													{"Level5", 40}};
 	
 	private GameManager(){
 
@@ -67,6 +67,14 @@ public class GameManager : NetworkBehaviour {
 			source.loop = true;
 		}
 		DontDestroyOnLoad(this.gameObject);
+	}
+
+	public void checkGameFinished(){
+		int ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
+		int zombieCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
+		if (ghostCount == 0 && zombieCount == 0) {
+			nextLevel();
+		}
 	}
 
 	public int getTotalLives(){

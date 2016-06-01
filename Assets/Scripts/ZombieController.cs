@@ -81,6 +81,7 @@ public class ZombieController : MonoBehaviour {
 	private void doExplode(){
 		Destroy(gameObject);
 		gameManager.addScore(5);
+		gameManager.checkGameFinished();
 	}
 
 	void OnCollisionEnter2D(Collision2D coll){
