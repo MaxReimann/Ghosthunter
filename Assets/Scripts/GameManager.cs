@@ -209,6 +209,11 @@ public class GameManager : NetworkBehaviour {
 		networkManager.ServerChangeScene("TutorialEnd");
 	}
 
+	public void loadMultiplayerScreen(){
+		networkManager.autoCreatePlayer = false;
+		networkManager.ServerChangeScene("MultiplayerScreen");
+	}
+
 
 	public void loadTutorial(){
 		loadLevel ("Tutorial");
@@ -234,6 +239,8 @@ public class GameManager : NetworkBehaviour {
 	public void loadLevel5(){
 		loadLevel ("Level5");
 	}
+
+
 	
 	public void reloadLevel(){
 		if (currentLevel == null) {

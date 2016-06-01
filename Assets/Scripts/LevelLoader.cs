@@ -20,6 +20,11 @@ public class LevelLoader : MonoBehaviour {
 		this.gameManager.loadTutorial();
 	}
 
+	
+	public void loadMultiplayerScreen(){
+		this.gameManager.loadMultiplayerScreen();
+	}
+
 	public void loadLevel1(){
 		this.gameManager.loadLevel1();
 	}
