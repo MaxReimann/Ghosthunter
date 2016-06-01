@@ -229,10 +229,13 @@ public class GameManager : NetworkBehaviour {
 	public void loadLevel5(){
 		loadLevel ("Level5");
 	}
-
-
 	
 	public void reloadLevel(){
+		if (lives == 0) {
+			lives = totalLives;
+			loadLevel1();
+			return;
+		}
 		if (currentLevel == null) {
 			loadLevel1();
 			return;
