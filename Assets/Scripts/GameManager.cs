@@ -19,7 +19,7 @@ public class GameManager : NetworkBehaviour {
 	private NetworkClient networkClient;
 
 	private int score = 0;
-	[SyncVar]
+	[SyncVar(hook="setAutoCreate")]
 	private string currentLevel = "Menu";
 
 	private bool hostStarted = false;
@@ -27,12 +27,14 @@ public class GameManager : NetworkBehaviour {
 	private bool isMultiPlayer = false;
 
 
+
 	AudioSource source;
 
 	private string playerName = "Anonymus";
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
-													{"Level1", 30},
+													{"Level1", 300},
+												{"MultiplayerScreen" , 300},
 													{"Tutorial", 30},
 													{"Level2", 40},
 													{"Level3", 30},
@@ -74,6 +76,7 @@ public class GameManager : NetworkBehaviour {
 		if (level == null) {
 			level = "Level1"; //for debug in-editor starts
 		}
+
 		return levelTimers [level];
 	}
 		
@@ -91,6 +94,7 @@ public class GameManager : NetworkBehaviour {
 	
 	public string getCurrentLevel(){
 		return this.currentLevel;
+		//return networkManager.sce
 	}
 
 	public void setMultiPlayer(bool multiplayerGame) {
@@ -211,8 +215,10 @@ public class GameManager : NetworkBehaviour {
 
 	public void loadMultiplayerScreen(){
 		networkManager.autoCreatePlayer = false;
+		this.currentLevel = "MultiplayerScreen";
 		networkManager.ServerChangeScene("MultiplayerScreen");
 	}
+
 
 
 	public void loadTutorial(){
@@ -254,11 +260,17 @@ public class GameManager : NetworkBehaviour {
 		if (!source.isPlaying) {
 			source.Play();
 		}
-		this.currentLevel = level;
-		//<Application.LoadLevel(level);
 		networkManager.autoCreatePlayer = true; //spawn players on startpositions
+		this.currentLevel = level;
+		//Application.LoadLevel(level);
 		networkManager.ServerChangeScene (level);
 	}
+
+	private void setAutoCreate(string unused){
+		networkManager.autoCreatePlayer = true;
+	}
+
+
 
 	private void createLiveIndicators(){
 		for(int i=0;i<totalLives;i++){

@@ -23,6 +23,8 @@ TagManager:
   - LeftButton
   - RightButton
   - TouchField
+  - StartGameAsServer
+  - Matchmaking
   layers:
   - Default
   - TransparentFX
