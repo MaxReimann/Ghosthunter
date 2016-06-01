@@ -84,3 +84,6 @@ TagManager:
   - name: Lethal Items
     uniqueID: 2844963023
     locked: 0
+  - name: Healthbar
+    uniqueID: 3761571791
+    locked: 0
