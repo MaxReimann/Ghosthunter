@@ -155,7 +155,9 @@ public class GameManager : NetworkBehaviour {
 
 	public void decreaseLive(){
 		if (--lives == 0) {
-			gameOver ();
+			if(currentLevel != "Tutorial"){
+				gameOver ();
+			}
 		}
 	}
 
