@@ -180,6 +180,10 @@ public class GameManager : NetworkBehaviour {
 		}
 
 		createLiveIndicators ();
+//		GameObject[] wizards = GameObject.FindGameObjectsWithTag("Wizards");
+//		foreach (GameObject wizard in wizards) {
+//			wizard.GetComponent<WizardController> ().newLevelLoaded ();
+//		}
 	}
 
 	

@@ -20,6 +20,9 @@ TagManager:
   - LethalItem
   - Zombie
   - Highscores
+  - LeftButton
+  - RightButton
+  - TouchField
   layers:
   - Default
   - TransparentFX

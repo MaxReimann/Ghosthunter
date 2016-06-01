@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 
 using System.Collections;
@@ -33,6 +34,20 @@ public class WizardController : NetworkBehaviour {
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.GetInstance();
+
+		//register wizard to touch buttons
+		if (isLocalPlayer) {
+			GameObject leftButtonObject = GameObject.FindGameObjectWithTag ("LeftButton");
+			GameObject rightButtonObject = GameObject.FindGameObjectWithTag ("RightButton");
+
+			leftButtonObject.GetComponent<CustomEventTrigger> ().RegisterWizard (this);
+			rightButtonObject.GetComponent<CustomEventTrigger> ().RegisterWizard (this);
+
+			GameObject touchFieldObject = GameObject.FindGameObjectWithTag ("TouchField");
+			touchFieldObject.GetComponent<Button> ().onClick.AddListener (() => Spell ());
+		}
+
+	
 	}
 
 	// Update is called once per frame
