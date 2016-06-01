@@ -229,6 +229,11 @@ public class GameManager : NetworkBehaviour {
 	public void loadLevel5(){
 		loadLevel ("Level5");
 	}
+
+	public void loadMainMenu(){
+		lives = totalLives;
+		Application.LoadLevel("Menu");
+	}
 	
 	public void reloadLevel(){
 		if (lives == 0) {
