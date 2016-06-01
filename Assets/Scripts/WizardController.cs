@@ -7,6 +7,11 @@ using System.Collections;
 public class WizardController : NetworkBehaviour {
 
 	private static float SPELL_DELAY = 0.01f;
+	private static float HIT_TIME = 1f;
+	private static float TOGGLE_TIME = 0.1f;
+
+	private float nonCollisionTimer = 0.0f;
+	private float toggleTimer = 0.0f;
 
 	public float speed = 5;
 	public float spellSpeed = 8;
@@ -14,6 +19,8 @@ public class WizardController : NetworkBehaviour {
 	private Vector3 spellStartPoint; 
 
 	private GameManager gameManager;	
+
+	private SpriteRenderer spriteRenderer;
 
 	[SyncVar(hook="FlipIfNeeded")] //will synchronize only server -> client, calls this function on change
 	public bool isLeft = false;
@@ -26,7 +33,7 @@ public class WizardController : NetworkBehaviour {
 
 	private SpellController.SpellType spellType = SpellController.SpellType.Normal;
 	private bool shieldActive = false;
-
+	private bool isHit = false;
 
 
 	// Use this for initialization
@@ -34,6 +41,7 @@ public class WizardController : NetworkBehaviour {
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.GetInstance();
+		spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
 
 		//register wizard to touch buttons
 		if (isLocalPlayer) {
@@ -50,12 +58,29 @@ public class WizardController : NetworkBehaviour {
 	
 	}
 
+	private void toggleVisibility(){		
+		if (toggleTimer > 0) {
+			toggleTimer -= Time.deltaTime;
+			return;
+		}
+		spriteRenderer.enabled = !spriteRenderer.isVisible;
+		toggleTimer = TOGGLE_TIME;
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
 		if (!isLocalPlayer)
 			return;
 	
+		if (nonCollisionTimer > 0.0f) {
+			nonCollisionTimer -= Time.deltaTime;
+			toggleVisibility();
+		} else {
+			nonCollisionTimer = 0.0f;
+			isHit=false;
+			spriteRenderer.enabled=true;
+		}
 
 		if (Input.GetKeyDown ("space")) {
 			Spell ();
@@ -235,8 +260,10 @@ public class WizardController : NetworkBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll){
-		if (!shieldActive) {
+		if (!shieldActive && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
+				isHit = true;
+				nonCollisionTimer = HIT_TIME;
 				gameManager.decreaseLive();
 			}		
 		}

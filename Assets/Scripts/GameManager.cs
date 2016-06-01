@@ -13,7 +13,6 @@ public class GameManager : NetworkBehaviour {
 	private static int totalLives = 5;
 	[SyncVar]
 	private int lives = totalLives;
-	private static GameObject[] hearts = new GameObject[totalLives];
 
 	public NetworkManager networkManager;
 	private NetworkClient networkClient;
@@ -68,6 +67,14 @@ public class GameManager : NetworkBehaviour {
 			source.loop = true;
 		}
 		DontDestroyOnLoad(this.gameObject);
+	}
+
+	public int getTotalLives(){
+		return totalLives;
+	}
+
+	public int getCurrentLives(){
+		return lives;
 	}
 
 	public int getTimer(string level) {
@@ -147,24 +154,9 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	public void decreaseLive(){
-		lives--;
-		if (lives == 0) {
+		Debug.Log ("decrease live from: " + lives);
+		if (--lives == 0) {
 			gameOver ();
-			return;
-		}
-
-		redrawHearts ();
-	}
-
-	private void redrawHearts() {
-		for (int i = totalLives-1; i>lives-1; i--) {
-			GameObject heart = hearts [i];
-			if (heart != null) { // not triggered by menu
-				SpriteRenderer renderer = heart.GetComponent<SpriteRenderer> ();
-				Color color = renderer.color;
-				color.a = 0.6f;
-				renderer.color = color;
-			}
 		}
 	}
 
@@ -179,7 +171,6 @@ public class GameManager : NetworkBehaviour {
 			hostStarted = true;
 		}
 
-		createLiveIndicators ();
 //		GameObject[] wizards = GameObject.FindGameObjectsWithTag("Wizards");
 //		foreach (GameObject wizard in wizards) {
 //			wizard.GetComponent<WizardController> ().newLevelLoaded ();
@@ -221,7 +212,6 @@ public class GameManager : NetworkBehaviour {
 
 	public void loadLevel1(){
 		loadLevel ("Level1");
-
 	}
 
 	public void loadLevel2(){
@@ -260,12 +250,6 @@ public class GameManager : NetworkBehaviour {
 		networkManager.ServerChangeScene (level);
 	}
 
-	private void createLiveIndicators(){
-		for(int i=0;i<totalLives;i++){
-			float x = 8.2f - i*0.75f;
-			GameObject heart = Instantiate(Resources.Load("Heart"), new Vector2(x,4.3f), Quaternion.identity) as GameObject;
-			hearts[i] = heart;
-		}
-	}
+
 	
 }
