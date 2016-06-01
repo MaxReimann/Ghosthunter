@@ -98,6 +98,13 @@ public class ZombieController : MonoBehaviour {
 			return;
 		}
 
+		if (coll.gameObject.tag == "Wizards") {
+			isHit = true;
+			nonCollisionTimer = HIT_TIME;
+			gameObject.layer = LayerMask.NameToLayer("NonCollZombies");
+			return;
+		}
+
 
 		if (coll.gameObject.tag == "LeftBorder") {
 			animator.SetTrigger ("zombie_walk_right");
