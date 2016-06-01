@@ -25,7 +25,7 @@ public class MovingPlatformLtoR : MonoBehaviour {
 		if (transform.position.x <= -1.5f) {
 			direction_left = true;
 		} 
-		if (transform.position.x >= 4.3f) {
+		if (transform.position.x >= 1.8f) {
 			direction_left = false;
 		}
 		

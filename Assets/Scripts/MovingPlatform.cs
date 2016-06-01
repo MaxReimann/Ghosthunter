@@ -22,10 +22,10 @@ public class MovingPlatform : MonoBehaviour {
 		}
 		transform.position = position;
 		
-		if (transform.position.y <= -4.0f) {
+		if (transform.position.y <= -3.0f) {
 			direction_up = true;
 		} 
-		if (transform.position.y >= 3.0f) {
+		if (transform.position.y >= 2.05f) {
 			direction_up = false;
 		}
 		
