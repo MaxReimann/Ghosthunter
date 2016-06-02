@@ -15,7 +15,8 @@ public class CustomNetworkManager : NetworkManager {
 
 	public override NetworkClient StartHost(ConnectionConfig config, int maxConnections)
 	{
-		print ("start host");
+		//this fixes a extremly strange bug, which wants to start a new host on client scene change
+		// if the host has already been started, just return the actual client
 		if (hostStartCount++ == 0)
 			return base.StartHost (config, maxConnections);
 
@@ -23,7 +24,6 @@ public class CustomNetworkManager : NetworkManager {
 	}
 
 	public override NetworkClient StartHost(){
-		print ("start host");
 		if (hostStartCount++ == 0)
 			base.StartHost();
 
@@ -33,34 +33,34 @@ public class CustomNetworkManager : NetworkManager {
 	//public override NetworkClient StartHost(MatchInfo info) {
 	//}
 
-	public override void OnClientSceneChanged (NetworkConnection conn)
-	{
-		if (count++ == 0)
-			base.OnClientSceneChanged (conn);
-		else 
-			return;
-		
-		bool addPlayer = (ClientScene.localPlayers.Count == 0);
-		bool foundPlayer = false;
-		foreach (var playerController in ClientScene.localPlayers)
-		{
-			if (playerController.gameObject != null)
-			{
-				foundPlayer = true;
-				break;
-			}
-		}
-		if (!foundPlayer)
-		{
-			// there are players, but their game objects have all been deleted
-			addPlayer = true;
-		}
-		if (addPlayer)
-		{
-			ClientScene.AddPlayer(0);
-		}
-		
-	}
-	
+//	public override void OnClientSceneChanged (NetworkConnection conn)
+//	{
+//		if (count++ == 0)
+//			base.OnClientSceneChanged (conn);
+//		else 
+//			return;
+//		
+//		bool addPlayer = (ClientScene.localPlayers.Count == 0);
+//		bool foundPlayer = false;
+//		foreach (var playerController in ClientScene.localPlayers)
+//		{
+//			if (playerController.gameObject != null)
+//			{
+//				foundPlayer = true;
+//				break;
+//			}
+//		}
+//		if (!foundPlayer)
+//		{
+//			// there are players, but their game objects have all been deleted
+//			addPlayer = true;
+//		}
+//		if (addPlayer)
+//		{
+//			ClientScene.AddPlayer(0);
+//		}
+//		
+//	}
+//	
 
 }
