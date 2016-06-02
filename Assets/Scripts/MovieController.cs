@@ -12,24 +12,27 @@ public class MovieController : MonoBehaviour {
 		private AudioSource audioSource;
 	#endif
 
+	private LevelLoader levelLoader;
 
 	// Use this for initialization
 	void Start () {		
 
+		levelLoader = GetComponent<LevelLoader> ();
+
 		#if (UNITY_IPHONE || UNITY_ANDROID)
-			playOnMobile();
+			StartCoroutine(playOnMobile());
 			return;
 		#else
-		audioSource = GetComponent<AudioSource>();
-		//movie = (MovieTexture) Resources.Load("OpenScene", typeof(MovieTexture));
-		movie = (MovieTexture) AssetDatabase.LoadAssetAtPath("Assets/Movies/OpenScene.mov", typeof(MovieTexture));
+			audioSource = GetComponent<AudioSource>();
+			//movie = (MovieTexture) Resources.Load("OpenScene", typeof(MovieTexture));
+			movie = (MovieTexture) AssetDatabase.LoadAssetAtPath("Assets/Movies/OpenScene.mov", typeof(MovieTexture));
 
-		GetComponent<RawImage>().texture = movie;
-		audioSource.clip = movie.audioClip;
-		if (!movie.isPlaying) {
-			movie.Play();
-			audioSource.Play();
-		}
+			GetComponent<RawImage>().texture = movie;
+			audioSource.clip = movie.audioClip;
+			if (!movie.isPlaying) {
+				movie.Play();
+				audioSource.Play();
+			}
 		#endif
 	}
 	
@@ -38,13 +41,16 @@ public class MovieController : MonoBehaviour {
 
 		#if !(UNITY_IPHONE || UNITY_ANDROID)
 		if (!movie.isPlaying) {
-			Application.LoadLevel("Menu");
+			levelLoader.LoadMainMenu();
 		}
 		#endif
 	}
 
-	private void playOnMobile(){
-		Handheld.PlayFullScreenMovie ("OpenScene.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput);
-		Application.LoadLevel ("Menu");
+
+	private IEnumerator playOnMobile(){
+		Handheld.PlayFullScreenMovie("OpenScene.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
+		yield return new WaitForEndOfFrame();
+		yield return new WaitForEndOfFrame();
+		levelLoader.LoadMainMenu();
 	}
 }
