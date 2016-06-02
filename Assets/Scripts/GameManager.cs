@@ -52,11 +52,6 @@ public class GameManager : NetworkBehaviour {
 
 	}
 
-	public void setPlayerName(string name){
-		Debug.Log ("setting player name to: '" + name + "'");
-		playerName = name;
-	}
-
 	public static GameManager GetInstance(){
 		if(instance == null){
 			//will make new gamemanager object
@@ -210,7 +205,7 @@ public class GameManager : NetworkBehaviour {
 		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
 			return;
 
-
+		print ("is Multiplayer");
 		if (!isMultiPlayer && !hostStarted) {
 			print ("onlevelload: start host");
 			//NOTE: this spawns the player and ghosts at the right position
@@ -254,7 +249,9 @@ public class GameManager : NetworkBehaviour {
 		networkManager.ServerChangeScene("MultiplayerScreen");
 	}
 
-
+	public void setPlayerName(string name){
+		playerName = name;
+	}
 
 	public void loadTutorial(){
 		loadLevel ("Tutorial");
