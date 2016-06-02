@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿#if !(UNITY_IPHONE || UNITY_ANDROID)
+	using UnityEditor;
+#endif
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -18,7 +21,9 @@ public class MovieController : MonoBehaviour {
 			return;
 		#else
 		audioSource = GetComponent<AudioSource>();
-		movie = (MovieTexture) Resources.Load( "OpenScene" , typeof( MovieTexture ) );
+		//movie = (MovieTexture) Resources.Load("OpenScene", typeof(MovieTexture));
+		movie = (MovieTexture) AssetDatabase.LoadAssetAtPath("Assets/Movies/OpenScene.mov", typeof(MovieTexture));
+
 		GetComponent<RawImage>().texture = movie;
 		audioSource.clip = movie.audioClip;
 		if (!movie.isPlaying) {
