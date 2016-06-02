@@ -33,7 +33,7 @@ public class MovingPlatform : MonoBehaviour {
 				direction_up = true;
 				waitTimer = WAIT_TIME;
 			} 
-			if (transform.position.y >= 2.0f) {
+			if (transform.position.y >= 1.49f) {
 				direction_up = false;
 				waitTimer = WAIT_TIME;
 			}

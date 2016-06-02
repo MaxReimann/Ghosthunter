@@ -52,6 +52,11 @@ public class GameManager : NetworkBehaviour {
 
 	}
 
+	public void setPlayerName(string name){
+		Debug.Log ("setting player name to: '" + name + "'");
+		playerName = name;
+	}
+
 	public static GameManager GetInstance(){
 		if(instance == null){
 			//will make new gamemanager object
