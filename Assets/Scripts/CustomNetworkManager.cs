@@ -6,14 +6,39 @@ using UnityEngine.Networking;
 
 public class CustomNetworkManager : NetworkManager {
 
+	int count = 0;
 	int playerCount = 0;
+	int hostStartCount = 0;
 	// Use this for initialization
 	void Start () {
 	}
 
+	public override NetworkClient StartHost(ConnectionConfig config, int maxConnections)
+	{
+		print ("start host");
+		if (hostStartCount++ == 0)
+			return base.StartHost (config, maxConnections);
+
+		return this.client;
+	}
+
+	public override NetworkClient StartHost(){
+		print ("start host");
+		if (hostStartCount++ == 0)
+			base.StartHost();
+
+		return this.client;
+	}
+		
+	//public override NetworkClient StartHost(MatchInfo info) {
+	//}
+
 	public override void OnClientSceneChanged (NetworkConnection conn)
 	{
-		//base.OnClientSceneChanged (conn);
+		if (count++ == 0)
+			base.OnClientSceneChanged (conn);
+		else 
+			return;
 		
 		bool addPlayer = (ClientScene.localPlayers.Count == 0);
 		bool foundPlayer = false;
