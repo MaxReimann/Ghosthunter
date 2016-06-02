@@ -137,7 +137,7 @@ public class GhostController : NetworkBehaviour {
 	private void CmdDoSpellCollision(){
 		gameManager.addScore (2);
 		NetworkServer.Destroy (this.gameObject);
-		Destroy (this.gameObject);
+	//	Destroy (this.gameObject);
 		
 		string nextType = ghostType.splitInto; 
 		if (nextType != "None") {

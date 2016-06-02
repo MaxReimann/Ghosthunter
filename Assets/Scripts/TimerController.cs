@@ -8,6 +8,7 @@ public class TimerController : NetworkBehaviour {
 
 	[SyncVar(hook="OnTotalTimerChanged")]
 	private float totalTimer;
+	[SyncVar]
 	private float timer;
 	private Text txt;
 	public Slider timeBarSlider;  //reference for slider
@@ -50,7 +51,7 @@ public class TimerController : NetworkBehaviour {
 			timer -= Time.deltaTime;
 			timeBarSlider.value = timer / totalTimer;
 			txt.text = "Time: " + (int)timer;
-			if (timer < 1 && isServer) {
+			if (timer < 1) {
 				gameManager.timeout ();
 			}
 		}

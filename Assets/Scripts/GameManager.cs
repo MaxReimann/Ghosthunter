@@ -32,16 +32,13 @@ public class GameManager : NetworkBehaviour {
 	[SyncVar]
 	private bool isMultiPlayer = false;
 
-
-
 	AudioSource source;
 
 	private string playerName = "Anonymus";
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
 													{"Level1", 30},
-												{"Menu" , 300},
-												{"MultplayerScreen" , 300},
+													{"Menu" , 300},
 													{"Tutorial", 30},
 													{"Level2", 40},
 													{"Level3", 30},
@@ -56,7 +53,7 @@ public class GameManager : NetworkBehaviour {
 		if(instance == null){
 			//will make new gamemanager object
 			Instantiate(Resources.Load("GameManager"), new Vector3(0,0,0), Quaternion.identity); 
-			instance.setCurrentLevel(Application.loadedLevelName);
+			//instance.setCurrentLevel(Application.loadedLevelName);
 			if (instance == null)
 			{
 				print("not awake");
@@ -72,7 +69,7 @@ public class GameManager : NetworkBehaviour {
 			return;
 		} else {
 			instance = this;
-			this.setCurrentLevel(Application.loadedLevelName);
+			//this.setCurrentLevel(Application.loadedLevelName);
 			source = gameObject.GetComponent<AudioSource>();
 			source.loop = true;
 		}
@@ -87,6 +84,9 @@ public class GameManager : NetworkBehaviour {
 		}
 	}
 
+
+	/////// getters & setter /////////////
+
 	public int getTotalLives(){
 		return totalLives;
 	}
@@ -95,9 +95,6 @@ public class GameManager : NetworkBehaviour {
 		return lives;
 	}
 
-	public void setCurrentLives(int lives){
-		this.lives = lives;
-	}
 
 	public int getTimer(string level) {
 		if (level == null) {
@@ -107,7 +104,7 @@ public class GameManager : NetworkBehaviour {
 		return levelTimers [level];
 	}
 		
-		public void addScore(int score){
+	public void addScore(int score){
 		this.score += score;
 	}
 
@@ -124,22 +121,55 @@ public class GameManager : NetworkBehaviour {
 		//return networkManager.sce
 	}
 
-	public void setMultiPlayer(bool multiplayerGame) {
-		this.isMultiPlayer = multiplayerGame;
-		if (this.isMultiPlayer != SyncController.GetInstance ().isMultiPlayer)
-			SyncController.GetInstance ().isMultiPlayer = multiplayerGame;
-	}
-
 	public bool IsMultiplayer() {
 		return this.isMultiPlayer;
 	}
 
-	public void setHostStarted(bool started){
-		this.hostStarted = started;
-		if (hostStarted != SyncController.GetInstance ().hostStarted)
-			SyncController.GetInstance ().hostStarted = started;
+	public void decreaseLive(){
+		setCurrentLives(lives-1);
+		if (lives == 0) {
+			if(currentLevel != "Tutorial"){
+				gameOver ();
+			}
+		}
+	}
+
+
+
+
+
+	private void finalizeGame() {
+		source.Stop();
+		string now = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+		string oldscores = PlayerPrefs.GetString ("highscores");
+		string newscores = oldscores + playerName + ";" + now + ";" + this.score.ToString() + "\n";
+		PlayerPrefs.SetString ("highscores", newscores);
+		PlayerPrefs.Save ();
 	}
 	
+
+
+
+	void OnLevelWasLoaded(int level) {
+//		currentLevel = Application.loadedLevelName;
+
+
+		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
+			return;
+		
+		if (!isMultiPlayer && !hostStarted) {
+			print ("onlevelload: start host");
+			//NOTE: this spawns the player and ghosts at the right position
+			networkClient = networkManager.StartHost ();
+			this.setHostStarted(true);
+		}
+	}
+
+
+	//// scene loading ///////
+
+
+
 	public void nextLevel(){
 
 		if (currentLevel == null) {
@@ -175,59 +205,17 @@ public class GameManager : NetworkBehaviour {
 		loadLevel1 ();
 	}
 
-	private void finalizeGame() {
-		source.Stop();
-		string now = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-		string oldscores = PlayerPrefs.GetString ("highscores");
-		string newscores = oldscores + playerName + ";" + now + ";" + this.score.ToString() + "\n";
-		PlayerPrefs.SetString ("highscores", newscores);
-		PlayerPrefs.Save ();
-	}
-	
-	public void timeout(){
-		finalizeGame ();
-		Application.LoadLevel("Timeout");
-	}
-
-	public void decreaseLive(){
-		SyncController.GetInstance ().currentLives = --lives;
-		if (lives == 0) {
-			if(currentLevel != "Tutorial"){
-				gameOver ();
-			}
-		}
-	}
-
-	void OnLevelWasLoaded(int level) {
-		currentLevel = Application.loadedLevelName;
-
-
-		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
-			return;
-
-		print ("is Multiplayer");
-		if (!isMultiPlayer && !hostStarted) {
-			print ("onlevelload: start host");
-			//NOTE: this spawns the player and ghosts at the right position
-			networkClient = networkManager.StartHost ();
-			this.setHostStarted(true);
-		}
-
-
-//		GameObject[] wizards = GameObject.FindGameObjectsWithTag("Wizards");
-//		foreach (GameObject wizard in wizards) {
-//			wizard.GetComponent<WizardController> ().newLevelLoaded ();
-//		}
-	}
-
-	
 	private void gameOver(){
 		finalizeGame ();
 		//Application.LoadLevel("GameOver");
 		//dont auto spawn players on the next screen
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("GameOver");
+	}
 
+	public void timeout(){
+		setAutoCreate (false);
+		networkManager.ServerChangeScene("Timeout");
 	}
 
 	private void loadWinScene(){
@@ -242,12 +230,6 @@ public class GameManager : NetworkBehaviour {
 		//Application.LoadLevel("TutorialEnd");
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("TutorialEnd");
-	}
-
-	public void loadMultiplayerScreen(){
-		setAutoCreate (false);
-		this.currentLevel = "MultiplayerScreen";
-		networkManager.ServerChangeScene("MultiplayerScreen");
 	}
 
 	public void setPlayerName(string name){
@@ -279,14 +261,13 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	public void loadMainMenu(){
-		lives = totalLives;
+		setCurrentLives(totalLives);
 		Application.LoadLevel("Menu");
 	}
 	
 	public void reloadLevel(){
 		if (lives == 0) {
-			lives = totalLives;
-			SyncController.GetInstance().currentLives = lives;
+			setCurrentLives(totalLives);
 			loadLevel1();
 			return;
 		}
@@ -301,16 +282,42 @@ public class GameManager : NetworkBehaviour {
 		if (!source.isPlaying) {
 			source.Play();
 		}
-		setAutoCreate (true);
 		this.currentLevel = level;
 		//Application.LoadLevel(level);
-		
-	networkManager.ServerChangeScene (level);
+		networkManager.ServerChangeScene (level);
+		setAutoCreate (true);
 	}
 	
+
+
+
+	////// state syncing setters
+
 	private void setAutoCreate(bool autoCreate){
 		networkManager.autoCreatePlayer = autoCreate;
 		SyncController.GetInstance ().autoCreatePlayer = autoCreate;
+
+	}
+
+	public void setMultiPlayer(bool multiplayerGame) {
+		this.isMultiPlayer = multiplayerGame;
+		if (this.isMultiPlayer != SyncController.GetInstance ().isMultiPlayer)
+			SyncController.GetInstance ().isMultiPlayer = multiplayerGame;
+	}
+
+
+	public void setHostStarted(bool started){
+		this.hostStarted = started;
+		if (hostStarted != SyncController.GetInstance ().hostStarted)
+			SyncController.GetInstance ().hostStarted = started;
+	}
+	
+
+
+	public void setCurrentLives(int lives){
+		this.lives = lives;
+		if (lives != SyncController.GetInstance ().currentLives)
+			SyncController.GetInstance ().currentLives = lives;
 
 	}
 	
