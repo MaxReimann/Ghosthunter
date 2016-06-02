@@ -39,7 +39,7 @@ public class StartScreenController : NetworkBehaviour {
 			print ("now change levels");
 			started = true;
 			NetworkManager.singleton.GetComponent<NetworkManagerHUD> ().enabled = false;
-			Invoke("CmdchangeLevel", 2.0f);
+			Invoke("CmdchangeLevel",50.0f);
 		}
 	}
 	

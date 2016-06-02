@@ -1477,8 +1477,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 547916682}
-        m_MethodName: loadMultiplayerScreen
+      - m_Target: {fileID: 33749971}
+        m_MethodName: onClickMultiplayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

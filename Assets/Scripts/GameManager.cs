@@ -38,7 +38,7 @@ public class GameManager : NetworkBehaviour {
 	private string playerName = "Anonymus";
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
-													{"Level1", 300},
+													{"Level1", 30},
 												{"Menu" , 300},
 												{"MultplayerScreen" , 300},
 													{"Tutorial", 30},

@@ -2,12 +2,13 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEngine.Networking.Match;
+using UnityEngine.Networking.NetworkSystem;
+using UnityEngine.Networking.Types;
 
 
 public class CustomNetworkManager : NetworkManager {
 
-	int count = 0;
-	int playerCount = 0;
 	int hostStartCount = 0;
 	// Use this for initialization
 	void Start () {
@@ -15,6 +16,7 @@ public class CustomNetworkManager : NetworkManager {
 
 	public override NetworkClient StartHost(ConnectionConfig config, int maxConnections)
 	{
+		print ("start host with config");
 		//this fixes a extremly strange bug, which wants to start a new host on client scene change
 		// if the host has already been started, just return the actual client
 		if (hostStartCount++ == 0)
@@ -24,14 +26,21 @@ public class CustomNetworkManager : NetworkManager {
 	}
 
 	public override NetworkClient StartHost(){
+		print ("start host");
 		if (hostStartCount++ == 0)
 			base.StartHost();
 
 		return this.client;
 	}
 		
-	//public override NetworkClient StartHost(MatchInfo info) {
-	//}
+	public override NetworkClient StartHost(MatchInfo info) {
+		print ("start host with match");
+		if (hostStartCount++ == 0)
+			base.StartHost();
+		
+		return this.client;
+
+	}
 
 //	public override void OnClientSceneChanged (NetworkConnection conn)
 //	{
