@@ -35,6 +35,13 @@ public class MovieController : MonoBehaviour {
 		#endif
 	}
 
+	public void skipVideo(){
+		#if !(UNITY_IPHONE || UNITY_ANDROID)
+			Debug.Log("skiping video");
+			movie.Stop();
+		#endif
+	}
+
 	private void loadMenu(){
 		Application.LoadLevel("Menu");
 	}
