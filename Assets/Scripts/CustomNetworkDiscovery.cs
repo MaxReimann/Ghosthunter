@@ -6,22 +6,21 @@ public class CustomNetworkDiscovery : NetworkDiscovery
 {
 	private bool started = false;
 	private NetworkManager manager;
+	
 
 	public void Awake() {
 		//Initialize ();
 		manager = NetworkManager.singleton;
-		manager.GetComponent<NetworkManagerHUD> ().showGUI = true;;
+		if (manager != null)
+			manager.GetComponent<NetworkManagerHUD> ().showGUI = true;
+		else 
+			print ("No NetowrkManagerHUD found.");
 
 	}
 
 
 
-	public void Update() {
-		GameObject[] wizards = GameObject.FindGameObjectsWithTag ("Wizards");
-		if (wizards.Length >= 2) {
-			GameManager.GetInstance ().loadLevel1 ();
-		}
-	}
+
 	
 
 //	public void StartServer() {

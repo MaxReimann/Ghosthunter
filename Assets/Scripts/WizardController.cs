@@ -31,6 +31,7 @@ public class WizardController : NetworkBehaviour {
 
 	// Use this for initialization
 	void Start (){
+		DontDestroyOnLoad(this.gameObject);
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.GetInstance();

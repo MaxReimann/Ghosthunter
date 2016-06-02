@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.NetworkSystem;
+using UnityEngine.Networking.Types;
+
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;       //Allows us to use Lists. 
@@ -34,7 +39,8 @@ public class GameManager : NetworkBehaviour {
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
 													{"Level1", 300},
-												{"MultiplayerScreen" , 300},
+												{"Menu" , 300},
+												{"MultplayerScreen" , 300},
 													{"Tutorial", 30},
 													{"Level2", 40},
 													{"Level3", 30},
@@ -263,10 +269,10 @@ public class GameManager : NetworkBehaviour {
 		networkManager.autoCreatePlayer = true; //spawn players on startpositions
 		this.currentLevel = level;
 		//Application.LoadLevel(level);
-		NetworkServer.SetAllClientsNotReady();
-		networkManager.ServerChangeScene (level);
+		
+	networkManager.ServerChangeScene (level);
 	}
-
+	
 	private void setAutoCreate(string unused){
 		networkManager.autoCreatePlayer = true;
 	}
