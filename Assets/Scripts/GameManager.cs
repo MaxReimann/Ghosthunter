@@ -23,7 +23,7 @@ public class GameManager : NetworkBehaviour {
 	private NetworkClient networkClient;
 
 	private int score = 0;
-	[SyncVar(hook="setAutoCreate")]
+	[SyncVar]
 	private string currentLevel = "Menu";
 
 
@@ -225,26 +225,27 @@ public class GameManager : NetworkBehaviour {
 		finalizeGame ();
 		//Application.LoadLevel("GameOver");
 		//dont auto spawn players on the next screen
-		networkManager.autoCreatePlayer = false; 
+		setAutoCreate (false);
 		networkManager.ServerChangeScene("GameOver");
+
 	}
 
 	private void loadWinScene(){
 		source.Stop();
 		//Application.LoadLevel("Win");
-		networkManager.autoCreatePlayer = false;
+		setAutoCreate (false);
 		networkManager.ServerChangeScene("Win");
 	}
 
 	private void loadTutorialEnd(){
 		source.Stop();
 		//Application.LoadLevel("TutorialEnd");
-		networkManager.autoCreatePlayer = false;
+		setAutoCreate (false);
 		networkManager.ServerChangeScene("TutorialEnd");
 	}
 
 	public void loadMultiplayerScreen(){
-		networkManager.autoCreatePlayer = false;
+		setAutoCreate (false);
 		this.currentLevel = "MultiplayerScreen";
 		networkManager.ServerChangeScene("MultiplayerScreen");
 	}
@@ -300,19 +301,17 @@ public class GameManager : NetworkBehaviour {
 		if (!source.isPlaying) {
 			source.Play();
 		}
-		networkManager.autoCreatePlayer = true; //spawn players on startpositions
+		setAutoCreate (true);
 		this.currentLevel = level;
 		//Application.LoadLevel(level);
 		
 	networkManager.ServerChangeScene (level);
 	}
 	
-	private void setAutoCreate(string unused){
-		networkManager.autoCreatePlayer = true;
+	private void setAutoCreate(bool autoCreate){
+		networkManager.autoCreatePlayer = autoCreate;
+		SyncController.GetInstance ().autoCreatePlayer = autoCreate;
+
 	}
-
-
-
-
 	
 }

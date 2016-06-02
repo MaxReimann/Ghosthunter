@@ -19,6 +19,9 @@ public class SyncController : NetworkBehaviour {
 	
 	[SyncVar(hook="OnMultiplayerStatusChanged")]
 	public bool isMultiPlayer = false;
+
+	[SyncVar(hook="OnChangeAutoCreate")]
+	public bool autoCreatePlayer = true;
 	
 
 	private void OnLivesChanged(int lives){
@@ -36,6 +39,10 @@ public class SyncController : NetworkBehaviour {
 		GameManager.GetInstance ().setMultiPlayer (status);
 	}
 
+	private void OnChangeAutoCreate(bool autocreate){
+		autoCreatePlayer = autocreate;
+		NetworkManager.singleton.autoCreatePlayer = autocreate;
+	}
 
 	// Use this for initialization
 	public void Awake() {
