@@ -95,6 +95,10 @@ public class GameManager : NetworkBehaviour {
 		return lives;
 	}
 
+	public void setCurrentLives(int lives){
+		this.lives = lives;
+	}
+
 	public int getTimer(string level) {
 		if (level == null) {
 			level = "Level1"; //for debug in-editor starts
@@ -178,7 +182,8 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	public void decreaseLive(){
-		if (--lives == 0) {
+		SyncController.GetInstance ().currentLives = --lives;
+		if (lives == 0) {
 			if(currentLevel != "Tutorial"){
 				gameOver ();
 			}
@@ -194,6 +199,7 @@ public class GameManager : NetworkBehaviour {
 
 
 		if (!isMultiPlayer && !hostStarted) {
+			print ("onlevelload: start host");
 			//NOTE: this spawns the player and ghosts at the right position
 			networkClient = networkManager.StartHost ();
 			hostStarted = true;
@@ -269,6 +275,7 @@ public class GameManager : NetworkBehaviour {
 	public void reloadLevel(){
 		if (lives == 0) {
 			lives = totalLives;
+			SyncController.GetInstance().currentLives = lives;
 			loadLevel1();
 			return;
 		}
