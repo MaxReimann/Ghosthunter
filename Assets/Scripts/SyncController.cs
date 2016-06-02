@@ -22,6 +22,9 @@ public class SyncController : NetworkBehaviour {
 
 	[SyncVar(hook="OnChangeAutoCreate")]
 	public bool autoCreatePlayer = true;
+
+	[SyncVar(hook="OnLevelNameChange")]
+	public string levelName;
 	
 
 	private void OnLivesChanged(int lives){
@@ -42,6 +45,11 @@ public class SyncController : NetworkBehaviour {
 	private void OnChangeAutoCreate(bool autocreate){
 		autoCreatePlayer = autocreate;
 		NetworkManager.singleton.autoCreatePlayer = autocreate;
+	}
+
+	private void OnLevelNameChange(string levelName){
+		this.levelName = levelName;
+		GameManager.GetInstance().setCurrentLevel (levelName);
 	}
 
 	// Use this for initialization

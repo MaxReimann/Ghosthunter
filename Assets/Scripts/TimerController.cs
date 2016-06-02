@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class TimerController : NetworkBehaviour {
 
 	[SyncVar(hook="OnTotalTimerChanged")]
-	private float totalTimer;
+	private float totalTimer = 30.0f;
 	[SyncVar]
 	private float timer;
 	private Text txt;
@@ -20,8 +20,10 @@ public class TimerController : NetworkBehaviour {
 	void Start () {
 		txt = gameObject.GetComponent<Text>(); 
 		gameManager = GameManager.GetInstance();
-		
-		totalTimer = gameManager.getTimer (gameManager.getCurrentLevel ());
+
+		if (isServer) {
+			totalTimer = gameManager.getTimer (gameManager.getCurrentLevel ());
+		}
 		timer = totalTimer;
 	}
 

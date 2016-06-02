@@ -112,9 +112,7 @@ public class GameManager : NetworkBehaviour {
 		return score;
 	}
 
-	public void setCurrentLevel(string level){
-		this.currentLevel = level;
-	}
+
 
 	public string getCurrentLevel(){
 		return this.currentLevel;
@@ -152,7 +150,7 @@ public class GameManager : NetworkBehaviour {
 
 	void OnLevelWasLoaded(int level) {
 //		currentLevel = Application.loadedLevelName;
-
+		this.networkManager = NetworkManager.singleton;
 
 		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
 			return;
@@ -162,7 +160,17 @@ public class GameManager : NetworkBehaviour {
 			//NOTE: this spawns the player and ghosts at the right position
 			networkClient = networkManager.StartHost ();
 			this.setHostStarted(true);
+			OnStartSinglePlayer();
+
 		}
+	}
+
+	void OnStartSinglePlayer() {
+		NetworkAnimator[] networkAnimators = FindObjectsOfType (typeof(NetworkAnimator)) as NetworkAnimator[];
+		foreach (NetworkAnimator anim in networkAnimators) {
+			anim.enabled = false;
+		}
+
 	}
 
 
@@ -206,10 +214,10 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	private void gameOver(){
+		setAutoCreate (false);
 		finalizeGame ();
 		//Application.LoadLevel("GameOver");
 		//dont auto spawn players on the next screen
-		setAutoCreate (false);
 		networkManager.ServerChangeScene("GameOver");
 	}
 
@@ -230,6 +238,15 @@ public class GameManager : NetworkBehaviour {
 		//Application.LoadLevel("TutorialEnd");
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("TutorialEnd");
+	}
+
+	public void loadMainMenu(){
+		setCurrentLives(totalLives);
+
+		if (networkManager != null)
+			Destroy (networkManager.gameObject);
+		Application.LoadLevel ("Menu");
+
 	}
 
 	public void setPlayerName(string name){
@@ -260,10 +277,7 @@ public class GameManager : NetworkBehaviour {
 		loadLevel ("Level5");
 	}
 
-	public void loadMainMenu(){
-		setCurrentLives(totalLives);
-		Application.LoadLevel("Menu");
-	}
+
 	
 	public void reloadLevel(){
 		if (lives == 0) {
@@ -282,7 +296,7 @@ public class GameManager : NetworkBehaviour {
 		if (!source.isPlaying) {
 			source.Play();
 		}
-		this.currentLevel = level;
+		setCurrentLevel(level);
 		//Application.LoadLevel(level);
 		networkManager.ServerChangeScene (level);
 		setAutoCreate (true);
@@ -311,14 +325,18 @@ public class GameManager : NetworkBehaviour {
 		if (hostStarted != SyncController.GetInstance ().hostStarted)
 			SyncController.GetInstance ().hostStarted = started;
 	}
-	
 
 
 	public void setCurrentLives(int lives){
 		this.lives = lives;
 		if (lives != SyncController.GetInstance ().currentLives)
 			SyncController.GetInstance ().currentLives = lives;
+	}
 
+	public void setCurrentLevel(string level){
+		this.currentLevel = level;
+		if (currentLevel != SyncController.GetInstance ().levelName)
+			SyncController.GetInstance ().levelName = currentLevel;
 	}
 	
 }
