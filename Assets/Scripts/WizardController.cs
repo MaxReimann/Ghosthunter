@@ -234,9 +234,15 @@ public class WizardController : NetworkBehaviour {
 	}
 	
 	public void Spell(){
-		if(GameObject.FindGameObjectWithTag("Spell")){
-			return;
-		}
+		GameObject[] foundSpells = GameObject.FindGameObjectsWithTag ("Spell");
+		if ((gameManager.isMultiplayer() && foundSpells.Length >= 2) ||
+		    (!gameManager.isMultiplayer() && foundSpells.Length >= 1))
+		    return;
+
+
+
+
+
 		animator.SetTrigger("wizard_attack");
 		Invoke("createSpell", SPELL_DELAY);
 	}
