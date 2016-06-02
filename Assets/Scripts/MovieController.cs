@@ -1,4 +1,4 @@
-﻿#if !(UNITY_IPHONE || UNITY_ANDROID)
+﻿#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_STANDALONE)
 	using UnityEditor;
 #endif
 using UnityEngine;
@@ -23,8 +23,8 @@ public class MovieController : MonoBehaviour {
 			playOnMobile();
 		#else
 			audioSource = GetComponent<AudioSource>();
-			//movie = (MovieTexture) Resources.Load("OpenScene", typeof(MovieTexture));
-			movie = (MovieTexture) AssetDatabase.LoadAssetAtPath("Assets/Movies/OpenScene.mov", typeof(MovieTexture));
+			movie = (MovieTexture) Resources.Load("OpenScene", typeof(MovieTexture));
+			//movie = (MovieTexture) AssetDatabase.LoadAssetAtPath("Assets/Movies/OpenScene.mov", typeof(MovieTexture));
 
 
 			if (movie == null)
