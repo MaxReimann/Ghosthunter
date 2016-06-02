@@ -56,10 +56,12 @@ public class MovieController : MonoBehaviour {
 
 
 	private void playOnMobile(){
+#if (UNITY_IPHONE || UNITY_ANDROID)
 		Debug.Log("playing movie on mobile");
 		Handheld.PlayFullScreenMovie("OpenScene.mp4", Color.black , FullScreenMovieControlMode.CancelOnInput, 
 		                             FullScreenMovieScalingMode.AspectFill);
 		//levelLoader.LoadMainMenu();
 		Application.LoadLevel("Menu");
+#endif
 	}
 }
