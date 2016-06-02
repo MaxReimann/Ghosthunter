@@ -12,12 +12,12 @@ public class MovieController : MonoBehaviour {
 		private AudioSource audioSource;
 	#endif
 
-	private LevelLoader levelLoader;
+	//private LevelLoader levelLoader;
 
 	// Use this for initialization
 	void Start () {		
 
-		levelLoader = GetComponent<LevelLoader> ();
+		//levelLoader = GetComponent<LevelLoader> ();
 
 		#if (UNITY_IPHONE || UNITY_ANDROID)
 			playOnMobile();
@@ -29,6 +29,7 @@ public class MovieController : MonoBehaviour {
 			GetComponent<RawImage>().texture = movie;
 			audioSource.clip = movie.audioClip;
 			if (!movie.isPlaying) {
+				Debug.Log("playing movie on desktop");
 				movie.Play();
 				audioSource.Play();
 			}
@@ -37,18 +38,20 @@ public class MovieController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		#if !(UNITY_IPHONE || UNITY_ANDROID)
-		if (!movie.isPlaying) {
-			levelLoader.LoadMainMenu();
-		}
+			if (!movie.isPlaying) {
+				//levelLoader.LoadMainMenu();
+				Application.LoadLevel("Menu");
+			}
 		#endif
 	}
 
 
 	private void playOnMobile(){
+		Debug.Log("playing movie on mobile");
 		Handheld.PlayFullScreenMovie("OpenScene.mp4", Color.black , FullScreenMovieControlMode.CancelOnInput, 
 		                             FullScreenMovieScalingMode.AspectFill);
-		levelLoader.LoadMainMenu();
+		//levelLoader.LoadMainMenu();
+		Application.LoadLevel("Menu");
 	}
 }
