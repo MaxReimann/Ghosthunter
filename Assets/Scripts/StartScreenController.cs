@@ -10,6 +10,8 @@ public class StartScreenController : NetworkBehaviour {
 	public GameObject tutorialButtonObj;
 	public GameObject levelButtonObj;
 	public GameObject multiplayerButtonObj;
+
+	public GameObject startScreenWizard;
 	
 
 	// Use this for initialization
@@ -18,6 +20,8 @@ public class StartScreenController : NetworkBehaviour {
 			levelButtonObj == null || multiplayerButtonObj == null)
 			Debug.LogError ("initialize all startscreen buttons in startscreenmanager");
 
+		if (startScreenWizard == null)
+			Debug.LogError ("reference the startscreen wizard in the startscreenmanager");
 	}
 
 	public void onClickMultiplayer(){
@@ -30,6 +34,8 @@ public class StartScreenController : NetworkBehaviour {
 		downBorder.GetComponent<SpriteRenderer> ().enabled = true;
 
 		NetworkManager.singleton.GetComponent<NetworkManagerHUD> ().showGUI = true;
+
+		startScreenWizard.SetActive (false);
 
 	}
 	

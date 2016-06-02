@@ -18,7 +18,6 @@ public class GameManager : NetworkBehaviour {
 	private static int totalLives = 5;
 	[SyncVar]
 	private int lives = totalLives;
-	private static GameObject[] hearts = new GameObject[totalLives];
 
 	public NetworkManager networkManager;
 	private NetworkClient networkClient;
@@ -45,7 +44,7 @@ public class GameManager : NetworkBehaviour {
 													{"Level2", 40},
 													{"Level3", 30},
 													{"Level4", 30},
-													{"Level5", 30}};
+													{"Level5", 40}};
 	
 	private GameManager(){
 
@@ -76,6 +75,22 @@ public class GameManager : NetworkBehaviour {
 			source.loop = true;
 		}
 		DontDestroyOnLoad(this.gameObject);
+	}
+
+	public void checkGameFinished(){
+		int ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
+		int zombieCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
+		if (ghostCount == 0 && zombieCount == 0) {
+			nextLevel();
+		}
+	}
+
+	public int getTotalLives(){
+		return totalLives;
+	}
+
+	public int getCurrentLives(){
+		return lives;
 	}
 
 	public int getTimer(string level) {
@@ -157,23 +172,9 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	public void decreaseLive(){
-		lives--;
-		if (lives == 0) {
-			gameOver ();
-			return;
-		}
-
-		redrawHearts ();
-	}
-
-	private void redrawHearts() {
-		for (int i = totalLives-1; i>lives-1; i--) {
-			GameObject heart = hearts [i];
-			if (heart != null) { // not triggered by menu
-				SpriteRenderer renderer = heart.GetComponent<SpriteRenderer> ();
-				Color color = renderer.color;
-				color.a = 0.6f;
-				renderer.color = color;
+		if (--lives == 0) {
+			if(currentLevel != "Tutorial"){
+				gameOver ();
 			}
 		}
 	}
@@ -189,7 +190,6 @@ public class GameManager : NetworkBehaviour {
 			hostStarted = true;
 		}
 
-		createLiveIndicators ();
 //		GameObject[] wizards = GameObject.FindGameObjectsWithTag("Wizards");
 //		foreach (GameObject wizard in wizards) {
 //			wizard.GetComponent<WizardController> ().newLevelLoaded ();
@@ -233,7 +233,6 @@ public class GameManager : NetworkBehaviour {
 
 	public void loadLevel1(){
 		loadLevel ("Level1");
-
 	}
 
 	public void loadLevel2(){
@@ -252,9 +251,17 @@ public class GameManager : NetworkBehaviour {
 		loadLevel ("Level5");
 	}
 
-
+	public void loadMainMenu(){
+		lives = totalLives;
+		Application.LoadLevel("Menu");
+	}
 	
 	public void reloadLevel(){
+		if (lives == 0) {
+			lives = totalLives;
+			loadLevel1();
+			return;
+		}
 		if (currentLevel == null) {
 			loadLevel1();
 			return;
@@ -279,12 +286,6 @@ public class GameManager : NetworkBehaviour {
 
 
 
-	private void createLiveIndicators(){
-		for(int i=0;i<totalLives;i++){
-			float x = 8.2f - i*0.75f;
-			GameObject heart = Instantiate(Resources.Load("Heart"), new Vector2(x,4.3f), Quaternion.identity) as GameObject;
-			hearts[i] = heart;
-		}
-	}
+
 	
 }

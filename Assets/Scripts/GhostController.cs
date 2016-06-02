@@ -144,11 +144,7 @@ public class GhostController : NetworkBehaviour {
 			Object resource = Resources.Load (nextType);
 			createNewGhosts(resource);
 		}
-		
-		int ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
-		if (ghostCount == 0) {
-			gameManager.nextLevel();
-		}
+		gameManager.checkGameFinished();
 	}
 
 	private void doSpellCollision(){

@@ -7,6 +7,12 @@ using System.Collections;
 public class WizardController : NetworkBehaviour {
 
 	private static float SPELL_DELAY = 0.01f;
+	private static float HIT_TIME = 1f;
+	private static float TOGGLE_TIME = 0.1f;
+
+	private float nonCollisionTimer = 0.0f;
+	private float toggleTimer = 0.0f;
+	private float shieldToggleTimer = 0.0f;
 
 	public float speed = 5;
 	public float spellSpeed = 8;
@@ -14,6 +20,10 @@ public class WizardController : NetworkBehaviour {
 	private Vector3 spellStartPoint; 
 
 	private GameManager gameManager;	
+
+	private GameObject shield;
+
+	private SpriteRenderer spriteRenderer;
 
 	[SyncVar(hook="FlipIfNeeded")] //will synchronize only server -> client, calls this function on change
 	public bool isLeft = false;
@@ -25,8 +35,8 @@ public class WizardController : NetworkBehaviour {
 	private Animator animator;
 
 	private SpellController.SpellType spellType = SpellController.SpellType.Normal;
-	private bool shieldActive = false;
-
+	private bool shieldBlinking = false;
+	private bool isHit = false;
 
 
 	// Use this for initialization
@@ -35,6 +45,7 @@ public class WizardController : NetworkBehaviour {
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.GetInstance();
+		spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
 
 		if (gameManager.getCurrentLevel() == "Menu")
 			return;
@@ -54,12 +65,43 @@ public class WizardController : NetworkBehaviour {
 	
 	}
 
+	private void toggleVisibility(){		
+		if (toggleTimer > 0) {
+			toggleTimer -= Time.deltaTime;
+			return;
+		}
+		spriteRenderer.enabled = !spriteRenderer.isVisible;
+		toggleTimer = TOGGLE_TIME;
+	}
+
+	private void toggleShieldVisibility(){	
+		if (shieldToggleTimer > 0) {
+			shieldToggleTimer -= Time.deltaTime;
+			return;
+		}
+		SpriteRenderer spriteRenderer = shield.GetComponent<SpriteRenderer>();
+		spriteRenderer.enabled = !spriteRenderer.isVisible;
+		shieldToggleTimer = TOGGLE_TIME;
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
 		if (!isLocalPlayer)
 			return;
 	
+		if (nonCollisionTimer > 0.0f) {
+			nonCollisionTimer -= Time.deltaTime;
+			toggleVisibility();
+		} else {
+			nonCollisionTimer = 0.0f;
+			isHit=false;
+			spriteRenderer.enabled=true;
+		}
+
+		if(shield != null && shieldBlinking){
+			toggleShieldVisibility();
+		}
 
 		if (Input.GetKeyDown ("space")) {
 			Spell ();
@@ -92,15 +134,19 @@ public class WizardController : NetworkBehaviour {
 	}
 
 	public void ActivateShield(float time){
-		Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity); 
-		shieldActive = true;
+		shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
+		Invoke ("blinkShield", time-1);
+	}
 
-		Invoke ("DeactivateShield", time);
+	private void blinkShield(){
+		shieldBlinking = true;
+		Invoke ("DeactivateShield", 1f);
 	}
 
 	public void DeactivateShield(){
-		shieldActive = false;
-		Destroy (GameObject.FindGameObjectWithTag ("Shield"));
+		shieldBlinking = false;
+		Destroy (shield);
+		shield = null;
 	}
 
 
@@ -211,7 +257,7 @@ public class WizardController : NetworkBehaviour {
 		} else {
 			spellStartPoint.x = transform.position.x+0.5f;
 		}
-		spellStartPoint.y = transform.position.y-1;
+		spellStartPoint.y = transform.position.y-0.8f;
 		spellStartPoint.z = transform.position.z;
 		
 		GameObject spell = Instantiate(Resources.Load(prefab), spellStartPoint, Quaternion.identity) as GameObject;
@@ -239,10 +285,41 @@ public class WizardController : NetworkBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D coll){
-		if (!shieldActive) {
+		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
+				isHit = true;
+				nonCollisionTimer = HIT_TIME;
 				gameManager.decreaseLive();
 			}		
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D coll){
+		if (shield == null && !isHit) {
+			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
+				doHit();
+			}		
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D other) {
+		if (other.gameObject.tag == "Platform") {
+			transform.parent = other.transform;
+		} else {
+			OnTriggerEnter2D (other);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other) {
+		Debug.Log (other.gameObject.name);
+		if (other.gameObject.tag == "Platform") {
+			transform.parent = null;
+		}
+	}
+
+	private void doHit(){
+		isHit = true;
+		nonCollisionTimer = HIT_TIME;
+		gameManager.decreaseLive();
 	}
 }

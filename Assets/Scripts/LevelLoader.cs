@@ -46,7 +46,7 @@ public class LevelLoader : MonoBehaviour {
 	}
 	
 	public void LoadMainMenu(){
-		Application.LoadLevel("Menu");
+		this.gameManager.loadMainMenu();
 	}
 	
 	public void LoadLevelOverview(){

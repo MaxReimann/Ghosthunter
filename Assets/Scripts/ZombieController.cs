@@ -81,6 +81,7 @@ public class ZombieController : MonoBehaviour {
 	private void doExplode(){
 		Destroy(gameObject);
 		gameManager.addScore(5);
+		gameManager.checkGameFinished();
 	}
 
 	void OnCollisionEnter2D(Collision2D coll){
@@ -95,6 +96,13 @@ public class ZombieController : MonoBehaviour {
 				nonCollisionTimer = HIT_TIME;
 				gameObject.layer = LayerMask.NameToLayer("NonCollZombies");
 			}
+			return;
+		}
+
+		if (coll.gameObject.tag == "Wizards") {
+			isHit = true;
+			nonCollisionTimer = HIT_TIME;
+			gameObject.layer = LayerMask.NameToLayer("NonCollZombies");
 			return;
 		}
 
