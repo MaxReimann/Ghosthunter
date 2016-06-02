@@ -123,6 +123,10 @@ public class GameManager : NetworkBehaviour {
 	public void setMultiPlayer(bool multiplayerGame) {
 		this.isMultiPlayer = multiplayerGame;
 	}
+
+	public bool isMultiplayer() {
+		return this.isMultiPlayer;
+	}
 	
 	public void nextLevel(){
 

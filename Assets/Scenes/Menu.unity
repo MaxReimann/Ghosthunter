@@ -330,7 +330,7 @@ Transform:
   m_LocalScale: {x: .5, y: .5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!95 &677142080
 Animator:
   serializedVersion: 3
@@ -355,6 +355,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11485436, guid: f57b7148af0308c40a583bb0f903cb86, type: 2}
+      propertyPath: m_SpawnPrefabs.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 414488, guid: f57b7148af0308c40a583bb0f903cb86, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -390,6 +394,14 @@ Prefab:
     - target: {fileID: 11494004, guid: f57b7148af0308c40a583bb0f903cb86, type: 2}
       propertyPath: showGUI
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485436, guid: f57b7148af0308c40a583bb0f903cb86, type: 2}
+      propertyPath: m_SpawnPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 116846, guid: ae8ddf69bd54bc24ca9f7aad77b4c6b8, type: 2}
+    - target: {fileID: 11448056, guid: f57b7148af0308c40a583bb0f903cb86, type: 2}
+      propertyPath: m_UseNetworkManager
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f57b7148af0308c40a583bb0f903cb86, type: 2}
@@ -505,7 +517,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!81 &938925038
 AudioListener:
   m_ObjectHideFlags: 0

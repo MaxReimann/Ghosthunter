@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21240708}
   - 58: {fileID: 5880678}
   - 114: {fileID: 11467196}
+  - 114: {fileID: 11407558}
   m_Layer: 13
   m_Name: Shield
   m_TagString: Shield
@@ -43,6 +44,38 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.4082917
+--- !u!114 &11407558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 116846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 174
+    i1: 141
+    i2: 223
+    i3: 105
+    i4: 189
+    i5: 84
+    i6: 188
+    i7: 36
+    i8: 202
+    i9: 159
+    i10: 122
+    i11: 173
+    i12: 119
+    i13: 180
+    i14: 198
+    i15: 184
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11467196
 MonoBehaviour:
   m_ObjectHideFlags: 1

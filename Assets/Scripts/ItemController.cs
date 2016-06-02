@@ -37,7 +37,9 @@ public class ItemController : NetworkBehaviour {
 	void OnTriggerEnter2D(Collider2D coll)
 	{
 		if (coll.gameObject.CompareTag ("Wizards")) {
-			WizardController wizardController = coll.gameObject.GetComponent<WizardController> ();
+//			WizardController wizardController;
+//			if (!GameManager.GetInstance().isMultiplayer())
+			WizardController	wizardController = coll.gameObject.GetComponent<WizardController> ();
 
 			if (itemType == ItemType.Spell){
 				wizardController.SetSpellType(this.spellType);
@@ -50,7 +52,6 @@ public class ItemController : NetworkBehaviour {
 			if (itemType == ItemType.AddonTime){
 				TimerController.addOnTimer(powerDuration);
 			}
-
 
 			Destroy (this.gameObject);
 		}

@@ -64,7 +64,8 @@ public class WizardController : NetworkBehaviour {
 			touchFieldObject.GetComponent<Button> ().onClick.AddListener (() => Spell ());
 		}
 
-	
+
+		print("playerId:" + GetComponent<NetworkIdentity>().playerControllerId);
 	}
 
 	private void toggleVisibility(){		
@@ -140,15 +141,13 @@ public class WizardController : NetworkBehaviour {
 	[Server]
 	public void ActivateShield(float time){
 		shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
-		RpcActivateShield ();
+		ShieldController shieldController = shield.GetComponent<ShieldController> ();
+		shieldController.wizard = this.gameObject;
+		shieldController.wizardNetId = this.netId;
+		NetworkServer.Spawn (shield);
 		Invoke ("blinkShield", time-1);
 	}
 
-	[ClientRpc]
-	private void RpcActivateShield(){
-		print ("called client");
-		shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
-	}
 
 	private void blinkShield(){
 		shieldBlinking = true;
