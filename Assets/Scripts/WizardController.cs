@@ -288,7 +288,7 @@ public class WizardController : NetworkBehaviour {
 		rigidBody.position = pos;
 	}
 
-
+	[Server]
 	void OnCollisionEnter2D(Collision2D coll){
 		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
