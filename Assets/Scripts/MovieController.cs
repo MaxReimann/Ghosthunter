@@ -3,9 +3,12 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class MovieController : MonoBehaviour {
-	
-	public AudioSource audioSource;
-	private MovieTexture movie;
+
+	#if !(UNITY_IPHONE || UNITY_ANDROID)
+		private MovieTexture movie;
+		private AudioSource audioSource;
+	#endif
+
 
 	// Use this for initialization
 	void Start () {		
@@ -14,7 +17,9 @@ public class MovieController : MonoBehaviour {
 			playOnMobile();
 			return;
 		#else
-		movie = GetComponent<RawImage>().mainTexture as MovieTexture;
+		audioSource = GetComponent<AudioSource>();
+		movie = (MovieTexture) Resources.Load( "OpenScene" , typeof( MovieTexture ) );
+		GetComponent<RawImage>().texture = movie;
 		audioSource.clip = movie.audioClip;
 		if (!movie.isPlaying) {
 			movie.Play();
@@ -34,8 +39,7 @@ public class MovieController : MonoBehaviour {
 	}
 
 	private void playOnMobile(){
-		Handheld.PlayFullScreenMovie ("OpenScene.mov", Color.black, FullScreenMovieControlMode.Hidden,
-		                              FullScreenMovieScalingMode.AspectFill);
+		Handheld.PlayFullScreenMovie ("OpenScene.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput);
 		Application.LoadLevel ("Menu");
 	}
 }
