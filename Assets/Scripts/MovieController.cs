@@ -20,8 +20,7 @@ public class MovieController : MonoBehaviour {
 		levelLoader = GetComponent<LevelLoader> ();
 
 		#if (UNITY_IPHONE || UNITY_ANDROID)
-			StartCoroutine(playOnMobile());
-			return;
+			playOnMobile();
 		#else
 			audioSource = GetComponent<AudioSource>();
 			//movie = (MovieTexture) Resources.Load("OpenScene", typeof(MovieTexture));
@@ -47,10 +46,9 @@ public class MovieController : MonoBehaviour {
 	}
 
 
-	private IEnumerator playOnMobile(){
-		Handheld.PlayFullScreenMovie("OpenScene.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
-		yield return new WaitForEndOfFrame();
-		yield return new WaitForEndOfFrame();
+	private void playOnMobile(){
+		Handheld.PlayFullScreenMovie("OpenScene.mp4", Color.black , FullScreenMovieControlMode.CancelOnInput, 
+		                             FullScreenMovieScalingMode.AspectFill);
 		levelLoader.LoadMainMenu();
 	}
 }
