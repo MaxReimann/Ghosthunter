@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class ItemController : MonoBehaviour {
+public class ItemController : NetworkBehaviour {
 
 	public enum ItemType {
 		Spell,
@@ -32,6 +33,7 @@ public class ItemController : MonoBehaviour {
 	
 	}
 
+	[Server]
 	void OnTriggerEnter2D(Collider2D coll)
 	{
 		if (coll.gameObject.CompareTag ("Wizards")) {

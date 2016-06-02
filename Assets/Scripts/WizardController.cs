@@ -137,9 +137,17 @@ public class WizardController : NetworkBehaviour {
 		this.spellType = type;
 	}
 
+	[Server]
 	public void ActivateShield(float time){
 		shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
+		RpcActivateShield ();
 		Invoke ("blinkShield", time-1);
+	}
+
+	[ClientRpc]
+	private void RpcActivateShield(){
+		print ("called client");
+		shield = Instantiate(Resources.Load("Shield"), this.transform.position, Quaternion.identity) as GameObject; 
 	}
 
 	private void blinkShield(){
@@ -288,17 +296,24 @@ public class WizardController : NetworkBehaviour {
 		rigidBody.position = pos;
 	}
 
+	[ClientRpc]
+	private void RpcsetNonCollisionTimer(float time){
+		nonCollisionTimer = time;
+	}
+
 	[Server]
 	void OnCollisionEnter2D(Collision2D coll){
 		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
 				isHit = true;
 				nonCollisionTimer = HIT_TIME;
+				RpcsetNonCollisionTimer(HIT_TIME);
 				gameManager.decreaseLive();
 			}		
 		}
 	}
 
+	[Server]
 	void OnTriggerEnter2D(Collider2D coll){
 		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
@@ -325,6 +340,7 @@ public class WizardController : NetworkBehaviour {
 	private void doHit(){
 		isHit = true;
 		nonCollisionTimer = HIT_TIME;
+		RpcsetNonCollisionTimer(HIT_TIME);
 		gameManager.decreaseLive();
 	}
 }

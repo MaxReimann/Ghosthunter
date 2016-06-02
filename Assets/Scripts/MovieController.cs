@@ -1,13 +1,11 @@
-﻿#if !(UNITY_IPHONE || UNITY_ANDROID)
-	using UnityEditor;
-#endif
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 using System.Collections;
 
 public class MovieController : MonoBehaviour {
 
-	#if !(UNITY_IPHONE || UNITY_ANDROID)
+	#if !(UNITY_IOS || UNITY_ANDROID)
 		private MovieTexture movie;
 		private AudioSource audioSource;
 	#endif
@@ -16,7 +14,7 @@ public class MovieController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {		
 
-		#if (UNITY_IPHONE || UNITY_ANDROID)
+		#if (UNITY_IOS || UNITY_ANDROID)
 			playOnMobile();
 			return;
 		#else
@@ -36,7 +34,7 @@ public class MovieController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		#if !(UNITY_IPHONE || UNITY_ANDROID)
+		#if !(UNITY_IOS || UNITY_ANDROID)
 		if (!movie.isPlaying) {
 			Application.LoadLevel("Menu");
 		}

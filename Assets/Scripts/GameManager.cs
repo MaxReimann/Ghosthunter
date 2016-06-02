@@ -26,6 +26,7 @@ public class GameManager : NetworkBehaviour {
 	[SyncVar(hook="setAutoCreate")]
 	private string currentLevel = "Menu";
 
+
 	private bool hostStarted = false;
 
 	[SyncVar]
