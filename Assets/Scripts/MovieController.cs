@@ -13,26 +13,24 @@ public class MovieController : MonoBehaviour {
 		#if (UNITY_IPHONE || UNITY_ANDROID)
 			playOnMobile();
 			return;
-		#endif
-
+		#else
 		movie = GetComponent<RawImage>().mainTexture as MovieTexture;
 		audioSource.clip = movie.audioClip;
 		if (!movie.isPlaying) {
 			movie.Play();
 			audioSource.Play();
 		}
+		#endif
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		#if (UNITY_IPHONE || UNITY_ANDROID)
-			return;
-		#endif
-
+		#if !(UNITY_IPHONE || UNITY_ANDROID)
 		if (!movie.isPlaying) {
 			Application.LoadLevel("Menu");
 		}
+		#endif
 	}
 
 	private void playOnMobile(){
