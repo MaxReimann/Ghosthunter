@@ -35,7 +35,9 @@ public class WizardController : NetworkBehaviour {
 	private Animator animator;
 
 	private SpellController.SpellType spellType = SpellController.SpellType.Normal;
+	[SyncVar]
 	private bool shieldBlinking = false;
+	[SyncVar]
 	private bool isHit = false;
 
 
@@ -87,8 +89,7 @@ public class WizardController : NetworkBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!isLocalPlayer)
-			return;
+	//	print (nonCollisionTimer);
 	
 		if (nonCollisionTimer > 0.0f) {
 			nonCollisionTimer -= Time.deltaTime;
@@ -103,6 +104,9 @@ public class WizardController : NetworkBehaviour {
 			toggleShieldVisibility();
 		}
 
+		if (!isLocalPlayer)
+			return;
+		
 		if (Input.GetKeyDown ("space")) {
 			Spell ();
 			return;
@@ -283,6 +287,7 @@ public class WizardController : NetworkBehaviour {
 		Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
 		rigidBody.position = pos;
 	}
+
 
 	void OnCollisionEnter2D(Collision2D coll){
 		if (shield == null && !isHit) {

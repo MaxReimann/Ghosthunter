@@ -28,6 +28,7 @@ public class GameManager : NetworkBehaviour {
 
 	private bool hostStarted = false;
 
+	[SyncVar]
 	private bool isMultiPlayer = false;
 
 

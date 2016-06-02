@@ -38,19 +38,20 @@ public class StartScreenController : NetworkBehaviour {
 		startScreenWizard.SetActive (false);
 
 	}
-	
+
+	[Server]
 	public void Update() {
 		GameObject[] wizards = GameObject.FindGameObjectsWithTag ("Wizards");
 		if (wizards.Length >= 2 &&!started) {
 			print ("now change levels");
 			started = true;
+			GameManager.GetInstance().setMultiPlayer(true);
 			NetworkManager.singleton.GetComponent<NetworkManagerHUD> ().enabled = false;
-			Invoke("CmdchangeLevel",2.0f);
+			Invoke("StartLevel",2.0f);
 		}
 	}
-	
-	[Command]
-	public void CmdchangeLevel(){
+
+	public void StartLevel(){
 			GameManager.GetInstance ().loadLevel1 ();
 	}
 }
