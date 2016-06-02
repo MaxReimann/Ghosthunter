@@ -50,7 +50,7 @@ public class ItemController : NetworkBehaviour {
 			}
 
 			if (itemType == ItemType.AddonTime){
-				TimerController.addOnTimer(powerDuration);
+				(FindObjectOfType(typeof(TimerController)) as TimerController).addOnTimer(powerDuration);
 			}
 
 			Destroy (this.gameObject);

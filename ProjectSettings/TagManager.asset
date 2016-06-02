@@ -25,6 +25,8 @@ TagManager:
   - TouchField
   - Platform
   - KinematicObjects
+  - KinematicWizard
+  - Timer
   layers:
   - Default
   - TransparentFX

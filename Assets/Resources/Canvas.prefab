@@ -185,6 +185,7 @@ GameObject:
   - 222: {fileID: 22267734}
   - 114: {fileID: 11405230}
   - 114: {fileID: 11483572}
+  - 114: {fileID: 11469920}
   m_Layer: 5
   m_Name: TimeTxt
   m_TagString: Untagged
@@ -437,6 +438,38 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11469920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 195594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 7
+    i1: 40
+    i2: 93
+    i3: 193
+    i4: 179
+    i5: 211
+    i6: 91
+    i7: 84
+    i8: 136
+    i9: 101
+    i10: 171
+    i11: 23
+    i12: 71
+    i13: 253
+    i14: 185
+    i15: 99
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &11478222
 MonoBehaviour:
   m_ObjectHideFlags: 1

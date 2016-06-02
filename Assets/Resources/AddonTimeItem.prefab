@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21235948}
   - 114: {fileID: 11472098}
   - 58: {fileID: 5817556}
+  - 114: {fileID: 11477088}
   m_Layer: 15
   m_Name: AddonTimeItem
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 140438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.74539471, y: 1.39999998, z: 0}
+  m_LocalPosition: {x: 2.66481566, y: -2.57391453, z: 0}
   m_LocalScale: {x: .117551923, y: .117551923, z: .117551923}
   m_Children: []
   m_Father: {fileID: 0}
@@ -58,6 +59,38 @@ MonoBehaviour:
   spellType: 0
   itemLifeTime: 20
   powerDuration: 10
+--- !u!114 &11477088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 137
+    i1: 155
+    i2: 149
+    i3: 117
+    i4: 71
+    i5: 119
+    i6: 97
+    i7: 100
+    i8: 73
+    i9: 125
+    i10: 147
+    i11: 243
+    i12: 221
+    i13: 127
+    i14: 237
+    i15: 183
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!212 &21235948
 SpriteRenderer:
   m_ObjectHideFlags: 1

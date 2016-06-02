@@ -39,8 +39,9 @@ public class StartScreenController : NetworkBehaviour {
 
 	}
 
-	[Server]
 	public void Update() {
+		if (!isServer)
+			return;
 		GameObject[] wizards = GameObject.FindGameObjectsWithTag ("Wizards");
 		if (wizards.Length >= 2 &&!started) {
 			print ("now change levels");

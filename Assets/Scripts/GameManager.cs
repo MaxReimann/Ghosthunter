@@ -186,6 +186,9 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	void OnLevelWasLoaded(int level) {
+		currentLevel = Application.loadedLevelName;
+
+
 		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
 			return;
 
@@ -195,6 +198,7 @@ public class GameManager : NetworkBehaviour {
 			networkClient = networkManager.StartHost ();
 			hostStarted = true;
 		}
+
 
 //		GameObject[] wizards = GameObject.FindGameObjectsWithTag("Wizards");
 //		foreach (GameObject wizard in wizards) {

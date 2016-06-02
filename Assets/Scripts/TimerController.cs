@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class TimerController : MonoBehaviour {
 
-	private static float totalTimer;
-	//static as there is only one game timer at once
-	private static float timer;
+public class TimerController : NetworkBehaviour {
+
+	[SyncVar(hook="OnTotalTimerChanged")]
+	private float totalTimer;
+	private float timer;
 	private Text txt;
 	public Slider timeBarSlider;  //reference for slider
 	public bool active = true;
@@ -17,19 +19,26 @@ public class TimerController : MonoBehaviour {
 	void Start () {
 		txt = gameObject.GetComponent<Text>(); 
 		gameManager = GameManager.GetInstance();
+		
 		totalTimer = gameManager.getTimer (gameManager.getCurrentLevel ());
 		timer = totalTimer;
 	}
 
-	public static float getTimeLeft(){
+	public float getTimeLeft(){
 		return timer;
 	}
 
-	public static void setTimer(float time){
+	private void OnTotalTimerChanged(float value){
+		timer = totalTimer;
+	}
+
+	[Server]
+	public void setTimer(float time){
 		timer = time;
 	}
 
-	public static void addOnTimer(float addOnTime){
+	[Server]
+	public void addOnTimer(float addOnTime){
 		timer += addOnTime;
 		if (timer > totalTimer)
 			timer = totalTimer;
@@ -41,7 +50,7 @@ public class TimerController : MonoBehaviour {
 			timer -= Time.deltaTime;
 			timeBarSlider.value = timer / totalTimer;
 			txt.text = "Time: " + (int)timer;
-			if (timer < 1) {
+			if (timer < 1 && isServer) {
 				gameManager.timeout ();
 			}
 		}
