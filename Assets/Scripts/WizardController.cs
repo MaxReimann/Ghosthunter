@@ -235,8 +235,8 @@ public class WizardController : NetworkBehaviour {
 	
 	public void Spell(){
 		GameObject[] foundSpells = GameObject.FindGameObjectsWithTag ("Spell");
-		if ((gameManager.isMultiplayer() && foundSpells.Length >= 2) ||
-		    (!gameManager.isMultiplayer() && foundSpells.Length >= 1))
+		if ((gameManager.IsMultiplayer() && foundSpells.Length >= 2) ||
+		    (!gameManager.IsMultiplayer() && foundSpells.Length >= 1))
 		    return;
 
 

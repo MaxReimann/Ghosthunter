@@ -118,7 +118,7 @@ public class GameManager : NetworkBehaviour {
 	public void setCurrentLevel(string level){
 		this.currentLevel = level;
 	}
-	
+
 	public string getCurrentLevel(){
 		return this.currentLevel;
 		//return networkManager.sce
@@ -126,10 +126,18 @@ public class GameManager : NetworkBehaviour {
 
 	public void setMultiPlayer(bool multiplayerGame) {
 		this.isMultiPlayer = multiplayerGame;
+		if (this.isMultiPlayer != SyncController.GetInstance ().isMultiPlayer)
+			SyncController.GetInstance ().isMultiPlayer = multiplayerGame;
 	}
 
-	public bool isMultiplayer() {
+	public bool IsMultiplayer() {
 		return this.isMultiPlayer;
+	}
+
+	public void setHostStarted(bool started){
+		this.hostStarted = started;
+		if (hostStarted != SyncController.GetInstance ().hostStarted)
+			SyncController.GetInstance ().hostStarted = started;
 	}
 	
 	public void nextLevel(){
@@ -202,7 +210,7 @@ public class GameManager : NetworkBehaviour {
 			print ("onlevelload: start host");
 			//NOTE: this spawns the player and ghosts at the right position
 			networkClient = networkManager.StartHost ();
-			hostStarted = true;
+			this.setHostStarted(true);
 		}
 
 

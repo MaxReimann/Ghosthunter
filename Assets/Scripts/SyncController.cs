@@ -14,14 +14,28 @@ public class SyncController : NetworkBehaviour {
 	[SyncVar(hook="OnLivesChanged")]
 	public int currentLives;
 
-	[SyncVar]
-	private string currentLevel = "Menu";
+	[SyncVar(hook="OnHostStartedChanged")]
+	public bool hostStarted = false;
+	
+	[SyncVar(hook="OnMultiplayerStatusChanged")]
+	public bool isMultiPlayer = false;
+	
 
-	private bool hostStarted = false;
-	
-	[SyncVar]
-	private bool isMultiPlayer = false;
-	
+	private void OnLivesChanged(int lives){
+		currentLives = lives;
+		GameManager.GetInstance ().setCurrentLives (lives);
+	}
+
+	private void OnHostStartedChanged(bool started){
+		this.hostStarted = started;
+		GameManager.GetInstance ().setHostStarted (started);
+	}
+
+	private void OnMultiplayerStatusChanged(bool status){
+		this.isMultiPlayer = status;
+		GameManager.GetInstance ().setMultiPlayer (status);
+	}
+
 
 	// Use this for initialization
 	public void Awake() {
@@ -33,8 +47,8 @@ public class SyncController : NetworkBehaviour {
 		}
 		DontDestroyOnLoad(this.gameObject);
 	}
-
-
+	
+	
 	public static SyncController GetInstance(){
 		if(instance == null){
 			//will make new gamesync object, implicitly calls awake
@@ -43,15 +57,5 @@ public class SyncController : NetworkBehaviour {
 		return instance;
 	}
 
-	private void OnLivesChanged(int lives){
-		currentLives = lives;
-		GameManager.GetInstance ().setCurrentLives (lives);
-	}
 
-
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
