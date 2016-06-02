@@ -37,7 +37,7 @@ public class GameManager : NetworkBehaviour {
 	private string playerName = "Anonymus";
 
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
-													{"Level1", 30},
+													{"Level1", 5},
 													{"Menu" , 300},
 													{"Tutorial", 30},
 													{"Level2", 40},
@@ -146,7 +146,9 @@ public class GameManager : NetworkBehaviour {
 	void OnLevelWasLoaded(int level) {
 		this.networkManager = NetworkManager.singleton;
 
-		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
+		string currentScene = Application.loadedLevelName;
+
+		if (!currentScene.StartsWith ("Level") && currentScene != "Tutorial")
 			return;
 		
 		if (!isMultiPlayer && !hostStarted) {
@@ -233,14 +235,20 @@ public class GameManager : NetworkBehaviour {
 
 	public void loadMainMenu(){
 		setCurrentLives(totalLives);
-		
-		networkManager.ServerChangeScene("Menu");
+		setAutoCreate (false);
 
-		hostStarted = false;
 		if (networkManager != null) {
 			networkManager.StopHost ();
 			Destroy (networkManager.gameObject);
 		}
+		
+		Invoke ("_delayedLoadMenu", 0.7f); //wait to stop hosts
+	}
+
+	private void _delayedLoadMenu(){
+		Destroy (networkManager.gameObject);
+		Application.LoadLevel ("Menu");
+		hostStarted = false;
 	}
 
 	public void setPlayerName(string name){
