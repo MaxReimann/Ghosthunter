@@ -97,10 +97,6 @@ public class GameManager : NetworkBehaviour {
 
 
 	public int getTimer(string level) {
-		if (level == null) {
-			level = "Level1"; //for debug in-editor starts
-		}
-
 		return levelTimers [level];
 	}
 		
@@ -116,7 +112,6 @@ public class GameManager : NetworkBehaviour {
 
 	public string getCurrentLevel(){
 		return this.currentLevel;
-		//return networkManager.sce
 	}
 
 	public bool IsMultiplayer() {
@@ -149,7 +144,6 @@ public class GameManager : NetworkBehaviour {
 
 
 	void OnLevelWasLoaded(int level) {
-//		currentLevel = Application.loadedLevelName;
 		this.networkManager = NetworkManager.singleton;
 
 		if (!currentLevel.StartsWith ("Level") && currentLevel != "Tutorial")
@@ -214,10 +208,9 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	private void gameOver(){
+		//dont auto spawn players on the next screen
 		setAutoCreate (false);
 		finalizeGame ();
-		//Application.LoadLevel("GameOver");
-		//dont auto spawn players on the next screen
 		networkManager.ServerChangeScene("GameOver");
 	}
 
@@ -228,25 +221,26 @@ public class GameManager : NetworkBehaviour {
 
 	private void loadWinScene(){
 		source.Stop();
-		//Application.LoadLevel("Win");
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("Win");
 	}
 
 	private void loadTutorialEnd(){
 		source.Stop();
-		//Application.LoadLevel("TutorialEnd");
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("TutorialEnd");
 	}
 
 	public void loadMainMenu(){
 		setCurrentLives(totalLives);
+		
+		networkManager.ServerChangeScene("Menu");
 
-		if (networkManager != null)
+		hostStarted = false;
+		if (networkManager != null) {
+			networkManager.StopHost ();
 			Destroy (networkManager.gameObject);
-		Application.LoadLevel ("Menu");
-
+		}
 	}
 
 	public void setPlayerName(string name){
@@ -297,7 +291,6 @@ public class GameManager : NetworkBehaviour {
 			source.Play();
 		}
 		setCurrentLevel(level);
-		//Application.LoadLevel(level);
 		networkManager.ServerChangeScene (level);
 		setAutoCreate (true);
 	}
