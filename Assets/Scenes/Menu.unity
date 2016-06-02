@@ -285,7 +285,7 @@ GameObject:
   - 212: {fileID: 677142078}
   - 95: {fileID: 677142080}
   m_Layer: 0
-  m_Name: Idle Right (2)
+  m_Name: startscreenWizard
   m_TagString: KinematicWizard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
