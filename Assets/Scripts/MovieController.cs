@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 using System.Collections;
 
 public class MovieController : MonoBehaviour {
 	
 	public AudioSource audioSource;
+
+	//movietextures are not possible on mobile devices
+#if UNITY_EDITOR || UNITY_STANDALONE
+
 	private MovieTexture movie;
 
 	// Use this for initialization
@@ -23,4 +28,5 @@ public class MovieController : MonoBehaviour {
 			Application.LoadLevel("Menu");
 		}
 	}
+#endif
 }
