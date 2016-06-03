@@ -25,6 +25,9 @@ public class SyncController : NetworkBehaviour {
 
 	[SyncVar(hook="OnLevelNameChange")]
 	public string levelName;
+
+	[SyncVar(hook="OnScoreChanged")]
+	public int score;
 	
 
 	private void OnLivesChanged(int lives){
@@ -51,6 +54,12 @@ public class SyncController : NetworkBehaviour {
 		this.levelName = levelName;
 		GameManager.GetInstance().setCurrentLevel (levelName);
 	}
+
+	private void OnScoreChanged(int score){
+		this.score = score;
+		GameManager.GetInstance().setCurrentScore (score);
+	}
+
 
 	// Use this for initialization
 	public void Awake() {

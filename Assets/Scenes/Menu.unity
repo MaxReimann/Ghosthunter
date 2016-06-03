@@ -591,6 +591,7 @@ MonoBehaviour:
   isMultiPlayer: 0
   autoCreatePlayer: 1
   levelName: 
+  score: 0
 --- !u!114 &916520657
 MonoBehaviour:
   m_ObjectHideFlags: 0

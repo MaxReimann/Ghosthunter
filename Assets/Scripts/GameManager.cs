@@ -102,6 +102,7 @@ public class GameManager : NetworkBehaviour {
 		
 	public void addScore(int score){
 		this.score += score;
+		setCurrentScore (this.score);
 	}
 
 	public int getScore(){
@@ -228,6 +229,7 @@ public class GameManager : NetworkBehaviour {
 	public void loadMainMenu(){
 		setCurrentLives(totalLives);
 		setAutoCreate (false);
+		setCurrentScore (0);
 
 		if (networkManager != null) {
 			networkManager.StopHost ();
@@ -276,6 +278,7 @@ public class GameManager : NetworkBehaviour {
 	public void reloadLevel(){
 		if (lives == 0) {
 			setCurrentLives(totalLives);
+			setCurrentScore(0);
 			loadLevel1();
 			return;
 		}
@@ -330,6 +333,12 @@ public class GameManager : NetworkBehaviour {
 		this.currentLevel = level;
 		if (currentLevel != SyncController.GetInstance ().levelName)
 			SyncController.GetInstance ().levelName = currentLevel;
+	}
+
+	public void setCurrentScore(int score){
+		this.score = score;
+		if (score != SyncController.GetInstance ().score)
+			SyncController.GetInstance ().score = score;
 	}
 	
 }
