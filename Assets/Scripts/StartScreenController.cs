@@ -10,6 +10,7 @@ public class StartScreenController : NetworkBehaviour {
 	public GameObject tutorialButtonObj;
 	public GameObject levelButtonObj;
 	public GameObject multiplayerButtonObj;
+	public GameObject playerNameObj;
 
 	public GameObject startScreenWizard;
 	
@@ -17,7 +18,7 @@ public class StartScreenController : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (playButtonObj == null || tutorialButtonObj == null ||
-			levelButtonObj == null || multiplayerButtonObj == null)
+			levelButtonObj == null || multiplayerButtonObj == null || playerNameObj == null)
 			Debug.LogError ("initialize all startscreen buttons in startscreenmanager");
 
 		if (startScreenWizard == null)
@@ -29,6 +30,7 @@ public class StartScreenController : NetworkBehaviour {
 		tutorialButtonObj.SetActive (false);
 		levelButtonObj.SetActive (false);
 		multiplayerButtonObj.SetActive (false);
+		playerNameObj.SetActive (false);
 
 		GameObject downBorder = GameObject.Find ("Border (bottom)");
 		downBorder.GetComponent<SpriteRenderer> ().enabled = true;

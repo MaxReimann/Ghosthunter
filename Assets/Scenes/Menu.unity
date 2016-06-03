@@ -1654,6 +1654,7 @@ MonoBehaviour:
   tutorialButtonObj: {fileID: 1471407233}
   levelButtonObj: {fileID: 1488697881}
   multiplayerButtonObj: {fileID: 1519958869}
+  playerNameObj: {fileID: 1751138873}
   startScreenWizard: {fileID: 677142077}
 --- !u!114 &1742987185
 MonoBehaviour:
