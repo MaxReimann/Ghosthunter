@@ -127,10 +127,6 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
-<<<<<<< HEAD
-      propertyPath: itemLifeTime
-      value: 10
-=======
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e9289060a389b4d25a2bfb658c501164,
@@ -146,7 +142,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.z
       value: 0
->>>>>>> 55017a4e382226779a7936457d2cbf1dc0b0c035
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: itemLifeTime
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
