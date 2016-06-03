@@ -43,7 +43,7 @@ public class LevelLoader : MonoBehaviour {
 	public void LoadMainMenu(){
 		this.gameManager.loadMainMenu();
 	}
-	
+
 	public void LoadLevelOverview(){
 		Application.LoadLevel("Levels");
 	}
