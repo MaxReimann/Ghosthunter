@@ -2,7 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class MovieController : MonoBehaviour {
+public class IntroController : MonoBehaviour {
+
+	private AudioManager audioManager;
 
 	#if !(UNITY_IPHONE || UNITY_ANDROID)
 		private MovieTexture movie;
@@ -10,7 +12,7 @@ public class MovieController : MonoBehaviour {
 	#endif
 	
 	void Start () {		
-
+		audioManager = AudioManager.GetInstance ();
 		#if (UNITY_IPHONE || UNITY_ANDROID)
 			playOnMobile();
 		#else
@@ -44,6 +46,7 @@ public class MovieController : MonoBehaviour {
 
 	private void loadMenu(){
 		Application.LoadLevel("Menu");
+		audioManager.playMenuMusic ();
 	}
 
 
