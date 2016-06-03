@@ -108,8 +108,6 @@ public class GameManager : NetworkBehaviour {
 		return score;
 	}
 
-
-
 	public string getCurrentLevel(){
 		return this.currentLevel;
 	}
@@ -126,9 +124,6 @@ public class GameManager : NetworkBehaviour {
 			}
 		}
 	}
-
-
-
 
 
 	private void finalizeGame() {
@@ -148,7 +143,7 @@ public class GameManager : NetworkBehaviour {
 
 		string currentScene = Application.loadedLevelName;
 
-		if (!currentScene.StartsWith ("Level") && currentScene != "Tutorial")
+		if (!currentScene.StartsWith ("Level") || currentScene.Equals( "Levels"))
 			return;
 		
 		if (!isMultiPlayer && !hostStarted) {
@@ -171,9 +166,6 @@ public class GameManager : NetworkBehaviour {
 
 
 	//// scene loading ///////
-
-
-
 	public void nextLevel(){
 
 		if (currentLevel == null) {

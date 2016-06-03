@@ -306,8 +306,10 @@ public class WizardController : NetworkBehaviour {
 		nonCollisionTimer = time;
 	}
 
-	[Server]
+
 	void OnCollisionEnter2D(Collision2D coll){
+		if (!isServer)
+			return;
 		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
 				isHit = true;
@@ -318,8 +320,10 @@ public class WizardController : NetworkBehaviour {
 		}
 	}
 
-	[Server]
 	void OnTriggerEnter2D(Collider2D coll){
+		if (!isServer)
+			return;
+
 		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
 				doHit();
