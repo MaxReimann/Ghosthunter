@@ -86,7 +86,7 @@ public class ZombieController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D coll){
 
-		if (coll.gameObject.tag == "Spell") {
+		if (!isHit && coll.gameObject.tag == "Spell") {
 			isHit = true;
 			hitCount++;
 			if(hitCount == 3){

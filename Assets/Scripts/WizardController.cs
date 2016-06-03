@@ -242,13 +242,9 @@ public class WizardController : NetworkBehaviour {
 	
 	public void Spell(){
 		GameObject[] foundSpells = GameObject.FindGameObjectsWithTag ("Spell");
-		if ((gameManager.IsMultiplayer() && foundSpells.Length >= 2) ||
-		    (!gameManager.IsMultiplayer() && foundSpells.Length >= 1))
-		    return;
-
-
-
-
+		if ((gameManager.IsMultiplayer () && foundSpells.Length >= 2) ||
+			(!gameManager.IsMultiplayer () && foundSpells.Length >= 1))
+			return;
 
 		animator.SetTrigger("wizard_attack");
 		Invoke("createSpell", SPELL_DELAY);
@@ -319,10 +315,7 @@ public class WizardController : NetworkBehaviour {
 			return;
 		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
-				isHit = true;
-				nonCollisionTimer = HIT_TIME;
-				RpcsetNonCollisionTimer(HIT_TIME);
-				gameManager.decreaseLive();
+				doHit ();
 			}		
 		}
 	}
@@ -331,10 +324,8 @@ public class WizardController : NetworkBehaviour {
 		if (!isServer)
 			return;
 
-		if (shield == null && !isHit) {
-			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
-				doHit();
-			}		
+		if (shield == null && !isHit && coll.gameObject.tag == "LethalItem") {
+			doHit();
 		}
 	}
 
