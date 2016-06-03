@@ -141,6 +141,8 @@ public class GameManager : NetworkBehaviour {
 
 		if ((!currentScene.StartsWith ("Level") && !currentScene.Equals ("Tutorial")) || currentScene.Equals( "Levels"))
 			return;
+
+		print ("on level was loaded...");
 		
 		if (!isMultiPlayer && !hostStarted) {
 			print ("onlevelload: start host");
@@ -230,11 +232,11 @@ public class GameManager : NetworkBehaviour {
 
 		if (networkManager != null) {
 			networkManager.StopHost ();
-			Destroy (networkManager.gameObject);
 		}
 		
 		Invoke ("_delayedLoadMenu", 0.7f); //wait to stop hosts
 	}
+
 
 	private void _delayedLoadMenu(){
 		Destroy (networkManager.gameObject);
