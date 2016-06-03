@@ -10,35 +10,49 @@ using UnityEngine.Networking.Types;
 public class CustomNetworkManager : NetworkManager {
 
 	int hostStartCount = 0;
+
 	// Use this for initialization
 	void Start () {
 	}
 
-	public override NetworkClient StartHost(ConnectionConfig config, int maxConnections)
+//
+//	public override NetworkClient StartHost(ConnectionConfig config, int maxConnections)
+//	{
+//		print ("start host with config");
+//		//this fixes a extremly strange bug, which wants to start a new host on client scene change
+//		// if the host has already been started, just return the actual client
+//		if (hostStartCount++ == 0)
+//			return base.StartHost (config, maxConnections);
+//
+//		return this.client;
+//	}
+//
+//	public override NetworkClient StartHost(){
+//		print ("start host");
+//		if (hostStartCount++ == 0)
+//			base.StartHost();
+//
+//		return this.client;
+//	}
+//		
+//	public override NetworkClient StartHost(MatchInfo info) {
+//		print ("start host with match");
+//		if (hostStartCount++ == 0)
+//			base.StartHost();
+//		
+//		return this.client;
+//
+//	}
+
+	public override void OnStartHost ()
 	{
-		print ("start host with config");
-		//this fixes a extremly strange bug, which wants to start a new host on client scene change
-		// if the host has already been started, just return the actual client
-		if (hostStartCount++ == 0)
-			return base.StartHost (config, maxConnections);
+		base.OnStartHost ();
 
-		return this.client;
-	}
-
-	public override NetworkClient StartHost(){
-		print ("start host");
-		if (hostStartCount++ == 0)
-			base.StartHost();
-
-		return this.client;
-	}
-		
-	public override NetworkClient StartHost(MatchInfo info) {
-		print ("start host with match");
-		if (hostStartCount++ == 0)
-			base.StartHost();
-		
-		return this.client;
+		StartScreenController startscreenControl = FindObjectOfType (typeof(StartScreenController))as StartScreenController;
+		print (startscreenControl != null);
+		if (startscreenControl != null && startscreenControl.inMultiplayerMode) {
+			startscreenControl.showClientJoinText();
+		}
 
 	}
 

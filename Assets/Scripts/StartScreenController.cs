@@ -2,7 +2,7 @@
 using UnityEngine.Networking;
 using System.Collections;
 
-public class StartScreenController : NetworkBehaviour {
+public class StartScreenController : MonoBehaviour {
 
 	private bool started = false;
 
@@ -11,8 +11,11 @@ public class StartScreenController : NetworkBehaviour {
 	public GameObject levelButtonObj;
 	public GameObject multiplayerButtonObj;
 	public GameObject playerNameObj;
+	public GameObject clientWaitJoinText;
 
 	public GameObject startScreenWizard;
+
+	public bool inMultiplayerMode = false;
 	
 
 	// Use this for initialization
@@ -39,14 +42,26 @@ public class StartScreenController : NetworkBehaviour {
 
 		startScreenWizard.SetActive (false);
 
+		inMultiplayerMode = true;
+
+	}
+
+	
+	public void setInMultiplayerMode(){
+		inMultiplayerMode = true;
+	}
+
+	public void showClientJoinText(){
+		clientWaitJoinText.transform.position = new Vector3 (0,
+		                                                    clientWaitJoinText.transform.position.y,
+		                                                    clientWaitJoinText.transform.position.z);
 	}
 
 	public void Update() {
-		if (!isServer)
-			return;
+//		if (!isServer)
+//			return;
 		GameObject[] wizards = GameObject.FindGameObjectsWithTag ("Wizards");
 		if (wizards.Length >= 2 &&!started) {
-			print ("now change levels");
 			started = true;
 			GameManager.GetInstance().setMultiPlayer(true);
 			NetworkManager.singleton.GetComponent<NetworkManagerHUD> ().enabled = false;
