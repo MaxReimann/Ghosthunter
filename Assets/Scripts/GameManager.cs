@@ -13,7 +13,7 @@ using System.Collections.Generic;       //Allows us to use Lists.
 public class GameManager : NetworkBehaviour {
 	
 	private static GameManager instance;
-
+	private AudioManager audioManager;
 
 	private static int totalLives = 5;
 	[SyncVar]
@@ -31,8 +31,6 @@ public class GameManager : NetworkBehaviour {
 
 	[SyncVar]
 	private bool isMultiPlayer = false;
-
-	AudioSource source;
 
 	private string playerName = "Anonymus";
 
@@ -53,9 +51,7 @@ public class GameManager : NetworkBehaviour {
 		if(instance == null){
 			//will make new gamemanager object
 			Instantiate(Resources.Load("GameManager"), new Vector3(0,0,0), Quaternion.identity); 
-			//instance.setCurrentLevel(Application.loadedLevelName);
-			if (instance == null)
-			{
+			if (instance == null){
 				print("not awake");
 				instance = GameObject.Find("GameManager").GetComponent<GameManager>();
 			}
@@ -69,9 +65,7 @@ public class GameManager : NetworkBehaviour {
 			return;
 		} else {
 			instance = this;
-			//this.setCurrentLevel(Application.loadedLevelName);
-			source = gameObject.GetComponent<AudioSource>();
-			source.loop = true;
+			audioManager = AudioManager.GetInstance();
 		}
 		DontDestroyOnLoad(this.gameObject);
 	}
@@ -128,7 +122,7 @@ public class GameManager : NetworkBehaviour {
 
 
 	private void finalizeGame() {
-		source.Stop();
+		audioManager.stop ();
 		string now = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 		string oldscores = PlayerPrefs.GetString ("highscores");
 		string newscores = oldscores + playerName + ";" + now + ";" + this.score.ToString() + "\n";
@@ -215,18 +209,19 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	private void loadWinScene(){
-		source.Stop();
+		audioManager.stop ();
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("Win");
 	}
 
 	private void loadTutorialEnd(){
-		source.Stop();
+		audioManager.stop ();;
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("TutorialEnd");
 	}
 
 	public void loadMainMenu(){
+		audioManager.playMenuMusic ();
 		setCurrentLives(totalLives);
 		setAutoCreate (false);
 		setCurrentScore (0);
@@ -290,9 +285,7 @@ public class GameManager : NetworkBehaviour {
 	}
 	
 	private void loadLevel(string level){
-		if (!source.isPlaying) {
-			source.Play();
-		}
+		audioManager.playGameMusic();
 		setCurrentLevel(level);
 		networkManager.ServerChangeScene (level);
 		setAutoCreate (true);
