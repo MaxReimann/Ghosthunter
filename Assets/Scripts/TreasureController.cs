@@ -5,6 +5,8 @@ public class TreasureController : MonoBehaviour {
 
 	bool hasTouched = false;
 
+	public GameObject sparcleParticles;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -21,6 +23,7 @@ public class TreasureController : MonoBehaviour {
 			Vector2 location = transform.position;
 			location.x = location.x+2;
 			Instantiate(Resources.Load("AddonTimeItem"),location,Quaternion.identity);
+			Destroy(sparcleParticles.gameObject);
 		}
 	}
 }
