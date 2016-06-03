@@ -80,7 +80,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!60 &6045376
 PolygonCollider2D:
   m_ObjectHideFlags: 1
@@ -470,7 +470,7 @@ Prefab:
       objectReference: {fileID: 9537700}
     - target: {fileID: 0}
       propertyPath: m_Constraints
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_SendInterval
