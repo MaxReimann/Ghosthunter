@@ -52,6 +52,12 @@ public class WizardController : NetworkBehaviour {
 		if (gameManager.getCurrentLevel() == "Menu")
 			return;
 
+		if (gameManager.getCurrentLevel() == "Level4") {
+			Debug.Log("setting freezePositionY");
+			myBody.constraints = RigidbodyConstraints2D.None;
+			myBody.freezeRotation = true;
+		}
+
 		//register wizard to touch buttons
 		if (isLocalPlayer) {
 			GameObject leftButtonObject = GameObject.FindGameObjectWithTag ("LeftButton");
