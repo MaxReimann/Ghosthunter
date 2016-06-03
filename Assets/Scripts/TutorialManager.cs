@@ -22,4 +22,9 @@ public class TutorialManager {
 	public bool wasRight;
 	public bool hasShot;
 	public bool hasShotGhost;
+	public bool hasTimeItem;
+	public bool hasPermanentSpellItem;
+	public bool hasShieldItem;
+
+	public bool spellItemCreated;
 }

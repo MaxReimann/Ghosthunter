@@ -20,6 +20,7 @@ public class GameManager : NetworkBehaviour {
 	private int lives = totalLives;
 
 	public NetworkManager networkManager;
+
 	private NetworkClient networkClient;
 
 	private int score = 0;
@@ -138,7 +139,7 @@ public class GameManager : NetworkBehaviour {
 
 		string currentScene = Application.loadedLevelName;
 
-		if (!currentScene.StartsWith ("Level") || currentScene.Equals( "Levels"))
+		if ((!currentScene.StartsWith ("Level") && !currentScene.Equals ("Tutorial")) || currentScene.Equals( "Levels"))
 			return;
 		
 		if (!isMultiPlayer && !hostStarted) {
