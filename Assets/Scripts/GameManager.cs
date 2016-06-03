@@ -73,7 +73,7 @@ public class GameManager : NetworkBehaviour {
 
 	public void checkGameFinished(){
 		int ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
-		int zombieCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
+		int zombieCount = GameObject.FindGameObjectsWithTag("Zombie").Length;
 		if (ghostCount == 0 && zombieCount == 0) {
 			nextLevel();
 		}
