@@ -62,6 +62,9 @@ public class WizardController : NetworkBehaviour {
 
 			GameObject touchFieldObject = GameObject.FindGameObjectWithTag ("TouchField");
 			touchFieldObject.GetComponent<Button> ().onClick.AddListener (() => Spell ());
+		}else{
+			//colour the network player in green
+			spriteRenderer.color = Color.green;
 		}
 
 
