@@ -42,7 +42,7 @@ public class GameManager : NetworkBehaviour {
 													{"Level2", 40},
 													{"Level3", 30},
 													{"Level4", 30},
-													{"Level5", 40}};
+													{"Level5", 50}};
 	
 	private GameManager(){
 
