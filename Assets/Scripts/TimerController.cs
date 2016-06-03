@@ -40,6 +40,10 @@ public class TimerController : NetworkBehaviour {
 		timer = time;
 	}
 
+	public void setTotalTimer(float time){
+		totalTimer = time;
+	}
+
 	[Server]
 	public void addOnTimer(float addOnTime){
 		timer += addOnTime;

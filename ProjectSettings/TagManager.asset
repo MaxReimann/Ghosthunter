@@ -27,6 +27,7 @@ TagManager:
   - KinematicObjects
   - KinematicWizard
   - Timer
+  - AddonTimeItem
   layers:
   - Default
   - TransparentFX

@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11477088}
   m_Layer: 15
   m_Name: AddonTimeItem
-  m_TagString: Untagged
+  m_TagString: AddonTimeItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,6 +133,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: AddonTimeItem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

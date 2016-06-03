@@ -57,7 +57,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemType: 0
   spellType: 1
-  itemLifeTime: 0
+  itemLifeTime: 10
   powerDuration: 10
 --- !u!114 &11490480
 MonoBehaviour:
@@ -73,22 +73,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
+    i0: 241
+    i1: 91
+    i2: 207
+    i3: 61
+    i4: 72
+    i5: 148
+    i6: 65
+    i7: 100
+    i8: 11
     i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
+    i10: 93
+    i11: 66
+    i12: 228
+    i13: 151
+    i14: 60
+    i15: 184
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!212 &21276924
@@ -125,7 +125,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: itemLifeTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 151274}
