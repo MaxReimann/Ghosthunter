@@ -197,6 +197,7 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	private void gameOver(){
+		audioManager.playGameOverMusic();
 		//dont auto spawn players on the next screen
 		setAutoCreate (false);
 		finalizeGame ();
@@ -204,18 +205,19 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	public void timeout(){
+		audioManager.playGameOverMusic();
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("Timeout");
 	}
 
 	private void loadWinScene(){
-		audioManager.stop ();
+		audioManager.playWinMusic();
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("Win");
 	}
 
 	private void loadTutorialEnd(){
-		audioManager.stop ();;
+		audioManager.playWinMusic();
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("TutorialEnd");
 	}
