@@ -198,29 +198,28 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	private void gameOver(){
-		audioManager.playGameOverMusic();
-		//dont auto spawn players on the next screen
 		setAutoCreate (false);
 		finalizeGame ();
 		networkManager.ServerChangeScene("GameOver");
+		audioManager.playGameOverMusic();
 	}
 
 	public void timeout(){
-		audioManager.playGameOverMusic();
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("Timeout");
+		audioManager.playGameOverMusic();
 	}
 
 	private void loadWinScene(){
-		audioManager.playWinMusic();
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("Win");
+		audioManager.playWinMusic();
 	}
 
 	private void loadTutorialEnd(){
-		audioManager.playWinMusic();
 		setAutoCreate (false);
 		networkManager.ServerChangeScene("TutorialEnd");
+		audioManager.playWinMusic();
 	}
 
 	public void loadMainMenu(){

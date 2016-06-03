@@ -62,7 +62,6 @@ public class AudioManager : MonoBehaviour {
 	public void playGameOverMusic(){
 		stop ();
 		source.clip = gameOverSound;
-		source.volume = 1.0f;
 		source.Play ();
 	}
 
