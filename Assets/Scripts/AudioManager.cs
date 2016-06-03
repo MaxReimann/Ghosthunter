@@ -44,11 +44,13 @@ public class AudioManager : MonoBehaviour {
 			source.Stop();
 		}
 		source.volume = 1f;
+		source.loop = false;
 	}
 
 	public void playGameMusic(){
 		stop ();
 		source.clip = gameSound;
+		source.loop = true;
 		source.Play ();
 	}
 
@@ -56,18 +58,21 @@ public class AudioManager : MonoBehaviour {
 		stop ();
 		source.clip = menuSound;
 		source.volume = 0.25f;
+		source.loop = true;
 		source.Play ();
 	}
 
 	public void playGameOverMusic(){
 		stop ();
 		source.clip = gameOverSound;
+		source.loop = true;
 		source.Play ();
 	}
 
 	public void playWinMusic(){
 		stop ();
 		source.clip = winSound;
+		source.loop = true;
 		source.Play ();
 	}
 }

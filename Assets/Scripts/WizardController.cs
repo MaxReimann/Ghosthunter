@@ -315,6 +315,10 @@ public class WizardController : NetworkBehaviour {
 			return;
 		if (shield == null && !isHit) {
 			if(coll.gameObject.tag == "Ghost" || coll.gameObject.tag == "LethalItem" || coll.gameObject.tag == "Zombie"){
+				if (coll.gameObject.tag == "Ghost" && 
+				    coll.gameObject.GetComponent<GhostController>().nonCollisionTimer > 0.0f)
+					return;
+
 				doHit ();
 			}		
 		}

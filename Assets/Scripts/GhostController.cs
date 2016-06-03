@@ -12,7 +12,7 @@ public class GhostController : NetworkBehaviour {
 	[SyncVar]
 	[HideInInspector] public Vector2 inVel;//incoming velocity
 	[SyncVar]
-	private float nonCollisionTimer = 0.0f;
+	public float nonCollisionTimer = 0.0f;
 	[SyncVar]
 	private bool unreactiveTimerFinished = false;
 
@@ -117,11 +117,13 @@ public class GhostController : NetworkBehaviour {
 	}
 
 	private void spellCollision() {
+		//set to unreactiveness until death
+		beNonReactive (10.0f);
+
+
 		AudioSource audio = GetComponent<AudioSource>();
 		audio.Play();
 
-		//set to unreactiveness until death
-		beNonReactive (10.0f);
 
 		if (ghostType.name == "L1Ghost") {
 			//TODO ghost vanish animation
