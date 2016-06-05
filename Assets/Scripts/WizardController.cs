@@ -87,7 +87,7 @@ public class WizardController : NetworkBehaviour {
 		GameObject touchFieldObject = GameObject.FindGameObjectWithTag ("TouchField");
 		touchFieldObject.GetComponent<Button> ().onClick.AddListener (() => Spell ());
 
-
+		print ("created local player");
 
 	}
 

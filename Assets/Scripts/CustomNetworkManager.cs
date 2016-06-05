@@ -49,7 +49,6 @@ public class CustomNetworkManager : NetworkManager {
 		base.OnStartHost ();
 
 		StartScreenController startscreenControl = FindObjectOfType (typeof(StartScreenController))as StartScreenController;
-		print (startscreenControl != null);
 		if (startscreenControl != null && startscreenControl.inMultiplayerMode) {
 			startscreenControl.showClientJoinText();
 		}

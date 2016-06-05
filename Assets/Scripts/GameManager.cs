@@ -308,8 +308,8 @@ public class GameManager : NetworkBehaviour {
 	private void loadLevel(string level){
 		audioManager.playGameMusic();
 		setCurrentLevel(level);
-		networkManager.ServerChangeScene (level);
 		setAutoCreate (true);
+		networkManager.ServerChangeScene (level);
 	}
 	
 
@@ -319,7 +319,8 @@ public class GameManager : NetworkBehaviour {
 
 	private void setAutoCreate(bool autoCreate){
 		networkManager.autoCreatePlayer = autoCreate;
-		SyncController.GetInstance ().autoCreatePlayer = autoCreate;
+		if (SyncController.GetInstance ().autoCreatePlayer != autoCreate)
+			SyncController.GetInstance ().autoCreatePlayer = autoCreate;
 
 	}
 

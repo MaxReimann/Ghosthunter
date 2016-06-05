@@ -144,7 +144,7 @@ public class GhostController : NetworkBehaviour {
 		gameManager.checkGameFinished();
 	}
 
-	[Command]
+//	[Command]
 	private void CmdDoSpellCollision(){
 		gameManager.addScore (2);
 		NetworkServer.Destroy (this.gameObject);
@@ -232,7 +232,7 @@ public class GhostController : NetworkBehaviour {
 			return;
 		}
 
-		if (coll.gameObject.tag == "Spell") {
+		if (coll.gameObject.tag == "Spell" && isServer) {
 			spellCollision();
 			return;
 		}

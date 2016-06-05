@@ -56,7 +56,7 @@ public class StartScreenController : MonoBehaviour {
 		backButtonPosition = backButtonObj.transform.position;
 		ipAdressPosition = ipAdressObj.transform.position;
 
-//		NetworkManager.singleton.GetComponent<NetworkManagerHUD> ().showGUI = true;
+		NetworkManager.singleton.GetComponent<NetworkManagerHUD> ().showGUI = true;
 		enableMultiplayerMenu ();
 
 		startScreenWizard.SetActive (false);
