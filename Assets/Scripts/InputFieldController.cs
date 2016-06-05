@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class InputFieldController : MonoBehaviour {
@@ -15,5 +16,9 @@ public class InputFieldController : MonoBehaviour {
 
 	public void setPlayerName(){
 		manager.setPlayerName (input.text);
+	}
+
+	public void setNetworkAdress(){
+		NetworkManager.singleton.networkAddress = input.text;
 	}
 }
