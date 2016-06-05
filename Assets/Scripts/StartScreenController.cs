@@ -98,12 +98,12 @@ public class StartScreenController : MonoBehaviour {
 		GameObject[] wizards = GameObject.FindGameObjectsWithTag ("Wizards");
 		if (wizards.Length >= 2 &&!started) {
 			clientWaitJoinText.SetActive(false);
-			if (SyncController.GetInstance().isServer) 
-				startMultiButton.transform.position = playButtonObj.transform.position;
 			started = true;
 			GameManager.GetInstance().setMultiPlayer(true);
 			NetworkManager.singleton.GetComponent<NetworkManagerHUD> ().enabled = false;
 			//Invoke("StartLevel",2.0f);
+			if (SyncController.GetInstance().isServer) 
+				startMultiButton.transform.position = playButtonObj.transform.position;
 		}
 	}
 

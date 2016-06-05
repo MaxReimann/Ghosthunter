@@ -44,35 +44,51 @@ public class WizardController : NetworkBehaviour {
 	// Use this for initialization
 	void Start (){
 //		DontDestroyOnLoad(this.gameObject);
+
+
 		myBody = GetComponent<Rigidbody2D>();
 		animator = GetComponent<Animator>();
 		gameManager = GameManager.GetInstance();
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
-
+		
 		if (gameManager.getCurrentLevel() == "Menu")
 			return;
-
+		
 		if (gameManager.getCurrentLevel() == "Level4") {
 			Debug.Log("setting freezePositionY");
 			myBody.constraints = RigidbodyConstraints2D.None;
 			myBody.freezeRotation = true;
 		}
+		
 
-		//register wizard to touch buttons
-		if (isLocalPlayer) {
-			GameObject leftButtonObject = GameObject.FindGameObjectWithTag ("LeftButton");
-			GameObject rightButtonObject = GameObject.FindGameObjectWithTag ("RightButton");
-
-			leftButtonObject.GetComponent<CustomEventTrigger> ().RegisterWizard (this);
-			rightButtonObject.GetComponent<CustomEventTrigger> ().RegisterWizard (this);
-
-			GameObject touchFieldObject = GameObject.FindGameObjectWithTag ("TouchField");
-			touchFieldObject.GetComponent<Button> ().onClick.AddListener (() => Spell ());
-			if(gameManager.IsMultiplayer()){
-				spriteRenderer.color = Color.green;
-			}
-		}
 		print("playerId:" + GetComponent<NetworkIdentity>().playerControllerId);
+	}
+
+	public override void OnStartLocalPlayer(){
+		gameManager = GameManager.GetInstance();
+		
+		if (Application.loadedLevelName == "Menu")
+			return;
+
+
+		if(gameManager.IsMultiplayer()){
+			spriteRenderer = gameObject.GetComponent<SpriteRenderer> ();
+			spriteRenderer.color = Color.red;
+		}
+		
+		//register wizard to touch buttons
+
+		GameObject leftButtonObject = GameObject.FindGameObjectWithTag ("LeftButton");
+		GameObject rightButtonObject = GameObject.FindGameObjectWithTag ("RightButton");
+		
+		leftButtonObject.GetComponent<CustomEventTrigger> ().RegisterWizard (this);
+		rightButtonObject.GetComponent<CustomEventTrigger> ().RegisterWizard (this);
+		
+		GameObject touchFieldObject = GameObject.FindGameObjectWithTag ("TouchField");
+		touchFieldObject.GetComponent<Button> ().onClick.AddListener (() => Spell ());
+
+
+
 	}
 
 	private void toggleVisibility(){		
