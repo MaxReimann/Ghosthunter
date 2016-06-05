@@ -16,6 +16,9 @@ public class GhostController : NetworkBehaviour {
 	[SyncVar]
 	private bool unreactiveTimerFinished = false;
 
+	[SyncVar]
+	[HideInInspector] public bool isHitL1; // L1ghost, hit but not yet destroyed
+
 
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
@@ -60,6 +63,7 @@ public class GhostController : NetworkBehaviour {
 		gameManager = GameManager.GetInstance();
 
 		animator = GetComponent<Animator> ();
+		isHitL1 = false;
 
 		beNonReactive (unreactiveTime);
 		//queue with capacity, old elements are pushed out
@@ -127,14 +131,17 @@ public class GhostController : NetworkBehaviour {
 		audio.Play();
 
 
-		if (ghostType.name == "L1Ghost") {
+		if (ghostType.name == "L1Ghost" || ghostType.name == "L1GhostHigh") {
 			//TODO ghost vanish animation
+			isHitL1 = true;
 			animator.SetTrigger ("ghost_disappear");
 			Invoke ("doSpellCollision", 0.5f);
 		} else {
 			animator.SetTrigger ("ghost_split");
 			Invoke ("doSpellCollision", 0.5f);
 		}
+		//check before destruction, to avoid games getting timed out, although all existing ghosts  hit
+		gameManager.checkGameFinished();
 	}
 
 	[Command]
@@ -148,7 +155,6 @@ public class GhostController : NetworkBehaviour {
 			Object resource = Resources.Load (nextType);
 			createNewGhosts(resource);
 		}
-		gameManager.checkGameFinished();
 	}
 
 	private void doSpellCollision(){

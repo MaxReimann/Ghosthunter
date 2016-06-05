@@ -50,7 +50,7 @@ public class GameManager : NetworkBehaviour {
 		{"Level1", 30},
 		{"Menu" , 300},
 		{"Tutorial", 30},
-		{"Level2", 40},
+		{"Level2", 35},
 		{"Level3", 30},
 		{"Level4", 37},
 		{"Level5", 50}};
@@ -84,9 +84,14 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	public void checkGameFinished(){
-		int ghostCount = GameObject.FindGameObjectsWithTag("Ghost").Length-1;
+		GameObject[] ghosts = GameObject.FindGameObjectsWithTag("Ghost");
+		foreach (GameObject ghost in ghosts) {
+			if (!ghost.GetComponent<GhostController>().isHitL1)
+				return; //any ghost which is found is not already hit returns from function
+		}
+
 		int zombieCount = GameObject.FindGameObjectsWithTag("Zombie").Length;
-		if (ghostCount == 0 && zombieCount == 0) {
+		if (zombieCount == 0) {
 			nextLevel();
 		}
 	}
