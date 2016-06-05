@@ -16,6 +16,7 @@ public class GhostController : NetworkBehaviour {
 	[SyncVar]
 	private bool unreactiveTimerFinished = false;
 
+
 	private float startY;//max jump height (every time ball hits floor it will calculate force needed to reach this height).
 	private Rigidbody2D rigidBody;
 	private BoxCollider2D leftBorder;
@@ -26,6 +27,7 @@ public class GhostController : NetworkBehaviour {
 	private float splitYGain = 1.5f;
 	// time to be unreactive on collisions with player character after split
 	private const float unreactiveTime = 0.3f; 
+
 
 	private Animator animator;
 	

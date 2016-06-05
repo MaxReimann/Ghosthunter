@@ -35,14 +35,26 @@ public class GameManager : NetworkBehaviour {
 
 	private string playerName = "Anonymus";
 
+// time for levels depending on platform, as the game on mobile is generally harder than on pc
+#if (UNITY_ANDROID || UNITY_IOS)
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
 													{"Level1", 30},
 													{"Menu" , 300},
 													{"Tutorial", 30},
 													{"Level2", 40},
-													{"Level3", 30},
+													{"Level3", 34},
 													{"Level4", 37},
 													{"Level5", 50}};
+#else
+	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
+		{"Level1", 30},
+		{"Menu" , 300},
+		{"Tutorial", 30},
+		{"Level2", 40},
+		{"Level3", 30},
+		{"Level4", 37},
+		{"Level5", 50}};
+#endif
 	
 	private GameManager(){
 
