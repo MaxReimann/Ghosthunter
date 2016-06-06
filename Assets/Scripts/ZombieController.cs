@@ -52,6 +52,10 @@ public class ZombieController : MonoBehaviour {
 		}
 	}
 
+	public bool IsDead(){
+		return isDead;
+	}
+
 	private void toggleVisibility(){		
 		if (toggleTimer > 0) {
 			toggleTimer -= Time.deltaTime;

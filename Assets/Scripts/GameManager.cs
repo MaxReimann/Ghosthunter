@@ -90,10 +90,13 @@ public class GameManager : NetworkBehaviour {
 				return; //any ghost which is found is not already hit returns from function
 		}
 
-		int zombieCount = GameObject.FindGameObjectsWithTag("Zombie").Length;
-		if (zombieCount == 0) {
-			nextLevel();
+		GameObject[] zombies = GameObject.FindGameObjectsWithTag("Zombie");
+		foreach (GameObject zombie in zombies) {
+			if (!zombie.GetComponent<ZombieController>().IsDead())
+				return; //any zombie which is found is not already hit returns from function
 		}
+
+		nextLevel();
 	}
 
 
