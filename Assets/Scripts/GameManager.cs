@@ -309,8 +309,6 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	private void loadLevel(string level){
-		if (isMultiPlayer && !isServer)
-			return;
 		audioManager.playGameMusic();
 		setCurrentLevel(level);
 		setAutoCreate (true);
