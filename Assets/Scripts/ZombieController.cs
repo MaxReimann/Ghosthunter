@@ -8,7 +8,7 @@ public class ZombieController : MonoBehaviour {
 	private static float HIT_TIME = 3f;
 	private static float TOGGLE_TIME = 0.2f;
 
-	private float nonCollisionTimer = 0.0f;
+	public float nonCollisionTimer = 0.0f;
 	private float toggleTimer = 0.0f;
 
 	public bool direction_right = true;
@@ -93,7 +93,7 @@ public class ZombieController : MonoBehaviour {
 		if (!isHit && coll.gameObject.tag == "Spell") {
 			isHit = true;
 			hitCount++;
-			if(hitCount == 3){
+			if(hitCount == 2){
 				isDead = true;
 				explode();
 			}else{
