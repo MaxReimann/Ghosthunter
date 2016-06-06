@@ -21,7 +21,7 @@ public class TreasureController : MonoBehaviour {
 		if (coll.gameObject.tag=="Wizards" && !hasTouched) {
 			hasTouched = true;
 			Vector2 location = transform.position;
-			location.x = location.x+2;
+			location.x = location.x+1.5f;
 			Instantiate(Resources.Load("AddonTimeItem"),location,Quaternion.identity);
 			Destroy(sparcleParticles.gameObject);
 		}
