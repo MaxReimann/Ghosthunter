@@ -39,7 +39,6 @@ public class IntroController : MonoBehaviour {
 
 	public void skipVideo(){
 		#if !(UNITY_IPHONE || UNITY_ANDROID)
-			Debug.Log("skiping video");
 			movie.Stop();
 		#endif
 	}
