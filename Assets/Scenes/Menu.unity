@@ -972,6 +972,10 @@ Prefab:
       propertyPath: m_SimulatedLatency
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 11485436, guid: f57b7148af0308c40a583bb0f903cb86, type: 2}
+      propertyPath: m_ScriptCRCCheck
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f57b7148af0308c40a583bb0f903cb86, type: 2}
   m_IsPrefabParent: 0

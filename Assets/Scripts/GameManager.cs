@@ -304,7 +304,8 @@ public class GameManager : NetworkBehaviour {
 		}
 		loadLevel (currentLevel);
 	}
-	
+
+	[Server]
 	private void loadLevel(string level){
 		audioManager.playGameMusic();
 		setCurrentLevel(level);
