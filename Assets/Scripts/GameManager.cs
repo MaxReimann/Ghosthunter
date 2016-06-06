@@ -91,6 +91,7 @@ public class GameManager : NetworkBehaviour {
 		}
 
 		int zombieCount = GameObject.FindGameObjectsWithTag("Zombie").Length;
+		Debug.Log (zombieCount);
 		if (zombieCount == 0) {
 			nextLevel();
 		}
