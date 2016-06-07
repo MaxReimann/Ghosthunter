@@ -139,7 +139,7 @@ PlayerSettings:
   tvOSSmallIconLayers: []
   tvOSLargeIconLayers: []
   tvOSTopShelfImageLayers: []
-  iOSLaunchScreenType: 3
+  iOSLaunchScreenType: 0
   iOSLaunchScreenPortrait: {fileID: 0}
   iOSLaunchScreenLandscape: {fileID: 0}
   iOSLaunchScreenBackgroundColor:
@@ -148,7 +148,7 @@ PlayerSettings:
   iOSLaunchScreenFillPct: 100
   iOSLaunchScreenSize: 100
   iOSLaunchScreenCustomXibPath: 
-  iOSLaunchScreeniPadType: 3
+  iOSLaunchScreeniPadType: 0
   iOSLaunchScreeniPadImage: {fileID: 0}
   iOSLaunchScreeniPadBackgroundColor:
     serializedVersion: 2
