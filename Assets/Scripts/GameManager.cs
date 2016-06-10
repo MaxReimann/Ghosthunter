@@ -309,7 +309,7 @@ public class GameManager : NetworkBehaviour {
 	}
 
 	private void loadLevel(string level){
-		if (isMultiPlayer && !isServer)
+		if (isMultiPlayer && !SyncController.GetInstance().isServer)
 			return;
 		audioManager.playGameMusic();
 		setCurrentLevel(level);

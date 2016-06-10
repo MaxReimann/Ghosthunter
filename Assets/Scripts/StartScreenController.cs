@@ -103,7 +103,7 @@ public class StartScreenController : MonoBehaviour {
 			NetworkManager.singleton.GetComponent<NetworkManagerHUD> ().enabled = false;
 			//Invoke("StartLevel",2.0f);
 			if (SyncController.GetInstance().isServer) 
-				startMultiButton.transform.position = playButtonObj.transform.position;
+				startMultiButton.transform.position = startHostPosition;
 		}
 	}
 
