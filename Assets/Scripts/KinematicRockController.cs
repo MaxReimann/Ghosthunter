@@ -4,6 +4,7 @@ using System.Collections;
 public class KinematicRockController : MonoBehaviour, IChildDelegator {
 
 	public GameObject collisionVase;
+	public GameObject collisionVaseLowerHalf;
 	public GameObject collisionVaseUpperHalf;
 	public GameObject timeItemStartPosition;
 
@@ -31,7 +32,8 @@ public class KinematicRockController : MonoBehaviour, IChildDelegator {
 			collisionVaseUpperHalf.GetComponent<SpriteRenderer>().enabled = true;
 			Invoke("changeUpperVaseLayer", 0.6f);
 			Invoke("createTimeItem", 0.9f);
-
+			collisionVaseLowerHalf.GetComponent<AudioSource>().Play();
+			
 			
 		}
 	}
@@ -57,8 +59,11 @@ public class KinematicRockController : MonoBehaviour, IChildDelegator {
 
 	//interface methods
 	public void childEnterCollision2D (Collision2D coll){
-		if (coll.gameObject.CompareTag("Spell"))
+		if (coll.gameObject.CompareTag ("Spell")) {
 			GetComponent<Rigidbody2D> ().isKinematic = false; //activate rigibody rolling
+			AudioSource audio = GetComponent<AudioSource> ();
+			audio.Play ();
+		}
 	}
 
 
