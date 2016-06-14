@@ -234,6 +234,7 @@ public class GameManager : NetworkBehaviour {
 
 	private void loadWinScene(){
 		setAutoCreate (false);
+		finalizeGame ();
 		networkManager.ServerChangeScene("Win");
 		audioManager.playWinMusic();
 	}
