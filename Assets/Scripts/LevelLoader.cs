@@ -39,6 +39,10 @@ public class LevelLoader : MonoBehaviour {
 	public void loadLevel5(){
 		this.gameManager.loadLevel5();
 	}
+
+	public void loadLevel6(){
+		this.gameManager.loadLevel6();
+	}
 	
 	public void LoadMainMenu(){
 		this.gameManager.loadMainMenu();

@@ -44,7 +44,8 @@ public class GameManager : NetworkBehaviour {
 													{"Level2", 40},
 													{"Level3", 34},
 													{"Level4", 37},
-													{"Level5", 40}};
+													{"Level5", 40},
+													{"Level6", 65}};
 #else
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
 		{"Level1", 30},
@@ -53,7 +54,8 @@ public class GameManager : NetworkBehaviour {
 		{"Level2", 35},
 		{"Level3", 30},
 		{"Level4", 33},
-		{"Level5", 35}};
+		{"Level5", 35},
+		{"Level6", 60}};
 #endif
 	
 	private GameManager(){
@@ -207,6 +209,10 @@ public class GameManager : NetworkBehaviour {
 			return;
 		}
 		if (currentLevel == "Level5") {
+			loadLevel6();
+			return;
+		}
+		if (currentLevel == "Level6") {
 			loadWinScene();
 			return;
 		}
@@ -293,6 +299,10 @@ public class GameManager : NetworkBehaviour {
 		loadLevel ("Level5");
 	}
 
+	public void loadLevel6(){
+		loadLevel ("Level6");
+	}
+	
 
 	
 	public void reloadLevel(){
