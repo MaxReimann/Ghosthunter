@@ -5,6 +5,7 @@ public class KinematicRockController : MonoBehaviour, IChildDelegator {
 
 	public GameObject collisionVase;
 	public GameObject collisionVaseUpperHalf;
+	public GameObject timeItemStartPosition;
 
 	private bool collisionHappened = false;
 	private Animator animator;
@@ -29,6 +30,7 @@ public class KinematicRockController : MonoBehaviour, IChildDelegator {
 			flyingVaseRigidBody.AddForceAtPosition(	new Vector2(-80.5f, 400.0f), new Vector2(0.1f,-0.01f));
 			collisionVaseUpperHalf.GetComponent<SpriteRenderer>().enabled = true;
 			Invoke("changeUpperVaseLayer", 0.6f);
+			Invoke("createTimeItem", 0.9f);
 
 			
 		}
@@ -40,6 +42,14 @@ public class KinematicRockController : MonoBehaviour, IChildDelegator {
 		collisionVaseUpperHalf.layer = LayerMask.NameToLayer ("KinematicCollider");
 		collisionVaseUpperHalf.GetComponent<PolygonCollider2D> ().enabled = true;
 	}
+
+	void createTimeItem(){
+		GameObject spell = Instantiate (Resources.Load ("AddonTimeItem"), 
+		                                timeItemStartPosition.transform.position,
+		                                Quaternion.identity) as GameObject;
+	}
+
+
 
 	void doDestroy(){
 		Destroy (this.gameObject);
