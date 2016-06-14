@@ -54,6 +54,15 @@ public class AudioManager : MonoBehaviour {
 		source.Play ();
 	}
 
+	public void continueGameMusic(){
+		if (source.isPlaying && source.clip.Equals(gameSound))
+			return;
+		stop ();
+		source.clip = gameSound;
+		source.loop = true;
+		source.Play ();
+	}
+
 	public void playMenuMusic(){
 		stop ();
 		source.clip = menuSound;

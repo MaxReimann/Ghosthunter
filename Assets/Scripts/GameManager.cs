@@ -311,7 +311,7 @@ public class GameManager : NetworkBehaviour {
 	private void loadLevel(string level){
 //		if (isMultiPlayer && !SyncController.GetInstance().isServer)
 //			return;
-		audioManager.playGameMusic();
+		audioManager.continueGameMusic();
 		setCurrentLevel(level);
 		setAutoCreate (true);
 		networkManager.ServerChangeScene (level);
