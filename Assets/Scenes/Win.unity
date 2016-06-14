@@ -383,7 +383,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22469684, guid: b0a542b09f656cd4980fac39f7b711a7, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -301
+      value: -306
       objectReference: {fileID: 0}
     - target: {fileID: 22469684, guid: b0a542b09f656cd4980fac39f7b711a7, type: 2}
       propertyPath: m_AnchoredPosition.y
@@ -436,6 +436,18 @@ Prefab:
     - target: {fileID: 11474516, guid: b0a542b09f656cd4980fac39f7b711a7, type: 2}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22476478, guid: b0a542b09f656cd4980fac39f7b711a7, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 207.899994
+      objectReference: {fileID: 0}
+    - target: {fileID: 22438930, guid: b0a542b09f656cd4980fac39f7b711a7, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -179.100006
+      objectReference: {fileID: 0}
+    - target: {fileID: 22453430, guid: b0a542b09f656cd4980fac39f7b711a7, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 19.6000004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0a542b09f656cd4980fac39f7b711a7, type: 2}
@@ -796,7 +808,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 30
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
