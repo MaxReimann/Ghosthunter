@@ -184,7 +184,7 @@ Transform:
   m_Children:
   - {fileID: 1161070671}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
 --- !u!61 &91152590
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -336,7 +336,7 @@ Transform:
   m_LocalScale: {x: .331472695, y: .600000024, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
 --- !u!4 &175918064 stripped
 Transform:
   m_PrefabParentObject: {fileID: 471750, guid: ea0e063b2aee34249a227bc576b21082, type: 2}
@@ -613,7 +613,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 418903694}
   m_Enabled: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c3c81995f19d3b34ca6645ff6b780eb6, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: -.254560709}
@@ -2586,6 +2586,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 91152589}
   m_RootOrder: 0
+--- !u!1 &1197800508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1197800509}
+  m_Layer: 0
+  m_Name: lethalObjectResetPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1197800509
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1197800508}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.44000006, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
 --- !u!1 &1228131733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3032,7 +3059,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
 --- !u!1 &1584772583
 GameObject:
   m_ObjectHideFlags: 0
@@ -3220,6 +3247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861a0be13c297435e9c6b2d53b34f0aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resetPoint: {fileID: 1197800508}
 --- !u!1 &1629533614
 GameObject:
   m_ObjectHideFlags: 0

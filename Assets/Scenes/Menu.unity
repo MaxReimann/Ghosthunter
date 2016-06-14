@@ -3264,7 +3264,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2018631357}
   - 212: {fileID: 2018631356}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

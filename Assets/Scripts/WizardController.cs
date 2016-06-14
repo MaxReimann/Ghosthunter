@@ -350,7 +350,10 @@ public class WizardController : NetworkBehaviour {
 
 		if (shield == null && !isHit && coll.gameObject.tag == "LethalItem") {
 			doHit();
+
+			StartCoroutine(toResetPointAfter(coll.gameObject.GetComponent<LethalAreaController>().resetPoint, 0.5f));
 		}
+		
 	}
 
 	void OnTriggerStay2D(Collider2D other) {
@@ -373,5 +376,15 @@ public class WizardController : NetworkBehaviour {
 		nonCollisionTimer = HIT_TIME;
 		RpcsetNonCollisionTimer(HIT_TIME);
 		gameManager.decreaseLive();
+	}
+
+	IEnumerator toResetPointAfter(GameObject resetPoint, float delayTime)
+	{
+		yield return new WaitForSeconds(delayTime);
+
+		if (resetPoint != null)
+			transform.position = resetPoint.transform.position;
+		else
+			Debug.LogError ("No resetPoint set for lethalarea");
 	}
 }
