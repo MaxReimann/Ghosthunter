@@ -21,7 +21,17 @@ class HighScore  : IComparable<HighScore>{
 		return this.score.CompareTo(score2.score);
 	}
 
+	public bool isSame(HighScore score2){
+		return (name == score2.name && 
+			date == score2.date &&
+			score == score2.score);
+	}
+			
+			
+			
 }
+
+
 
 public class HighscoreController : MonoBehaviour {
 
@@ -59,16 +69,49 @@ public class HighscoreController : MonoBehaviour {
 		scores.Sort ();
 		scores.Reverse (); // starting with biggest
 
+		HighScore mostRecent = mostRecentScore (scores);
+
 		int count = 0;
 		foreach (HighScore score in scores) {
 			if (++count >= maxCount)
 				break;
-			nameText.text = nameText.text +  score.name + "\n";
+
+			if (mostRecent.isSame (score)) {
+				nameText.text += "<color=orange>";
+				dateText.text += "<color=orange>";
+				scoreText.text += "<color=orange>";
+			}
+				
+			nameText.text = nameText.text + score.name + "\n";
 			dateText.text = dateText.text + score.date + "\n";
-			scoreText.text = scoreText.text  + score.score+ "\n";
+			scoreText.text = scoreText.text + score.score + "\n";
+
+			if (mostRecent.isSame (score)) {
+				nameText.text += "</color>";
+				dateText.text += "</color>";
+				scoreText.text += "</color>";
+			}
 		}
 	}
 
+	private HighScore mostRecentScore(List<HighScore> scores) 
+	{
+		long mostRecentTime = 0;
+		HighScore maxScore = null;
+		foreach (HighScore score in scores) { 
+			DateTime date = DateTime.ParseExact (score.date, "dd/MM/yyyy HH:mm:ss",
+			                                    System.Globalization.CultureInfo.InvariantCulture);
+			if (date.Ticks > mostRecentTime) {
+				mostRecentTime = date.Ticks;
+				maxScore = score;
+			}
+
+		}
+
+		return maxScore;
+	}
+	
+				
 
 	
 	// Update is called once per frame
