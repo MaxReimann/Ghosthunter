@@ -44,7 +44,7 @@ public class GameManager : NetworkBehaviour {
 													{"Level2", 40},
 													{"Level3", 34},
 													{"Level4", 37},
-													{"Level5", 50}};
+													{"Level5", 40}};
 #else
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
 		{"Level1", 30},
@@ -52,8 +52,8 @@ public class GameManager : NetworkBehaviour {
 		{"Tutorial", 30},
 		{"Level2", 35},
 		{"Level3", 30},
-		{"Level4", 37},
-		{"Level5", 50}};
+		{"Level4", 33},
+		{"Level5", 35}};
 #endif
 	
 	private GameManager(){
