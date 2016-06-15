@@ -43,7 +43,7 @@ public class GameManager : NetworkBehaviour {
 													{"Tutorial", 30},
 													{"Level2", 40},
 													{"Level3", 34},
-													{"Level4", 37},
+													{"Level4", 43},
 													{"Level5", 40},
 													{"Level6", 65}};
 #else
@@ -53,7 +53,7 @@ public class GameManager : NetworkBehaviour {
 		{"Tutorial", 30},
 		{"Level2", 35},
 		{"Level3", 30},
-		{"Level4", 33},
+		{"Level4", 38},
 		{"Level5", 35},
 		{"Level6", 60}};
 #endif

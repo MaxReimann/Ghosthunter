@@ -22,7 +22,7 @@ public class TreasureController : MonoBehaviour {
 			hasTouched = true;
 			Vector2 location = transform.position;
 			location.x = location.x+1.5f;
-			Instantiate(Resources.Load("AddonTimeItem"),location,Quaternion.identity);
+			Instantiate(Resources.Load("permanentSpellItem"),location,Quaternion.identity);
 			Destroy(sparcleParticles.gameObject);
 		}
 	}
