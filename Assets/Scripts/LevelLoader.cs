@@ -25,23 +25,27 @@ public class LevelLoader : MonoBehaviour {
 	}
 	
 	public void loadLevel2(){
-		this.gameManager.loadLevel2();
+		this.gameManager.loadLevel("Level2");
 	}
 	
 	public void loadLevel3(){
-		this.gameManager.loadLevel3();
+		this.gameManager.loadLevel("Level3");
 	}
 	
 	public void loadLevel4(){
-		this.gameManager.loadLevel4();
+		this.gameManager.loadLevel("Level4");
 	}
 	
 	public void loadLevel5(){
-		this.gameManager.loadLevel5();
+		this.gameManager.loadLevel("Level5");
 	}
 
 	public void loadLevel6(){
-		this.gameManager.loadLevel6();
+		this.gameManager.loadLevel("Level6");
+	}
+
+	public void loadLevel7(){
+		this.gameManager.loadLevel("Level7");
 	}
 	
 	public void LoadMainMenu(){

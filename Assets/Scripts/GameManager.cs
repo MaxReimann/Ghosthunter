@@ -26,7 +26,7 @@ public class GameManager : NetworkBehaviour {
 	private int score = 0;
 	[SyncVar]
 	private string currentLevel = "Menu";
-
+	private int currentLevelNum = 1;
 
 	private bool hostStarted = false;
 
@@ -34,6 +34,8 @@ public class GameManager : NetworkBehaviour {
 	private bool isMultiPlayer = false;
 
 	private string playerName = "Anonymus";
+
+
 
 // time for levels depending on platform, as the game on mobile is generally harder than on pc
 #if (UNITY_ANDROID || UNITY_IOS)
@@ -45,7 +47,8 @@ public class GameManager : NetworkBehaviour {
 													{"Level3", 34},
 													{"Level4", 43},
 													{"Level5", 40},
-													{"Level6", 65}};
+													{"Level6", 62},
+													{"Level7", 45}};
 #else
 	private Dictionary<string, int> levelTimers = new Dictionary<string, int> (){
 		{"Level1", 30},
@@ -55,7 +58,8 @@ public class GameManager : NetworkBehaviour {
 		{"Level3", 30},
 		{"Level4", 38},
 		{"Level5", 35},
-		{"Level6", 60}};
+		{"Level6", 55},
+		{"Level7", 40}};
 #endif
 	
 	private GameManager(){
@@ -191,30 +195,13 @@ public class GameManager : NetworkBehaviour {
 		if (currentLevel == null) {
 			currentLevel = Application.loadedLevelName;
 		}
-		
-		if (currentLevel == "Level1") {
-			loadLevel2();
-			return;
-		}
-		if (currentLevel == "Level2") {
-			loadLevel3();
-			return;
-		}
-		if (currentLevel == "Level3") {
-			loadLevel4();
-			return;
-		}
-		if (currentLevel == "Level4") {
-			loadLevel5();
-			return;
-		}
-		if (currentLevel == "Level5") {
-			loadLevel6();
-			return;
-		}
-		if (currentLevel == "Level6") {
+
+		if (currentLevel == "Level7") {
 			loadWinScene();
 			return;
+		} else if (currentLevel.StartsWith("Level")) {
+			currentLevelNum++;
+			loadLevel ("Level" + currentLevelNum.ToString());
 		}
 
 		if (currentLevel == "Tutorial") {
@@ -283,28 +270,6 @@ public class GameManager : NetworkBehaviour {
 		loadLevel ("Level1");
 	}
 
-	public void loadLevel2(){
-		loadLevel ("Level2");
-	}
-	
-	public void loadLevel3(){
-		loadLevel ("Level3");
-	}
-	
-	public void loadLevel4(){
-		loadLevel ("Level4");
-	}
-	
-	public void loadLevel5(){
-		loadLevel ("Level5");
-	}
-
-	public void loadLevel6(){
-		loadLevel ("Level6");
-	}
-	
-
-	
 	public void reloadLevel(){
 		if (lives == 0) {
 			setCurrentLives(totalLives);
@@ -319,7 +284,7 @@ public class GameManager : NetworkBehaviour {
 		loadLevel (currentLevel);
 	}
 
-	private void loadLevel(string level){
+	public void loadLevel(string level){
 //		if (isMultiPlayer && !SyncController.GetInstance().isServer)
 //			return;
 		audioManager.continueGameMusic();

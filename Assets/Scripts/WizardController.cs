@@ -16,6 +16,8 @@ public class WizardController : NetworkBehaviour {
 
 	public float speed = 5;
 	public float spellSpeed = 8;
+
+
 	private Rigidbody2D myBody;
 	private Vector3 spellStartPoint; 
 
@@ -181,6 +183,15 @@ public class WizardController : NetworkBehaviour {
 		shieldBlinking = false;
 		Destroy (shield);
 		shield = null;
+	}
+
+	[Server]
+	public void AddSpotLight(){
+		GameObject spotLight = Instantiate(Resources.Load("Spotlight"), this.transform.position, Quaternion.identity) as GameObject; 
+		SpotlightController spotlightController = spotLight.GetComponent<SpotlightController> ();
+		spotlightController.wizard = this.gameObject;
+		spotlightController.wizardNetId = this.netId;
+		NetworkServer.Spawn (spotLight);
 	}
 
 
